@@ -1,0 +1,134 @@
+package com.projet.ferme.service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.projet.ferme.entity.IncomingStock;
+import com.projet.ferme.repository.IncomingStockRepository;
+
+@Service
+public class IncomingService {
+
+	@Autowired
+	private IncomingStockRepository repository;
+	
+	public Map<String, Object> add(IncomingStock stock){
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		if(stock.getType().equals("in")) {
+			IncomingStock newStock = repository.save(stock);
+			if(newStock == null) {
+				returnMap.put("success", false);
+				returnMap.put("message", "L'enregistrement a échoué");
+			}else {
+				returnMap.put("success", true);
+				returnMap.put("message", "Enregistré avec succé");
+				returnMap.put("stock", newStock);
+			}
+		}else {
+			List<IncomingStock> stocks = repository.findAll();
+			stocks = stocks.stream().filter(item->item.getProduct().equals(stock.getProduct())).collect(Collectors.toList());
+			Integer quantityIn = stocks.stream().filter(item -> item.getType().equals("in"))
+					.mapToInt(item -> item.getQuantity()).sum();
+			Integer quantityOut = stocks.stream().filter(item -> item.getType().equals("out"))
+					.mapToInt(item -> item.getQuantity()).sum();
+			Integer quantityReel = quantityIn - quantityOut;
+			
+			if(quantityReel < stock.getQuantity()) {
+				returnMap.put("success", false);
+				returnMap.put("message", "L'enregistrement a échoué car la quantité demandé n'est pas disponible");
+			}else {
+				IncomingStock newStock = repository.save(stock);
+				if(newStock == null) {
+					returnMap.put("success", false);
+					returnMap.put("message", "L'enregistrement a échoué");
+				}else {
+					returnMap.put("success", true);
+					returnMap.put("message", "Enregistré avec succé");
+					returnMap.put("stock", newStock);
+				}
+			}
+			
+		}
+		
+		return returnMap;
+	}
+	
+	public Map<String, Object> put(IncomingStock stock) {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		IncomingStock oldStock = repository.getById(stock.getId());
+		if(oldStock == null) {
+			returnMap.put("success", false);
+			returnMap.put("message", "La modification a échoué car l'enregistrement n'est plus dans la base ");
+		}else if( oldStock.getQuantity() != stock.getQuantity()) {
+			returnMap.put("success", false);
+			returnMap.put("message", "L'enregistrement a échoué, car la quantité n'est pas modifiable");
+		}else {
+			IncomingStock newStock = repository.save(stock);
+			if(newStock == null) {
+				returnMap.put("success", false);
+				returnMap.put("message", "L'enregistrement a échoué");
+			}else {
+				returnMap.put("success", true);
+				returnMap.put("message", "Enregistré avec succé");
+			}
+		}
+		
+		return returnMap;
+	}
+	
+	public Map<String, Object> getByType(String type){
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		List<IncomingStock> stocks = repository.findByType(type);
+		
+		returnMap.put("success", true);
+		returnMap.put("stocks", stocks);
+		
+		return returnMap;
+	}
+	
+	public Map<String, Object> findByProduct(String product) {
+		
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		List<IncomingStock> stocks = repository.findAll();
+		stocks = stocks.stream().filter(item->item.getProduct().equals(product)).collect(Collectors.toList());
+		returnMap.put("success", true);
+		returnMap.put("stocks", stocks);
+		
+		return returnMap;
+	}
+	
+	
+	  public Integer getByProduct(String product){
+		  
+	  List<IncomingStock> stocks = repository.findAll();
+	  
+	  stocks = stocks.stream().filter(item->item.getProduct().equals(product)).collect(Collectors.toList());
+		
+		Integer quantityIn = stocks.stream().filter(item -> item.getType().equals("in"))
+				.mapToInt(item -> item.getQuantity()).sum();
+		Integer quantityOut = stocks.stream().filter(item -> item.getType().equals("out"))
+				.mapToInt(item -> item.getQuantity()).sum();
+		Integer quantityReel = quantityIn - quantityOut;
+	  
+	  return quantityReel; 
+	  }
+	 
+	
+	public Map<String, Object> delete(Long id){
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		repository.deleteById(id);
+		returnMap.put("success", true);
+		returnMap.put("message", "Supprimé avec succé");
+		
+		return returnMap;
+	}
+	
+	
+}
