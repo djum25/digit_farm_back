@@ -16,6 +16,10 @@ public class Sale extends TimeModel{
 	
 	private Integer price;
 	
+	private Integer advance;
+	
+	private Integer account;
+	
 	private Integer quantity;
 	
 	private String produit;
@@ -35,6 +39,22 @@ public class Sale extends TimeModel{
 
 	public void setPrice(Integer price) {
 		this.price = price;
+	}
+
+	public Integer getAdvance() {
+		return advance;
+	}
+
+	public void setAdvance(Integer advance) {
+		this.advance = advance;
+	}
+
+	public Integer getAccount() {
+		return account;
+	}
+
+	public void setAccount(Integer account) {
+		this.account = account;
 	}
 
 	public Integer getQuantity() {

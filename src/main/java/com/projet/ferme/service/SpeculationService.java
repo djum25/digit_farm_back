@@ -65,8 +65,6 @@ public class SpeculationService {
 				
 				calendarySpeculationRepository.save(cal);
 				
-				plantingService.isNotFree(newFarming.getPlanting());
-				
 			}
 			returnValues.put("success", true);
 			returnValues.put("speculation", newFarming);
@@ -171,5 +169,29 @@ public class SpeculationService {
 		returnValues.put("missing",isMissing);
 		
 		return returnValues;
+	}
+	
+	public Map<String, Object> activeSpeculation(Speculation speculation) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		Speculation oldSpeculation = farmingRepository.findById(speculation.getId()).get();
+		if (oldSpeculation != null) {
+			map.put("success", false);
+			map.put("message", "L'enregistrement est déja supprimmé");
+		}else {
+			speculation.setPresent(true);
+			speculation.setUpdatedOn(getDate());
+			farmingRepository.save(speculation);
+			map.put("success", true);
+			map.put("speculation", speculation);
+			map.put("message", "Changé avec succé");
+		}
+		return map;
+	}
+	
+	private Date getDate() {
+		java.util.Date date=new java.util.Date();
+		Date sqlStartDate = new Date(date.getTime());
+		return sqlStartDate;
 	}
 }

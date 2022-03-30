@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.projet.ferme.entity.CalendaryTree;
+import com.projet.ferme.entity.Tree;
 import com.projet.ferme.entity.TreeCalendaryMin;
 import com.projet.ferme.entity.TreeCategory;
 import com.projet.ferme.repository.CalendaryTreeRepository;
 import com.projet.ferme.repository.TreeCalendaryMinRepository;
 import com.projet.ferme.repository.TreeCategoryRepository;
+import com.projet.ferme.repository.TreeRepository;
 
 @Service
 public class CalendaryTreeService {
@@ -24,6 +26,8 @@ public class CalendaryTreeService {
 	private TreeCalendaryMinRepository minRepository;
 	@Autowired
 	private TreeCategoryRepository categoryRepository;
+	@Autowired
+	private TreeRepository treeRepository;
 	
 	public Map<String, Object> add(CalendaryTree cal){
 		
@@ -42,10 +46,11 @@ public class CalendaryTreeService {
 	
 	public Map<String, Object> findByTreeId(Long id) {
 		Map< String, Object> map = new HashMap<String, Object>();
-		
+		Tree tree = treeRepository.findById(id).get();
 		List<CalendaryTree> calendaryTrees = repository.findByTree_id(id);
 		map.put("success", true);
 		map.put("calendars", calendaryTrees);
+		map.put("tree", tree);
 		
 		return map;
 	}

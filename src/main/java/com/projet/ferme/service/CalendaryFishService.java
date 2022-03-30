@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.projet.ferme.entity.CalendaryFish;
+import com.projet.ferme.entity.Fish;
 import com.projet.ferme.entity.FishCalendaryMin;
 import com.projet.ferme.entity.FishCategory;
 import com.projet.ferme.repository.CalendaryFishRepository;
 import com.projet.ferme.repository.FishCalendaryMinRepository;
 import com.projet.ferme.repository.FishCategoryRepository;
+import com.projet.ferme.repository.FishRepository;
 
 @Service
 public class CalendaryFishService {
@@ -24,6 +26,8 @@ public class CalendaryFishService {
 	private FishCalendaryMinRepository minRepository;
 	@Autowired
 	private FishCategoryRepository categoryRepository;
+	@Autowired
+	private FishRepository fishRepository;
 	
 	public Map<String,Object> add(CalendaryFish c){
 		
@@ -62,10 +66,12 @@ public class CalendaryFishService {
 	
 	public Map<String, Object> findByFish(Long id) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		
+		Fish fish = fishRepository.findById(id).get();
 		List<CalendaryFish> calendars = calendaryFishRepository.findByFish_id(id);
+		
 		map.put("success", true);
 		map.put("calendars", calendars);
+		map.put("fish", fish);
 		
 		return map;
 	}

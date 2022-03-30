@@ -36,6 +36,24 @@ public class User {
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
 	private Set<Cashier> cashiers;
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
+	private Set<IncomingStock> incomingStock;
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
+	private Set<OutgoingStock> outgoingStock;
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
+	private Set<OutCattle> outCattles;
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
+	private Set<OutFish> outFishs;
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
+	private Set<OutPoultry> outPoultries;
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
+	private Set<HarvestSpeculation> harvestSpeculations;
 
 	public Long getId() {
 		return id;

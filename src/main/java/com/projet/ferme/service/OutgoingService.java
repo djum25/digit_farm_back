@@ -1,5 +1,6 @@
 package com.projet.ferme.service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,10 +15,12 @@ import com.projet.ferme.entity.Cashier;
 import com.projet.ferme.entity.OutgoingStock;
 import com.projet.ferme.entity.Sale;
 import com.projet.ferme.entity.Shop;
+import com.projet.ferme.entity.ShopStock;
 import com.projet.ferme.entity.User;
 import com.projet.ferme.repository.CashierRepository;
 import com.projet.ferme.repository.OutgoingStockRepository;
 import com.projet.ferme.repository.ShopRepository;
+import com.projet.ferme.repository.ShopStockRepository;
 import com.projet.ferme.repository.UserRepository;
 
 @Service
@@ -33,6 +36,8 @@ public class OutgoingService {
 	private ShopRepository shopRepository;
 	@Autowired
 	private CashierRepository cashierRepository;
+	@Autowired
+	private ShopStockRepository shopStockRepository;
 
 	public Map<String, Object> add(OutgoingStock stock) {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
@@ -118,6 +123,31 @@ public class OutgoingService {
 
 		return returnMap;
 	}
+	
+	public Map<String, Object> getShopStock(Long shopId) {
+		//Shop shop = shopRepository.findById(shopId).get();
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<ShopStock> shopStocks = shopStockRepository.findByShop_id(shopId);
+		List<OutgoingStock> stocks = repository.findAll();
+		List<String> product = shopStocks.stream().map(item-> item.getProduit()).distinct().collect(Collectors.toList());
+		List<Object> groupStock = new ArrayList<Object>();
+		product.forEach( current-> {
+				Map<String, Object> collectStock = new HashMap<String, Object>();
+				collectStock.put("product", current);
+				collectStock.put("inShop", shopStocks.stream().filter(s -> s.getType().equals("in")).mapToInt(v -> v.getQuantity()).sum()
+						- shopStocks.stream().filter(s -> s.getType().equals("out")).mapToInt(v -> v.getQuantity()).sum());
+				collectStock.put("inStore", stocks.stream().filter(s -> s.getType().equals("in") && s.getProduit().equals(current))
+						.mapToInt(v -> v.getQuantity()).sum()
+						- stocks.stream().filter(s -> s.getType().equals("out") && s.getProduit().equals(current))
+						.mapToInt(v -> v.getQuantity()).sum());
+				groupStock.add(collectStock);
+		});
+		
+		map.put("success", true);
+		map.put("stocks", groupStock);
+		
+		return map;
+	}
 
 	public Map<String, Object> getByProduit(String produit) {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
@@ -173,10 +203,11 @@ public class OutgoingService {
 		return returnMap;
 	}
 
-	public Map<String, Object> addForSell(OutgoingStock stock, String username, Long idShop) {
+	public Map<String, Object> addForSell(Map<String, Object> map) {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
-
-		List<OutgoingStock> stocks = repository.findByProduit(stock.getProduit());
+		Long idShop = Long.parseLong(map.get("shopId").toString());
+		List<ShopStock> stocks = shopStockRepository.findByProduct(map.get("product").toString());
+		stocks = stocks.stream().filter(item -> item.getShop().getId().equals(idShop)).collect(Collectors.toList());
 
 		Integer quantityIn = stocks.stream().filter(item -> item.getType().equals("in"))
 				.mapToInt(item -> item.getQuantity()).sum();
@@ -186,7 +217,7 @@ public class OutgoingService {
 
 		Integer quantityReel = quantityIn - quantityOut;
 
-		Cashier cashier = getCashier(username, idShop);
+		Cashier cashier = getCashier(map.get("username").toString(),idShop);
 
 		if (cashier == null) {
 			returnMap.put("success", false);
@@ -199,16 +230,26 @@ public class OutgoingService {
 			returnMap.put("message", "Veuliiez ouvrir une caisse svp");
 		} else {
 
-			if (quantityReel < stock.getQuantity()) {
+			if (quantityReel < Integer.parseInt(map.get("quantity").toString())) {
 				returnMap.put("success", false);
 				returnMap.put("message", "L'enregistrement a échoué car la quantité demandé n'est pas disponible");
 			} else {
-				OutgoingStock newStock = repository.save(stock);
+				ShopStock shopStock = new ShopStock();
+				shopStock.setDescription("vente");
+				shopStock.setProduct(map.get("product").toString());
+				shopStock.setQuantity(Integer.parseInt(map.get("quantity").toString()));
+				shopStock.setType("out");
+				shopStock.setUser(cashier.getUser());
+				shopStock.setCreatedOn(getDate());
+				shopStock.setUpdatedOn(getDate());
+				shopStock.setShop(cashier.getShop());
+				
+				ShopStock newStock = shopStockRepository.save(shopStock);
 				if (newStock == null) {
 					returnMap.put("success", false);
 					returnMap.put("message", "L'enregistrement a échoué");
 				} else {
-					saveSale(null, newStock, cashier);
+					saveSale(null, shopStock, cashier,map.get("advance").toString(),map.get("account").toString(),map.get("price").toString());
 					returnMap.put("success", true);
 					returnMap.put("message", "Enregistré avec succé");
 					returnMap.put("stock", newStock);
@@ -219,18 +260,17 @@ public class OutgoingService {
 		return returnMap;
 	}
 
-	private void saveSale(Long id, OutgoingStock stock, Cashier cashier) {
-
-		String subjectId = "stock_" + stock.getId().toString();
+	private void saveSale(Long id, ShopStock stock, Cashier cashier,String advanceString,String accountString,String priceString) {
 		Sale sale = new Sale();
 		sale.setId(id);
 		sale.setProduit(stock.getProduit());
-		sale.setPrice(stock.getValeur());
 		sale.setQuantity(stock.getQuantity());
+		sale.setAccount(Integer.parseInt(accountString));
+		sale.setAdvance(Integer.parseInt(advanceString));
+		sale.setPrice(Integer.parseInt(priceString));
 		sale.setDate(stock.getCreatedOn());
 		sale.setCreatedOn(stock.getCreatedOn());
 		sale.setUpdatedOn(stock.getUpdatedOn());
-		sale.setSubjectId(subjectId);
 		sale.setCashier(cashier);
 		saleService.add(sale);
 	}
@@ -246,6 +286,105 @@ public class OutgoingService {
 			cashier = cashierOptional.get();
 		}
 		return cashier;
+	}
+
+	public Map<String, Object> reverseInShop(String product, int quantity, String type, String username, Long shopId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		User user = userRepository.findByUsername(username).get();
+		OutgoingStock outgoingStock = new OutgoingStock();
+		ShopStock shopStock = new ShopStock();
+		Shop shop = shopRepository.getById(shopId);
+		outgoingStock.setDescription("reverse");
+		outgoingStock.setProduit(product);
+		outgoingStock.setQuantity(quantity);
+		outgoingStock.setSubjectId("intern");
+		outgoingStock.setType(type);
+		outgoingStock.setUser(user);
+		outgoingStock.setCreatedOn(getDate());
+		outgoingStock.setUpdatedOn(getDate());
+
+		shopStock.setDescription("reverse");
+		shopStock.setProduct(product);
+		shopStock.setQuantity(quantity);
+		shopStock.setUser(user);
+		shopStock.setCreatedOn(getDate());
+		shopStock.setUpdatedOn(getDate());
+		shopStock.setShop(shop);
+
+		if (type.equals("in")) {
+
+			List<ShopStock> shopStocks = shopStockRepository.findByProduct(product);
+			Integer currentQuantity = shopStocks.stream().filter(item -> item.getType().equals("in"))
+					.mapToInt(item -> item.getQuantity()).sum()
+					- shopStocks.stream().filter(item -> item.getType().equals("out"))
+							.mapToInt(item -> item.getQuantity()).sum();
+			if (currentQuantity >= quantity) {
+
+				OutgoingStock newStock = repository.save(outgoingStock);
+				if (newStock == null) {
+					map.put("success", false);
+					map.put("message", "L'enregistrement a échoué");
+				} else {
+
+					shopStock.setType("out");
+					ShopStock savedShopStock = shopStockRepository.save(shopStock);
+					if (savedShopStock == null) {
+						map.put("success", false);
+						map.put("message", "L'enregistrement a échoué");
+						repository.delete(newStock);
+					} else {
+						map.put("success", true);
+						map.put("message", "Enregistré avec succé");
+						//map.put("shopStock", savedShopStock);
+						//map.put("stock", newStock);
+					}
+				}
+			} else {
+				map.put("success", false);
+				map.put("message", "Vous avez moin de " + quantity + " dans votre stock");
+			}
+		} else {
+			List<OutgoingStock> stocks = repository.findByProduit(product);
+
+			Integer currentQuantity = stocks.stream().filter(item -> item.getType().equals("in"))
+					.mapToInt(item -> item.getQuantity()).sum()
+					- stocks.stream().filter(item -> item.getType().equals("out")).mapToInt(item -> item.getQuantity())
+							.sum();
+
+			if (currentQuantity >= quantity) {
+
+				OutgoingStock newStock = repository.save(outgoingStock);
+				if (newStock == null) {
+					map.put("success", false);
+					map.put("message", "L'enregistrement a échoué");
+				} else {
+
+					shopStock.setType("in");
+					ShopStock savedShopStock = shopStockRepository.save(shopStock);
+					if (savedShopStock == null) {
+						map.put("success", false);
+						map.put("message", "L'enregistrement a échoué");
+						repository.delete(newStock);
+					} else {
+						map.put("success", true);
+						map.put("message", "Enregistré avec succé");
+						//map.put("shopStock", savedShopStock);
+						//map.put("stock", newStock);
+					}
+				}
+			} else {
+				map.put("success", false);
+				map.put("message", "Vous avez moin de " + quantity + " dans votre stock");
+			}
+		}
+
+		return map;
+	}
+
+	private Date getDate() {
+		java.util.Date date = new java.util.Date();
+		Date sqlStartDate = new Date(date.getTime());
+		return sqlStartDate;
 	}
 
 }

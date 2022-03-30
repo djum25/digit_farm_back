@@ -9,29 +9,19 @@ import javax.persistence.Table;
 @Table(name = "tbl_incoming_stock")
 public class IncomingStock extends Stock{
 	
-	private String type;
-	
-	private Integer quantity;
-	
 	private Date date;
 	
 	private String product;
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public Integer getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
+	
+	private String category;
+	
+	private int value;
+	
+	private String initValue;
+	
+	private int volume;
+	
+	private String unitVolume;
 
 	public Date getDate() {
 		return date;
@@ -47,6 +37,46 @@ public class IncomingStock extends Stock{
 
 	public void setString(String product) {
 		this.product = product;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public int getValue() {
+		return value;
+	}
+
+	public void setValue(int value) {
+		this.value = value;
+	}
+
+	public String getUnitValue() {
+		return initValue;
+	}
+
+	public void setUnitValue(String initValue) {
+		this.initValue = initValue;
+	}
+
+	public int getVolume() {
+		return volume;
+	}
+
+	public void setVolume(int volume) {
+		this.volume = volume;
+	}
+
+	public String getUnitVolume() {
+		return unitVolume;
+	}
+
+	public void setUnitVolume(String unitVolume) {
+		this.unitVolume = unitVolume;
 	}
 	
 }

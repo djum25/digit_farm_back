@@ -4,7 +4,7 @@ public class CalendarFrequency {
 
 	private Long id;
 	
-	private String name;
+	private String calendaryName;
 	
 	private String intervention;
 	
@@ -19,6 +19,16 @@ public class CalendarFrequency {
 	private Poultry poultry;
 	
 	private Speculation speculation;
+	
+	private CattleCategory cattleCategory;
+	
+	private PoultryCategory poultryCategory;
+	
+	private FishCategory fishCategory;
+	
+	private Seed seed;
+	
+	private TreeCategory treeCategory;
 
 	public Long getId() {
 		return id;
@@ -28,12 +38,12 @@ public class CalendarFrequency {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getCalendaryName() {
+		return calendaryName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setCalendaryName(String calendaryName) {
+		this.calendaryName = calendaryName;
 	}
 
 	public String getIntervention() {
@@ -90,6 +100,46 @@ public class CalendarFrequency {
 
 	public void setPoultry(Poultry poultry) {
 		this.poultry = poultry;
+	}
+
+	public CattleCategory getCattleCategory() {
+		return cattleCategory;
+	}
+
+	public void setCattleCategory(CattleCategory cattleCategory) {
+		this.cattleCategory = cattleCategory;
+	}
+
+	public PoultryCategory getPoultryCategory() {
+		return poultryCategory;
+	}
+
+	public void setPoultryCategory(PoultryCategory poultryCategory) {
+		this.poultryCategory = poultryCategory;
+	}
+
+	public FishCategory getFishCategory() {
+		return fishCategory;
+	}
+
+	public void setFishCategory(FishCategory fishCategory) {
+		this.fishCategory = fishCategory;
+	}
+
+	public Seed getSeed() {
+		return seed;
+	}
+
+	public void setSeed(Seed seed) {
+		this.seed = seed;
+	}
+
+	public TreeCategory getTreeCategory() {
+		return treeCategory;
+	}
+
+	public void setTreeCategory(TreeCategory treeCategory) {
+		this.treeCategory = treeCategory;
 	}
 	
 }

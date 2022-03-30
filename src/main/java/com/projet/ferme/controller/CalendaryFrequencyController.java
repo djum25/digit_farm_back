@@ -26,4 +26,14 @@ public class CalendaryFrequencyController {
 	public Map<String, Object> postCalendarPoultry(@RequestBody CalendarFrequency cal){
 		return service.addPoultry(cal);
 	}
+	
+	@RequestMapping(value = "/api/v1/frequence/calendar/seed", method = RequestMethod.POST)
+	public Map<String, Object> postSeedFrequence(@RequestBody CalendarFrequency cal){
+		return service.addSeedCalendarFrequence(cal);
+	}
+	
+	@RequestMapping(value = "/api/v1/frequence/calendar/category/poultry", method = RequestMethod.POST)
+	public Map<String, Object> postCategoryPoultry(CalendarFrequency cal){
+		return service.addCategoryPoultryMin(cal);
+	}
 }

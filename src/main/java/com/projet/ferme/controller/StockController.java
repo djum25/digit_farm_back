@@ -32,10 +32,10 @@ public class StockController {
 		return incomingService.put(stock);
 	}
 	
-	/*@RequestMapping(value = "/api/v1/incoming/name/{name}", method = RequestMethod.GET)
-	public Map<String, Object> getByNameIncomingStock(@PathVariable("name") String name){
-		return incomingService.getByName(name);
-	}*/
+	@RequestMapping(value = "/api/v1/incoming", method = RequestMethod.GET)
+	public Map<String, Object> getByNameIncomingStock(){
+		return incomingService.findAll();
+	}
 	
 	@RequestMapping(value = "/api/v1/incoming/type/{type}", method = RequestMethod.GET)
 	public Map<String, Object> getByTypeIncomingStock(@PathVariable("type") String type){
@@ -82,8 +82,24 @@ public class StockController {
 		return outgoingService.getByProduit(produit);
 	}
 	
-	@RequestMapping(value = "/api/v1/outgoing/sale/{username}/{id}", method = RequestMethod.POST)
-	public Map<String, Object> addForSale(@RequestBody OutgoingStock stock,@PathVariable("username") String username,@PathVariable("id") Long idShop){
-		return outgoingService.addForSell(stock,username,idShop);
+	@RequestMapping(value = "/api/v1/outgoing/sale", method = RequestMethod.POST)
+	public Map<String, Object> addForSale(@RequestBody Map<String, Object> map){
+		return outgoingService.addForSell(map);
+	}
+	
+	@RequestMapping(value = "/api/v1/reverse", method = RequestMethod.POST)
+	public Map<String, Object> reverse(@RequestBody Map<String, Object> map){
+		String product = map.get("product").toString();
+		String type = map.get("type").toString();
+		String username = map.get("username").toString();
+		int quantity = Integer.parseInt(map.get("quantity").toString());
+		Long shopId = Long.parseLong(map.get("shopId").toString());
+		
+		return outgoingService.reverseInShop(product, quantity, type, username, shopId);
+	}
+	
+	@RequestMapping(value = "/api/v1/shop/stock/{id}", method = RequestMethod.GET)
+	public Map<String, Object> getShopStock(@PathVariable("id") Long id){
+		return outgoingService.getShopStock(id);
 	}
 }

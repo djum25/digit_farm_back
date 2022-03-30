@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.projet.ferme.entity.Cattle;
 import com.projet.ferme.entity.OutCattle;
+import com.projet.ferme.entity.User;
 import com.projet.ferme.repository.CattleRepository;
 import com.projet.ferme.repository.OutCattleRepository;
 
@@ -19,9 +20,11 @@ public class OutCattleService {
 	private OutCattleRepository outCattleRepository;
 	@Autowired
 	private CattleRepository cattleRepository;
+	@Autowired
+	private EnvironmentService environmentService;
 	
 	public Map<String, Object> add(OutCattle outCattle){
-		
+		User user = environmentService.getRequestUser();
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		Cattle cattle = cattleRepository.getById(outCattle.getCattle().getId());
 		// Check if the cattle object is present
@@ -29,6 +32,7 @@ public class OutCattleService {
 			returnValues.put("success", false);
 			returnValues.put("message", "Ce sujet n'est plus present");
 		}else {
+			outCattle.setUser(user);
 			OutCattle newOutCattle = outCattleRepository.save(outCattle);
 			// Check if the out object is saved
 			if(newOutCattle == null) {
@@ -59,7 +63,7 @@ public class OutCattleService {
 	}
 	
 	public Map<String, Object> put(OutCattle out){
-		
+		User user = environmentService.getRequestUser();
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		OutCattle oldOut = outCattleRepository.getById(out.getId());
 		
@@ -67,6 +71,7 @@ public class OutCattleService {
 			returnValues.put("success", false);
 			returnValues.put("message", "Cet enregistrement n'existe plus");
 		}else {
+			out.setUser(user);
 			OutCattle newOutCattle = outCattleRepository.save(out);
 			if(newOutCattle == null) {
 				returnValues.put("success", false);

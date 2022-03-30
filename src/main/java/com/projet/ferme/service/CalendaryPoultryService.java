@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.projet.ferme.entity.CalendaryPoultry;
+import com.projet.ferme.entity.Poultry;
 import com.projet.ferme.entity.PoultryCalendaryMin;
 import com.projet.ferme.entity.PoultryCategory;
 import com.projet.ferme.repository.CalendaryPoultryRepository;
 import com.projet.ferme.repository.PoultryCalendaryMinRepository;
 import com.projet.ferme.repository.PoultryCategoryRepository;
+import com.projet.ferme.repository.PoultryRepository;
 
 @Service
 public class CalendaryPoultryService {
@@ -24,6 +26,8 @@ public class CalendaryPoultryService {
 	private PoultryCalendaryMinRepository minRepository;
 	@Autowired
 	private PoultryCategoryRepository categoryRepository;
+	@Autowired
+	private PoultryRepository poultryRepository;
 	
 	public Map<String, Object> add(CalendaryPoultry newCalendar) {
 		
@@ -40,11 +44,12 @@ public class CalendaryPoultryService {
 	public Map<String, Object> findByPoultryId(Long id) {
 		
 		List<CalendaryPoultry> calendaryPoultry = calendaryPoultryRepository.findByPoultry_id(id);
-		
+		Poultry poultry = poultryRepository.findById(id).get();
 		Map<String,Object> returnValues = new HashMap<String,Object>();
 		
 		returnValues.put("success", true);
 		returnValues.put("calendars",calendaryPoultry);
+		returnValues.put("poultry", poultry);
 		
 		return returnValues;
 	}
@@ -73,10 +78,10 @@ public class CalendaryPoultryService {
 		PoultryCalendaryMin minCalendar = minRepository.save(min);
 		
 		if(minCalendar == null) {
-			returnValues.put("succes", false);
+			returnValues.put("success", false);
 			returnValues.put("minCalendar", minCalendar);
 		}else {
-			returnValues.put("succes", true);
+			returnValues.put("success", true);
 			returnValues.put("minCalendar", minCalendar);
 			returnValues.put("category", minCalendar.getCategory());
 		}
@@ -86,6 +91,9 @@ public class CalendaryPoultryService {
 	public Map<String, Object> deleteMin(Long id){
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		minRepository.deleteById(id);
+		returnValues.put("success", true);
+		returnValues.put("message", "Supprimer avec succé");
+		
 		return returnValues;
 	}
 	

@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 
 import com.projet.ferme.entity.CalendarySpeculation;
 import com.projet.ferme.entity.Seed;
+import com.projet.ferme.entity.Speculation;
 import com.projet.ferme.entity.SpeculationCalendaryMin;
 import com.projet.ferme.repository.CalendarySpeculationRepository;
 import com.projet.ferme.repository.SeedRepository;
 import com.projet.ferme.repository.SpeculationCalendaryMinRepository;
+import com.projet.ferme.repository.SpeculationRepository;
 
 @Service
 public class CalendarySpeculationService {
@@ -24,8 +26,10 @@ public class CalendarySpeculationService {
 	private SpeculationCalendaryMinRepository minRepository;
 	@Autowired
 	private SeedRepository seedRepository;
+	@Autowired
+	private SpeculationRepository speculationRepository;
 	
-	
+
 	public Map<String, Object> add(CalendarySpeculation calendaryFarming){
 		
 		CalendarySpeculation newCalendaryFarming = calerendaryFarmingRepository.save(calendaryFarming);
@@ -46,7 +50,11 @@ public class CalendarySpeculationService {
 		
 		Map<String, Object> returnValues = new HashMap<String,Object>();
 		List <CalendarySpeculation> calendars = calerendaryFarmingRepository.getBySpeculation_id(id);
+		Speculation speculation = speculationRepository.findById(id).get();
+		
+		returnValues.put("success", true);
 		returnValues.put("calendars", calendars);
+		returnValues.put("speculation", speculation);
 		
 		return returnValues;
 		

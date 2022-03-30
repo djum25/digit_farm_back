@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.projet.ferme.entity.Fish;
 import com.projet.ferme.entity.OutFish;
+import com.projet.ferme.entity.User;
 import com.projet.ferme.repository.FishRepository;
 import com.projet.ferme.repository.OutFishRepository;
 
@@ -18,15 +19,19 @@ public class OutFishService {
 	private OutFishRepository outRepository;
 	@Autowired
 	private FishRepository fishRepository;
+	@Autowired
+	private EnvironmentService environmentService;
 	
 	public Map<String, Object> add(OutFish out){
 		Map<String, Object> returnMap = new HashMap<String, Object>();
+		User user = environmentService.getRequestUser();
 		// Check if the fish object is present
 		Fish fish = fishRepository.getById(out.getFish().getId());
 		if(fish == null || fish.getPresent() == false) {
 			returnMap.put("succes", false);
 			
 		}else {
+			out.setUser(user);
 			OutFish outFish = outRepository.save(out);
 			if(outFish == null) {
 				returnMap.put("success", false);

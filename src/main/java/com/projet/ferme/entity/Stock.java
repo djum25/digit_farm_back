@@ -1,5 +1,7 @@
 package com.projet.ferme.entity;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
@@ -10,6 +12,10 @@ public class Stock extends TimeModel{
 	private String type;
 	
 	private String description;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 
 	public Integer getQuantity() {
 		return quantity;
@@ -33,6 +39,14 @@ public class Stock extends TimeModel{
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.projet.ferme.entity.HarvestSpeculation;
 import com.projet.ferme.entity.OutgoingStock;
 import com.projet.ferme.entity.Speculation;
+import com.projet.ferme.entity.User;
 import com.projet.ferme.repository.HarvestSpeculationRepository;
 import com.projet.ferme.repository.SpeculationRepository;
 
@@ -23,9 +24,11 @@ public class HarvestSpeculationService {
 	private SpeculationRepository speculationRepository;
 	@Autowired
 	private OutgoingService outgoingService;
+	@Autowired
+	private EnvironmentService environmentService;
 
 	public Map<String, Object> add(HarvestSpeculation harvest) {
-
+		User user = environmentService.getRequestUser();
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		Speculation speculation = speculationRepository.getById(harvest.getSpeculation().getId());
 
@@ -33,6 +36,7 @@ public class HarvestSpeculationService {
 			returnValues.put("success", false);
 			returnValues.put("message", "Les plantes sont déja récolté");
 		} else {
+			harvest.setUser(user);
 			HarvestSpeculation newHarvest = harvestRepository.save(harvest);
 			if (newHarvest == null) {
 				returnValues.put("success", false);
@@ -53,12 +57,14 @@ public class HarvestSpeculationService {
 	}
 
 	public Map<String, Object> put(HarvestSpeculation harvest) {
+		User user = environmentService.getRequestUser();
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		HarvestSpeculation oldHarvest = harvestRepository.getById(harvest.getId());
 		if (oldHarvest == null) {
 			returnValues.put("success", false);
 			returnValues.put("message", "L'enregistrement n'est plus dans la base");
 		} else {
+			harvest.setUser(user);
 			HarvestSpeculation newHarvest = harvestRepository.save(harvest);
 			if (newHarvest == null) {
 				returnValues.put("success", false);
@@ -77,11 +83,12 @@ public class HarvestSpeculationService {
 	}
 
 	public Map<String, Object> findBySpeculationId(Long id) {
-
+		Speculation speculation = speculationRepository.findById(id).get();
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		List<HarvestSpeculation> harvests = harvestRepository.getBySpeculation_id(id);
 
 		returnValues.put("success", true);
+		returnValues.put("speculation", speculation);
 		returnValues.put("harvests", harvests);
 
 		return returnValues;
@@ -132,8 +139,8 @@ public class HarvestSpeculationService {
 		out.setUpdatedOn(harvest.getUpdatedOn());
 		out.setQuantity(harvest.getQuantity());
 		out.setProduit(speculation.getSeed().getSeedName());
-		out.setValeur(harvest.getValeur());
 		out.setSubjectId(subjectId);
+		out.setUser(harvest.getUser());
 		outgoingService.add(out);
 	}
 }

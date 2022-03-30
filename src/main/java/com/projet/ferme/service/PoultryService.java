@@ -164,7 +164,7 @@ public class PoultryService {
 		Optional<ChickenCoop> coopOptional = coopRepository.findById(id);
 		
 		returnValues.put("success", true);
-		returnValues.put("chickenCoops", coopOptional.get());
+		returnValues.put("coop", coopOptional.get());
 		returnValues.put("poultrys", poultrysList);
 		return returnValues;
 	}

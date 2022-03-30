@@ -137,7 +137,6 @@ public class EggService {
 		out.setUpdatedOn(egg.getUpdatedOn());
 		out.setQuantity(egg.getQuantity());
 		out.setProduit("Oeuf");
-		out.setValeur(0);
 		out.setSubjectId(subjectId);
 		outgoingService.add(out);
 	}

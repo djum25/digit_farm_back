@@ -1,5 +1,6 @@
 package com.projet.ferme.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.projet.ferme.entity.IncomingStock;
+import com.projet.ferme.entity.User;
 import com.projet.ferme.repository.IncomingStockRepository;
 
 @Service
@@ -16,10 +18,14 @@ public class IncomingService {
 
 	@Autowired
 	private IncomingStockRepository repository;
+	@Autowired
+	private EnvironmentService environmentService;
 	
 	public Map<String, Object> add(IncomingStock stock){
+		User user = environmentService.getRequestUser();
 		Map<String, Object> returnMap = new HashMap<String, Object>();
-		
+		stock.setQuantity(stock.getValue()*stock.getVolume());
+		stock.setUser(user);
 		if(stock.getType().equals("in")) {
 			IncomingStock newStock = repository.save(stock);
 			if(newStock == null) {
@@ -60,6 +66,9 @@ public class IncomingService {
 	}
 	
 	public Map<String, Object> put(IncomingStock stock) {
+		stock.setQuantity(stock.getValue()*stock.getVolume());
+		User user = environmentService.getRequestUser();
+		stock.setUser(user);
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		IncomingStock oldStock = repository.getById(stock.getId());
 		if(oldStock == null) {
@@ -103,6 +112,26 @@ public class IncomingService {
 		return returnMap;
 	}
 	
+	public Map<String, Object> findAll() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<IncomingStock> stocks = repository.findAll();
+		List<String> products = stocks.stream().map(stock-> stock.getProduct()).distinct().collect(Collectors.toList());
+		List<Object> objects = new ArrayList<>();
+		products.forEach(current-> {
+			Map<String, Object> collectMap = new HashMap<String, Object>();
+			String unitString = stocks.stream().filter(stock-> stock.getProduct().equals(current)).findFirst().get().getUnitVolume();
+			collectMap.put("product", current);
+			collectMap.put("quantity", getByProduct(current));
+			collectMap.put("unit",unitString);
+			objects.add(collectMap);
+		});
+		map.put("success", true);
+		map.put("products", products);
+		map.put("stocks", objects);
+		
+		return map;
+	}
+	
 	
 	  public Integer getByProduct(String product){
 		  
@@ -129,6 +158,5 @@ public class IncomingService {
 		
 		return returnMap;
 	}
-	
 	
 }

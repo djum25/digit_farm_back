@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.projet.ferme.entity.OutPoultry;
 import com.projet.ferme.entity.OutgoingStock;
 import com.projet.ferme.entity.Poultry;
+import com.projet.ferme.entity.User;
 import com.projet.ferme.repository.OutPoultryRepository;
 import com.projet.ferme.repository.PoultryRepository;
 
@@ -23,9 +24,11 @@ public class OutPoultryService {
 	private PoultryRepository poultryRepository;
 	@Autowired
 	private OutgoingService outgoingService;
+	@Autowired
+	private EnvironmentService environmentService;
 
 	public Map<String, Object> add(OutPoultry outPoultry) {
-
+		User user = environmentService.getRequestUser();
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		// Get poultry objet from database
 		Poultry poultry = poultryRepository.getById(outPoultry.getPoultry().getId());
@@ -41,6 +44,7 @@ public class OutPoultryService {
 				returnValues.put("message", "Cette quantité n'est pas disponible");
 			} else {
 				// Save outPoultry object
+				outPoultry.setUser(user);
 				OutPoultry newOutPoultry = ouPoultryrepository.save(outPoultry);
 				if (newOutPoultry == null) {
 					returnValues.put("success", false);
@@ -68,18 +72,19 @@ public class OutPoultryService {
 	}
 
 	public Map<String, Object> findByPoultry(Long id) {
-
+		Poultry poultry = poultryRepository.findById(id).get();
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		List<OutPoultry> outPoultrys = ouPoultryrepository.findByPoultry_id(id);
 
 		returnValues.put("success", true);
 		returnValues.put("outPoultrys", outPoultrys);
+		returnValues.put("poultry", poultry);
 
 		return returnValues;
 	}
 
 	public Map<String, Object> put(OutPoultry outPoultry) {
-
+		User user = environmentService.getRequestUser();
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		OutPoultry oldOut = ouPoultryrepository.getById(outPoultry.getId());
 		if (oldOut == null) {
@@ -91,6 +96,7 @@ public class OutPoultryService {
 				returnValues.put("message",
 						"La modification sur la quantité n'est pas permise veuillez contactez l'administrateur");
 			} else {
+				outPoultry.setUser(user);
 				OutPoultry newOutPoultry = ouPoultryrepository.save(outPoultry);
 				if (newOutPoultry == null) {
 					returnValues.put("success", false);
@@ -162,8 +168,8 @@ public class OutPoultryService {
 		out.setUpdatedOn(outPoultry.getUpdatedOn());
 		out.setQuantity(outPoultry.getQuantity());
 		out.setProduit(poultry.getCategoryName());
-		out.setValeur(outPoultry.getValeur());
 		out.setSubjectId(subjectId);
+		out.setUser(outPoultry.getUser());
 		outgoingService.add(out);
 	}
 
