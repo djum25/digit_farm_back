@@ -1,6 +1,7 @@
 package com.projet.ferme.service;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +40,8 @@ public class SpeculationService {
 		
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		speculation.setName(matricule.getName(speculation.getSeed().getSeedName()));
+		LocalDate transplantingDate = speculation.getSeedDate().toLocalDate().plusDays(speculation.getSeed().getTransplantingOld());
+		speculation.setTransplantingDate(Date.valueOf(transplantingDate));
 		Speculation newFarming = farmingRepository.save(speculation);
 		
 		if(newFarming == null){
@@ -51,7 +54,7 @@ public class SpeculationService {
 			for(SpeculationCalendaryMin min: mins) {
 				CalendarySpeculation cal = new  CalendarySpeculation();
 				Calendar c = Calendar.getInstance();
-				c.setTime(newFarming.getSeedDate());
+				c.setTime(newFarming.getTransplantingDate());
 				c.add(Calendar.DATE,min.getOld());
 				cal.setSpeculation(newFarming);
 				cal.setCalendaryName(min.getName());
@@ -171,19 +174,19 @@ public class SpeculationService {
 		return returnValues;
 	}
 	
-	public Map<String, Object> activeSpeculation(Speculation speculation) {
+	public Map<String, Object> activeSpeculation(Long id) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		Speculation oldSpeculation = farmingRepository.findById(speculation.getId()).get();
-		if (oldSpeculation != null) {
+		Optional<Speculation> speculation = farmingRepository.findById(id);
+		if (speculation.isEmpty()) {
 			map.put("success", false);
 			map.put("message", "L'enregistrement est déja supprimmé");
 		}else {
-			speculation.setPresent(true);
-			speculation.setUpdatedOn(getDate());
-			farmingRepository.save(speculation);
+			speculation.get().setPresent(!speculation.get().isPresent());
+			speculation.get().setUpdatedOn(getDate());
+			farmingRepository.save(speculation.get());
 			map.put("success", true);
-			map.put("speculation", speculation);
+			map.put("speculation", speculation.get());
 			map.put("message", "Changé avec succé");
 		}
 		return map;

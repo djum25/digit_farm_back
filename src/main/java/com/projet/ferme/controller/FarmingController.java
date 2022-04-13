@@ -64,9 +64,9 @@ public class FarmingController {
 		return speculationService.delete(id);
 	}
 	
-	@RequestMapping(value = "/api/v1/speculation/active", method = RequestMethod.POST)
-	public Map<String, Object> activeSpeculation(Speculation speculation){
-		return speculationService.activeSpeculation(speculation);
+	@RequestMapping(value = "/api/v1/speculation/active/{id}", method = RequestMethod.GET)
+	public Map<String, Object> activeSpeculation(@PathVariable("id") Long id){
+		return speculationService.activeSpeculation(id);
 	}
 	
 	@RequestMapping(value="/api/v1/speculation/count",method=RequestMethod.GET)

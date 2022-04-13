@@ -15,6 +15,8 @@ public class Seed extends TimeModel{
 	@Column(name="seed_name")
 	private String seedName;
 	
+	private int transplantingOld;
+	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="seed")
 	private Set<Speculation> speculation;
 	
@@ -45,6 +47,13 @@ public class Seed extends TimeModel{
 	public void setMinCalendary(Set<SpeculationCalendaryMin> minCalendary) {
 		this.minCalendary = minCalendary;
 	}
-	
-	
+
+	public int getTransplantingOld() {
+		return transplantingOld;
+	}
+
+	public void setTransplantingOld(int transplantingOld) {
+		this.transplantingOld = transplantingOld;
+	}
+
 }

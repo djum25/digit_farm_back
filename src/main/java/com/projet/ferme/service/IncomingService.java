@@ -70,11 +70,11 @@ public class IncomingService {
 		User user = environmentService.getRequestUser();
 		stock.setUser(user);
 		Map<String, Object> returnMap = new HashMap<String, Object>();
-		IncomingStock oldStock = repository.getById(stock.getId());
+		IncomingStock oldStock = repository.findById(stock.getId()).get();
 		if(oldStock == null) {
 			returnMap.put("success", false);
 			returnMap.put("message", "La modification a échoué car l'enregistrement n'est plus dans la base ");
-		}else if( oldStock.getQuantity() != stock.getQuantity()) {
+		}else if(!oldStock.getQuantity().equals(stock.getQuantity())) {
 			returnMap.put("success", false);
 			returnMap.put("message", "L'enregistrement a échoué, car la quantité n'est pas modifiable");
 		}else {
@@ -85,6 +85,7 @@ public class IncomingService {
 			}else {
 				returnMap.put("success", true);
 				returnMap.put("message", "Enregistré avec succé");
+				returnMap.put("stock", stock);
 			}
 		}
 		

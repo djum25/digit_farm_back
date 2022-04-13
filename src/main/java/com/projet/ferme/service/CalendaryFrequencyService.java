@@ -13,14 +13,20 @@ import org.springframework.stereotype.Service;
 import com.projet.ferme.entity.CalendarFrequency;
 import com.projet.ferme.entity.CalendaryPoultry;
 import com.projet.ferme.entity.CalendarySpeculation;
+import com.projet.ferme.entity.CattleCalendaryMin;
+import com.projet.ferme.entity.FishCalendaryMin;
 import com.projet.ferme.entity.Poultry;
 import com.projet.ferme.entity.PoultryCalendaryMin;
 import com.projet.ferme.entity.Speculation;
 import com.projet.ferme.entity.SpeculationCalendaryMin;
+import com.projet.ferme.entity.TreeCalendaryMin;
 import com.projet.ferme.repository.CalendaryPoultryRepository;
 import com.projet.ferme.repository.CalendarySpeculationRepository;
+import com.projet.ferme.repository.CattleCalendaryMinRepository;
+import com.projet.ferme.repository.FishCalendaryMinRepository;
 import com.projet.ferme.repository.PoultryCalendaryMinRepository;
 import com.projet.ferme.repository.SpeculationCalendaryMinRepository;
+import com.projet.ferme.repository.TreeCalendaryMinRepository;
 
 @Service
 public class CalendaryFrequencyService {
@@ -33,6 +39,12 @@ public class CalendaryFrequencyService {
 	private SpeculationCalendaryMinRepository speculationCalendaryMinRepository;
 	@Autowired
 	private PoultryCalendaryMinRepository poultryCalendaryMinRepository;
+	@Autowired
+	private TreeCalendaryMinRepository treeCalendaryMinRepository;
+	@Autowired
+	private FishCalendaryMinRepository fishCalendaryMinRepository;
+	@Autowired
+	private CattleCalendaryMinRepository cattleCalendaryMinRepository;
 
 	public Map<String, Object> addSpeculation(CalendarFrequency calendarFrequency) {
 		
@@ -149,7 +161,6 @@ public class CalendaryFrequencyService {
 	
 	public Map<String, Object> addCategoryPoultryMin(CalendarFrequency calendarFrequency) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		
 		int number = (calendarFrequency.getEnd() - calendarFrequency.getStart())/calendarFrequency.getFrequence();
 		java.util.Date date = new java.util.Date();
 		Date sqlStartDate = new Date(date.getTime());
@@ -178,4 +189,98 @@ public class CalendaryFrequencyService {
 		
 		return map;
 	}
+	
+	public Map<String, Object> addCategoryTreeMin(CalendarFrequency calendarFrequency) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		int number = (calendarFrequency.getEnd() - calendarFrequency.getStart())/calendarFrequency.getFrequence();
+		java.util.Date date = new java.util.Date();
+		Date sqlStartDate = new Date(date.getTime());
+		int saved = 0;
+		List<TreeCalendaryMin> mins = new ArrayList<TreeCalendaryMin>();
+		for (int i = 0; i <= number; i++) {
+			int dayToAdd = (calendarFrequency.getFrequence() * i) + calendarFrequency.getStart() ;
+			TreeCalendaryMin min = new TreeCalendaryMin();
+			min.setIntervention(calendarFrequency.getIntervention());
+			min.setName(calendarFrequency.getCalendaryName());
+			min.setOld(dayToAdd);
+			min.setCategory(calendarFrequency.getTreeCategory());
+			min.setCreatedOn(sqlStartDate);
+			min.setUpdatedOn(sqlStartDate);
+			
+			TreeCalendaryMin savedMin = treeCalendaryMinRepository.save(min);
+			if (savedMin != null) {
+				mins.add(savedMin);
+				saved++;
+			}
+		}
+		
+		map.put("success", true);
+		map.put("message", saved+" sont enregistrés");
+		map.put("calendars", mins);
+		return map;
+	}
+	
+	public Map<String, Object> addCategoryFishMin(CalendarFrequency calendarFrequency) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		int number = (calendarFrequency.getEnd() - calendarFrequency.getStart())/calendarFrequency.getFrequence();
+		java.util.Date date = new java.util.Date();
+		Date sqlStartDate = new Date(date.getTime());
+		int saved = 0;
+		List<FishCalendaryMin> mins = new ArrayList<FishCalendaryMin>();
+		for (int i = 0; i <= number; i++) {
+			int dayToAdd = (calendarFrequency.getFrequence() * i) + calendarFrequency.getStart() ;
+			FishCalendaryMin min = new FishCalendaryMin();
+			min.setIntervention(calendarFrequency.getIntervention());
+			min.setName(calendarFrequency.getCalendaryName());
+			min.setOld(dayToAdd);
+			min.setCategory(calendarFrequency.getFishCategory());
+			min.setCreatedOn(sqlStartDate);
+			min.setUpdatedOn(sqlStartDate);
+			
+			FishCalendaryMin savedMin = fishCalendaryMinRepository.save(min);
+			if (savedMin != null) {
+				mins.add(savedMin);
+				saved++;
+			}
+		}
+		
+		map.put("success", true);
+		map.put("message", saved+" sont enregistrés");
+		map.put("calendars", mins);
+		return map;
+	}
+	
+	public Map<String, Object> addCategoryCattleMin(CalendarFrequency calendarFrequency) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		int number = (calendarFrequency.getEnd() - calendarFrequency.getStart())/calendarFrequency.getFrequence();
+		java.util.Date date = new java.util.Date();
+		Date sqlStartDate = new Date(date.getTime());
+		int saved = 0;
+		List<CattleCalendaryMin> mins = new ArrayList<CattleCalendaryMin>();
+		for (int i = 0; i <= number; i++) {
+			int dayToAdd = (calendarFrequency.getFrequence() * i) + calendarFrequency.getStart() ;
+			CattleCalendaryMin min = new CattleCalendaryMin();
+			min.setIntervention(calendarFrequency.getIntervention());
+			min.setName(calendarFrequency.getCalendaryName());
+			min.setOld(dayToAdd);
+			min.setCategory(calendarFrequency.getCattleCategory());
+			min.setCreatedOn(sqlStartDate);
+			min.setUpdatedOn(sqlStartDate);
+			
+			CattleCalendaryMin savedMin = cattleCalendaryMinRepository.save(min);
+			if (savedMin != null) {
+				mins.add(savedMin);
+				saved++;
+			}
+		}
+		
+		map.put("success", true);
+		map.put("message", saved+" sont enregistrés");
+		map.put("calendars", mins);
+		return map;
+	}
+	
 }

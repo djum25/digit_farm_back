@@ -12,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.projet.ferme.entity.Cashier;
+import com.projet.ferme.entity.Sale;
 import com.projet.ferme.entity.Shop;
 import com.projet.ferme.entity.User;
 import com.projet.ferme.repository.CashierRepository;
+import com.projet.ferme.repository.SaleRepository;
 import com.projet.ferme.repository.ShopRepository;
 import com.projet.ferme.repository.UserRepository;
 
@@ -29,6 +31,8 @@ public class CashierService {
 	private UserRepository userRepository;
 	@Autowired
 	private CashierNewService newService;
+	@Autowired
+	private SaleRepository saleRepository;
 
 	public Map<String, Object> addShop(Shop shop){
 		
@@ -118,6 +122,7 @@ public class CashierService {
 	}
 	
 	public Map<String, Object> StatusCashier(Map<String, Object> inputMap){
+	
 		String userName = inputMap.get("username").toString();
 		int access = Integer.parseInt(inputMap.get("access").toString());
 		int cash = Integer.parseInt(inputMap.get("cash").toString());
@@ -188,6 +193,19 @@ public class CashierService {
 			map=response(true, message);
 			map.put("status", status);
 		}
+		return map;
+	}
+	
+	public Map<String, Object> saleNews(Long id) {
+		Shop shop = shopRepository.findById(id).get();
+		List<Cashier> cashiers = cashierRepository.findAll();
+		final List<Cashier> selectcashiers = cashiers.stream().filter(cashier->cashier.getShop().getId()==id).collect(Collectors.toList());
+		List<Sale> sales = saleRepository.findAll();
+		sales = sales.stream().filter(sale-> selectcashiers.contains(sale.getCashier())).collect(Collectors.toList());
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("success", true);
+		map.put("shop", shop);
+		map.put("sales", sales);
 		return map;
 	}
 	

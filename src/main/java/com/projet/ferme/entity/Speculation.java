@@ -20,6 +20,8 @@ public class Speculation extends TimeModel{
 	@Column(name="date_seed")
 	private Date seedDate;
 	
+	private Date transplantingDate;
+	
 	private boolean present;
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="speculation")
@@ -99,6 +101,13 @@ public class Speculation extends TimeModel{
 	public void setHarvest(Set<HarvestSpeculation> harvest) {
 		this.harvest = harvest;
 	}
-	
+
+	public Date getTransplantingDate() {
+		return transplantingDate;
+	}
+
+	public void setTransplantingDate(Date transplantingDate) {
+		this.transplantingDate = transplantingDate;
+	}
 	
 }

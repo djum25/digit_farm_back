@@ -38,6 +38,8 @@ public class OutgoingService {
 	private CashierRepository cashierRepository;
 	@Autowired
 	private ShopStockRepository shopStockRepository;
+	@Autowired
+	private EnvironmentService environmentService;
 
 	public Map<String, Object> add(OutgoingStock stock) {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
@@ -112,12 +114,39 @@ public class OutgoingService {
 
 		stocks.stream().collect(Collectors.groupingBy(OutgoingStock::getProduit)).forEach((value, values) -> {
 			Map<String, Object> xx = new HashMap<String, Object>();
+			int actualy = values.stream().filter(s -> s.getType().equals("in")).mapToInt(v -> v.getQuantity()).sum()
+					- values.stream().filter(s -> s.getType().equals("out")).mapToInt(v -> v.getQuantity()).sum();
+			int inShop = getProductInShop(value);
+			int all = actualy + inShop;
 			xx.put("product", value);
-			xx.put("actualy", values.stream().filter(s -> s.getType().equals("in")).mapToInt(v -> v.getQuantity()).sum()
-					- values.stream().filter(s -> s.getType().equals("out")).mapToInt(v -> v.getQuantity()).sum());
+			xx.put("actualy", actualy);
+			xx.put("inShop",inShop);
+			xx.put("quantity", all);
 			maps.add(xx);
 		});
+		returnMap.put("success", true);
+		returnMap.put("stocks", maps);
 
+		return returnMap;
+	}
+	
+	public Map<String, Object> getShopStockByProduct(String product) {
+
+		List<Map<String, Object>> maps = new ArrayList<>();
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		List<ShopStock> stocks = shopStockRepository.findByProduct(product);
+		List<Shop> shops = shopRepository.findAll();
+		
+		shops.forEach( shop -> {
+			Map<String, Object> collectMap = new HashMap<String, Object>();
+			int quantity = stocks.stream().filter(stock-> stock.getType().equals("in") && stock.getShop().equals(shop)).
+			 mapToInt(stock->stock.getQuantity()).sum() -
+			stocks.stream().filter(stock-> stock.getType().equals("out") && stock.getShop().equals(shop)).
+			 mapToInt(stock->stock.getQuantity()).sum();
+			collectMap.put("shop", shop);
+			collectMap.put("quantity", quantity);
+			maps.add(collectMap);
+		});
 		returnMap.put("success", true);
 		returnMap.put("stocks", maps);
 
@@ -134,8 +163,8 @@ public class OutgoingService {
 		product.forEach( current-> {
 				Map<String, Object> collectStock = new HashMap<String, Object>();
 				collectStock.put("product", current);
-				collectStock.put("inShop", shopStocks.stream().filter(s -> s.getType().equals("in")).mapToInt(v -> v.getQuantity()).sum()
-						- shopStocks.stream().filter(s -> s.getType().equals("out")).mapToInt(v -> v.getQuantity()).sum());
+				collectStock.put("inShop", shopStocks.stream().filter(s -> s.getType().equals("in") && s.getProduit().equals(current)).mapToInt(v -> v.getQuantity()).sum()
+						- shopStocks.stream().filter(s -> s.getType().equals("out") && s.getProduit().equals(current)).mapToInt(v -> v.getQuantity()).sum());
 				collectStock.put("inStore", stocks.stream().filter(s -> s.getType().equals("in") && s.getProduit().equals(current))
 						.mapToInt(v -> v.getQuantity()).sum()
 						- stocks.stream().filter(s -> s.getType().equals("out") && s.getProduit().equals(current))
@@ -289,8 +318,8 @@ public class OutgoingService {
 	}
 
 	public Map<String, Object> reverseInShop(String product, int quantity, String type, String username, Long shopId) {
+		User user = environmentService.getRequestUser();
 		Map<String, Object> map = new HashMap<String, Object>();
-		User user = userRepository.findByUsername(username).get();
 		OutgoingStock outgoingStock = new OutgoingStock();
 		ShopStock shopStock = new ShopStock();
 		Shop shop = shopRepository.getById(shopId);
@@ -323,6 +352,7 @@ public class OutgoingService {
 				OutgoingStock newStock = repository.save(outgoingStock);
 				if (newStock == null) {
 					map.put("success", false);
+					map.put("status","no");
 					map.put("message", "L'enregistrement a échoué");
 				} else {
 
@@ -330,10 +360,12 @@ public class OutgoingService {
 					ShopStock savedShopStock = shopStockRepository.save(shopStock);
 					if (savedShopStock == null) {
 						map.put("success", false);
+						map.put("status","no");
 						map.put("message", "L'enregistrement a échoué");
 						repository.delete(newStock);
 					} else {
 						map.put("success", true);
+						map.put("status","yes");
 						map.put("message", "Enregistré avec succé");
 						//map.put("shopStock", savedShopStock);
 						//map.put("stock", newStock);
@@ -341,6 +373,7 @@ public class OutgoingService {
 				}
 			} else {
 				map.put("success", false);
+				map.put("status","no");
 				map.put("message", "Vous avez moin de " + quantity + " dans votre stock");
 			}
 		} else {
@@ -356,6 +389,7 @@ public class OutgoingService {
 				OutgoingStock newStock = repository.save(outgoingStock);
 				if (newStock == null) {
 					map.put("success", false);
+					map.put("status","no");
 					map.put("message", "L'enregistrement a échoué");
 				} else {
 
@@ -363,10 +397,12 @@ public class OutgoingService {
 					ShopStock savedShopStock = shopStockRepository.save(shopStock);
 					if (savedShopStock == null) {
 						map.put("success", false);
+						map.put("status","no");
 						map.put("message", "L'enregistrement a échoué");
 						repository.delete(newStock);
 					} else {
 						map.put("success", true);
+						map.put("status","yes");
 						map.put("message", "Enregistré avec succé");
 						//map.put("shopStock", savedShopStock);
 						//map.put("stock", newStock);
@@ -374,6 +410,7 @@ public class OutgoingService {
 				}
 			} else {
 				map.put("success", false);
+				map.put("status","no");
 				map.put("message", "Vous avez moin de " + quantity + " dans votre stock");
 			}
 		}
@@ -385,6 +422,27 @@ public class OutgoingService {
 		java.util.Date date = new java.util.Date();
 		Date sqlStartDate = new Date(date.getTime());
 		return sqlStartDate;
+	}
+	
+	public Map<String, Object> shopToShop(Map<String, Object> enterMap) {
+		String product = enterMap.get("product").toString();
+		int quantity = Integer.parseInt(enterMap.get("quantity").toString());
+		Long senderShop = Long.parseLong(enterMap.get("senderShop").toString());
+		Long receverShop = Long.parseLong(enterMap.get("receverShop").toString());
+		Map<String, Object> map = new HashMap<String, Object>();
+		User user = environmentService.getRequestUser();
+		map = reverseInShop(product, quantity, "in", user.getUsername(), senderShop);
+		if( map.get("status").toString().equals("yes")){
+			map = reverseInShop(product, quantity, "out", user.getUsername(), receverShop);
+		}
+		return map;
+	}
+	
+	private int getProductInShop(String product) {
+		List<ShopStock> stocks = shopStockRepository.findByProduct(product);
+		int quantity = stocks.stream().filter(stock->stock.getType().equals("in")).mapToInt(stock->stock.getQuantity()).sum() -
+		stocks.stream().filter(stock->stock.getType().equals("out")).mapToInt(stock->stock.getQuantity()).sum();
+		return quantity;
 	}
 
 }

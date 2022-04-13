@@ -67,6 +67,11 @@ public class StockController {
 		return outgoingService.getProduitInStock();
 	}
 	
+	@RequestMapping( value = "/api/v1/outgoing/product/detail/{product}", method = RequestMethod.GET)
+	public Map<String,  Object> getShopStockByProduct(@PathVariable("product") String product){
+		return outgoingService.getShopStockByProduct(product);
+	}
+	
 	@RequestMapping(value = "/api/v1/outgoing/type/{type}", method = RequestMethod.GET)
 	public Map<String, Object> getByTypeOutgoingStock(@PathVariable("type") String type){
 		return outgoingService.getByType(type);
@@ -96,6 +101,11 @@ public class StockController {
 		Long shopId = Long.parseLong(map.get("shopId").toString());
 		
 		return outgoingService.reverseInShop(product, quantity, type, username, shopId);
+	}
+	
+	@RequestMapping(value = "api/v1/reverse/shoptoshop", method = RequestMethod.POST)
+	public Map< String, Object> shopToShop(@RequestBody Map<String, Object> map){
+		return outgoingService.shopToShop(map);
 	}
 	
 	@RequestMapping(value = "/api/v1/shop/stock/{id}", method = RequestMethod.GET)
