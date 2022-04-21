@@ -349,7 +349,7 @@ public class OutgoingService {
 					- shopStocks.stream().filter(item -> item.getType().equals("out"))
 							.mapToInt(item -> item.getQuantity()).sum();
 			if (currentQuantity >= quantity) {
-
+				outgoingStock.setComesFrom(shop.getName());
 				OutgoingStock newStock = repository.save(outgoingStock);
 				if (newStock == null) {
 					map.put("success", false);
