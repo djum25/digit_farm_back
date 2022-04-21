@@ -169,6 +169,7 @@ public class OutPoultryService {
 		out.setQuantity(outPoultry.getQuantity());
 		out.setProduit(poultry.getCategoryName());
 		out.setSubjectId(subjectId);
+		out.setComesFrom(outPoultry.getPoultry().getCoopsName());
 		out.setUser(outPoultry.getUser());
 		outgoingService.add(out);
 	}

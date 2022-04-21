@@ -140,6 +140,7 @@ public class HarvestSpeculationService {
 		out.setQuantity(harvest.getQuantity());
 		out.setProduit(speculation.getSeed().getSeedName());
 		out.setSubjectId(subjectId);
+		out.setComesFrom(harvest.getSpeculation().getPlantingName());
 		out.setUser(harvest.getUser());
 		outgoingService.add(out);
 	}

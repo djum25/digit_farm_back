@@ -1,6 +1,7 @@
 package com.projet.ferme.service;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -297,7 +298,7 @@ public class OutgoingService {
 		sale.setAccount(Integer.parseInt(accountString));
 		sale.setAdvance(Integer.parseInt(advanceString));
 		sale.setPrice(Integer.parseInt(priceString));
-		sale.setDate(stock.getCreatedOn());
+		sale.setDate(LocalDateTime.now());
 		sale.setCreatedOn(stock.getCreatedOn());
 		sale.setUpdatedOn(stock.getUpdatedOn());
 		sale.setCashier(cashier);

@@ -10,6 +10,9 @@ public class OutgoingStock extends Stock{
 	
 	private String produit;
 	
+	@Column(name = "comes_from")
+	private String comesFrom;
+	
 	@Column(name = "subject_id")
 	private String subjectId;
 
@@ -27,6 +30,14 @@ public class OutgoingStock extends Stock{
 
 	public void setProduit(String produit) {
 		this.produit = produit;
+	}
+
+	public String getComesFrom() {
+		return comesFrom;
+	}
+
+	public void setComesFrom(String comesFrom) {
+		this.comesFrom = comesFrom;
 	}
 
 }

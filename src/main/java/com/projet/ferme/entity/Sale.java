@@ -1,6 +1,6 @@
 package com.projet.ferme.entity;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +24,11 @@ public class Sale extends TimeModel{
 	
 	private String produit;
 	
-	private Date date;
+	private LocalDateTime date;
+	
+	private String description;
+	
+	private boolean counted;
 	
 	@Column(name = "subject_id")
 	private String subjectId;
@@ -73,12 +77,28 @@ public class Sale extends TimeModel{
 		this.produit = produit;
 	}
 
-	public Date getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public boolean isCounted() {
+		return counted;
+	}
+
+	public void setCounted(boolean counted) {
+		this.counted = counted;
 	}
 
 	public String getSubjectId() {

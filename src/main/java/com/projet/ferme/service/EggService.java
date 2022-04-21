@@ -1,5 +1,6 @@
 package com.projet.ferme.service;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -121,7 +122,7 @@ public class EggService {
 		sale.setProduit("Oeuf");
 		sale.setPrice(0);
 		sale.setQuantity(egg.getQuantity());
-		sale.setDate(egg.getCreatedOn());
+		sale.setDate(LocalDateTime.now());
 		sale.setCreatedOn(egg.getCreatedOn());
 		sale.setUpdatedOn(egg.getUpdatedOn());
 		sale.setSubjectId(subjectId);
