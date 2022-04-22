@@ -279,7 +279,8 @@ public class OutgoingService {
 					returnMap.put("success", false);
 					returnMap.put("message", "L'enregistrement a échoué");
 				} else {
-					saveSale(null, shopStock, cashier,map.get("advance").toString(),map.get("account").toString(),map.get("price").toString());
+					saveSale(null, shopStock, cashier,map.get("advance").toString(),
+					map.get("account").toString(),map.get("price").toString(),map.get("description").toString());
 					returnMap.put("success", true);
 					returnMap.put("message", "Enregistré avec succé");
 					returnMap.put("stock", newStock);
@@ -290,7 +291,8 @@ public class OutgoingService {
 		return returnMap;
 	}
 
-	private void saveSale(Long id, ShopStock stock, Cashier cashier,String advanceString,String accountString,String priceString) {
+	private void saveSale(Long id, ShopStock stock, Cashier cashier,String advanceString,
+	String accountString,String priceString,String description) {
 		Sale sale = new Sale();
 		sale.setId(id);
 		sale.setProduit(stock.getProduit());
@@ -298,6 +300,7 @@ public class OutgoingService {
 		sale.setAccount(Integer.parseInt(accountString));
 		sale.setAdvance(Integer.parseInt(advanceString));
 		sale.setPrice(Integer.parseInt(priceString));
+		sale.setDescription(description);
 		sale.setDate(LocalDateTime.now());
 		sale.setCreatedOn(stock.getCreatedOn());
 		sale.setUpdatedOn(stock.getUpdatedOn());
