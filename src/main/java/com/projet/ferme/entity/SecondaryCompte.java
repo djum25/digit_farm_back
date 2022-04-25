@@ -15,7 +15,6 @@ public class SecondaryCompte extends TimeModel{
     @JoinColumn(name = "primary_id")
     private PrimaryCompte primary;
 
-
     public String getName() {
         return name;
     }
