@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tbl_operation")
-public class Operation<Subject> extends TimeModel{
+public class Operation extends TimeModel{
     
     private String label;
 
@@ -19,13 +19,39 @@ public class Operation<Subject> extends TimeModel{
 
     private LocalDateTime date;
 
+    private Character subjectType;
+
+    private Long subjectId;
+
+    private Object object;
+
     @ManyToOne
     @JoinColumn(name = "secondary_id")
     private SecondaryCompte secondary;
 
-    @ManyToOne
-    @JoinColumn(name = "subject_id")
-    private Subject subject;
+    public Character getSubjectType() {
+        return subjectType;
+    }
+
+    public void setSubjectType(Character subjectType) {
+        this.subjectType = subjectType;
+    }
+
+    public Long getSubjectId() {
+        return subjectId;
+    }
+
+    public void setSubjectId(Long subjectId) {
+        this.subjectId = subjectId;
+    }
+
+    public Object getObject() {
+        return object;
+    }
+
+    public void setObject(Object object) {
+        this.object = object;
+    }
 
     public String getLabel() {
         return label;
