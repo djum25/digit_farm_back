@@ -23,8 +23,6 @@ public class Operation extends TimeModel{
 
     private Long subjectId;
 
-    private Object object;
-
     @ManyToOne
     @JoinColumn(name = "secondary_id")
     private SecondaryCompte secondary;
@@ -43,14 +41,6 @@ public class Operation extends TimeModel{
 
     public void setSubjectId(Long subjectId) {
         this.subjectId = subjectId;
-    }
-
-    public Object getObject() {
-        return object;
-    }
-
-    public void setObject(Object object) {
-        this.object = object;
     }
 
     public String getLabel() {
