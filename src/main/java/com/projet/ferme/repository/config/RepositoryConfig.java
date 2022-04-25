@@ -17,7 +17,6 @@ public class RepositoryConfig implements RepositoryRestConfigurer  {
 
 	@Override
 	public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
-		// TODO Auto-generated method stub
 		RepositoryRestConfigurer.super.configureRepositoryRestConfiguration(config, cors);
 		config.exposeIdsFor(entityManager.getMetamodel().getEntities().stream()
 				.map(Type::getJavaType).toArray(Class[]::new));
