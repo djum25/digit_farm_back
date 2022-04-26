@@ -11,6 +11,10 @@ public class MapResponse {
 
     private Object object;
 
+    private Object arrayObject;
+
+    private Object childArrayObject;
+
     public MapResponse withSuccess(boolean success){
         this.success = success;
         return this;
@@ -27,11 +31,24 @@ public class MapResponse {
         return this;
     }
 
+    public MapResponse withArrayObject(Object object){
+        this.arrayObject = object;
+        return this;
+    }
+
+    public MapResponse withChildArrayObject(Object object){
+        this.childArrayObject = object;
+        return this;
+    }
+
     public Map<String,Object> response(){
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("success", success);
         map.put("message", message);
         map.put("object", object);
+        map.put("objectArray", arrayObject);
+        map.put("objectArrayChild", childArrayObject);
+
         return map;
     }
 }
