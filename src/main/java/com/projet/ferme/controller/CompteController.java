@@ -50,6 +50,11 @@ public class CompteController {
         return compteService.findAllSecondary();
     }
 
+    @RequestMapping(value = "/api/v1/compte/secondaryById/{id}", method = RequestMethod.GET)
+    public Map<String, Object> getCompteSecondaryByPrimaryCompteId(@PathVariable("id") Long id){
+        return compteService.findSecondaryByPrimary(id);
+    }
+
     @RequestMapping(value = "/api/v1/compte/primary/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> getPrimary(@PathVariable("id") Long id){
         return compteService.deletePrimary(id);

@@ -2,6 +2,7 @@ package com.projet.ferme.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.projet.ferme.entity.PrimaryCompte;
 import com.projet.ferme.entity.SecondaryCompte;
@@ -84,6 +85,7 @@ public class PrimarySecondaryCompteService {
 
     public Map<String, Object> deletePrimary(Long id){
         if (primaryCompteRepository.findById(id).isPresent()) {
+            primaryCompteRepository.deleteById(id);
             return new MapResponse().withSuccess(true)
                     .withMessage("Suppression réussit").response();
         } else {
@@ -94,6 +96,7 @@ public class PrimarySecondaryCompteService {
 
     public Map<String, Object> deleteSecondary(Long id){
         if (secondaryCompteRepository.findById(id).isPresent()) {
+            secondaryCompteRepository.deleteById(id);
             return new MapResponse().withSuccess(true)
                     .withMessage("Suppression réussit").response();
         } else {
@@ -112,5 +115,17 @@ public class PrimarySecondaryCompteService {
         List<SecondaryCompte> comptes = secondaryCompteRepository.findAll();
         return new MapResponse().withSuccess(true).withMessage("Enregistrements trouvés "+comptes.size())
         .withObject(comptes).response();
+    }
+
+    public Map<String, Object> findSecondaryByPrimary(Long id){
+        Optional<PrimaryCompte> compte = primaryCompteRepository.findById(id);
+        if (compte.isPresent()) {
+        List<SecondaryCompte> comptes = secondaryCompteRepository.findByPrimary_id(id);
+            return new MapResponse().withSuccess(true).withArrayObject(comptes)
+            .withObject(compte).withMessage(comptes.size()+" Enregistrement retrouvé").response();
+        } else {
+            return new MapResponse().withSuccess(false)
+                    .withMessage("Votre enregistrement n'est plus dans la base").response();
+        }
     }
 }
