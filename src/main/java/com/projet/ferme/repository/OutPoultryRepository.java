@@ -2,9 +2,9 @@ package com.projet.ferme.repository;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.projet.ferme.entity.outsubject.OutPoultry;
 
-import com.projet.ferme.entity.OutPoultry;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OutPoultryRepository extends JpaRepository<OutPoultry,Long>{
 

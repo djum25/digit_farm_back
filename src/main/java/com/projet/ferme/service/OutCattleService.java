@@ -7,9 +7,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.projet.ferme.entity.Cattle;
-import com.projet.ferme.entity.OutCattle;
-import com.projet.ferme.entity.User;
+import com.projet.ferme.entity.outsubject.OutCattle;
+import com.projet.ferme.entity.person.User;
+import com.projet.ferme.entity.subject.Cattle;
 import com.projet.ferme.repository.CattleRepository;
 import com.projet.ferme.repository.OutCattleRepository;
 

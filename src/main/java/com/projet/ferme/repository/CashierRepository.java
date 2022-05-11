@@ -3,9 +3,9 @@ package com.projet.ferme.repository;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.projet.ferme.entity.person.Cashier;
 
-import com.projet.ferme.entity.Cashier;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CashierRepository extends JpaRepository<Cashier, Long>{
 

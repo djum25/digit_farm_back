@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projet.ferme.entity.Product;
+import com.projet.ferme.entity.category.Product;
 import com.projet.ferme.service.ProductService;
 
 @RestController

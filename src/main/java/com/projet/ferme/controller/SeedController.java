@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projet.ferme.entity.Seed;
+import com.projet.ferme.entity.category.Seed;
 import com.projet.ferme.service.SeedService;
 
 @RestController

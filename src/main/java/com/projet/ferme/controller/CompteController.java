@@ -2,8 +2,8 @@ package com.projet.ferme.controller;
 
 import java.util.Map;
 
-import com.projet.ferme.entity.CategoryCompte;
-import com.projet.ferme.entity.Compte;
+import com.projet.ferme.entity.comptability.CategoryCompte;
+import com.projet.ferme.entity.comptability.Compte;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;

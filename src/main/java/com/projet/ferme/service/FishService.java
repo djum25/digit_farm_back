@@ -10,11 +10,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.projet.ferme.entity.Bowl;
-import com.projet.ferme.entity.Fish;
-import com.projet.ferme.entity.FishCategory;
 import com.projet.ferme.entity.calendars.CalendaryFish;
 import com.projet.ferme.entity.calendars.FishCalendaryMin;
+import com.projet.ferme.entity.category.FishCategory;
+import com.projet.ferme.entity.homesubject.Bowl;
+import com.projet.ferme.entity.subject.Fish;
 import com.projet.ferme.repository.BowlRepository;
 import com.projet.ferme.repository.CalendaryFishRepository;
 import com.projet.ferme.repository.FishCalendaryMinRepository;

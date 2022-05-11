@@ -7,7 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.projet.ferme.entity.PoultryCategory;
+import com.projet.ferme.entity.category.PoultryCategory;
 import com.projet.ferme.repository.PoultryCategoryRepository;
 
 @Service

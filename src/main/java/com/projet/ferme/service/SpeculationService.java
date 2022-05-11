@@ -11,11 +11,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.projet.ferme.entity.Planting;
-import com.projet.ferme.entity.Seed;
-import com.projet.ferme.entity.Speculation;
 import com.projet.ferme.entity.calendars.CalendarySpeculation;
 import com.projet.ferme.entity.calendars.SpeculationCalendaryMin;
+import com.projet.ferme.entity.category.Seed;
+import com.projet.ferme.entity.homesubject.Planting;
+import com.projet.ferme.entity.subject.Speculation;
 import com.projet.ferme.repository.CalendarySpeculationRepository;
 import com.projet.ferme.repository.SpeculationCalendaryMinRepository;
 import com.projet.ferme.repository.SpeculationRepository;

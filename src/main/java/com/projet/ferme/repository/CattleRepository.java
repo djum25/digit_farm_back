@@ -3,11 +3,11 @@ package com.projet.ferme.repository;
 import java.util.List;
 import java.util.Optional;
 
+import com.projet.ferme.entity.subject.Cattle;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.projet.ferme.entity.Cattle;
 
 public interface CattleRepository extends JpaRepository<Cattle,Long>{
 

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projet.ferme.entity.HarvestSpeculation;
-import com.projet.ferme.entity.Speculation;
+import com.projet.ferme.entity.outsubject.HarvestSpeculation;
+import com.projet.ferme.entity.subject.Speculation;
 import com.projet.ferme.service.HarvestSpeculationService;
 import com.projet.ferme.service.SpeculationService;
 

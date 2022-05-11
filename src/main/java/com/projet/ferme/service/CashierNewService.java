@@ -10,10 +10,10 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.projet.ferme.entity.Cashier;
-import com.projet.ferme.entity.CashierNew;
-import com.projet.ferme.entity.Shop;
-import com.projet.ferme.entity.User;
+import com.projet.ferme.entity.person.Cashier;
+import com.projet.ferme.entity.person.CashierNew;
+import com.projet.ferme.entity.person.User;
+import com.projet.ferme.entity.stocks.Shop;
 import com.projet.ferme.repository.CashierNewRepository;
 import com.projet.ferme.repository.CashierRepository;
 

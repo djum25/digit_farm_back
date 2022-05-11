@@ -1,13 +1,13 @@
 package com.projet.ferme.entity.calendars;
 
-import com.projet.ferme.entity.CattleCategory;
-import com.projet.ferme.entity.Fish;
-import com.projet.ferme.entity.FishCategory;
-import com.projet.ferme.entity.Poultry;
-import com.projet.ferme.entity.PoultryCategory;
-import com.projet.ferme.entity.Seed;
-import com.projet.ferme.entity.Speculation;
-import com.projet.ferme.entity.TreeCategory;
+import com.projet.ferme.entity.category.CattleCategory;
+import com.projet.ferme.entity.category.FishCategory;
+import com.projet.ferme.entity.category.PoultryCategory;
+import com.projet.ferme.entity.category.Seed;
+import com.projet.ferme.entity.category.TreeCategory;
+import com.projet.ferme.entity.subject.Fish;
+import com.projet.ferme.entity.subject.Poultry;
+import com.projet.ferme.entity.subject.Speculation;
 
 public class CalendarFrequency {
 

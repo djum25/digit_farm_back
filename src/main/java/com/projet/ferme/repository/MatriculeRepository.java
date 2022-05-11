@@ -1,8 +1,8 @@
 package com.projet.ferme.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.projet.ferme.entity.subject.Matricule;
 
-import com.projet.ferme.entity.Matricule;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MatriculeRepository extends JpaRepository<Matricule, Long>{
 

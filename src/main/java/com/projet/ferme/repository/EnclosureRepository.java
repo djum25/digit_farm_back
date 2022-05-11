@@ -1,8 +1,8 @@
 package com.projet.ferme.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.projet.ferme.entity.homesubject.Enclosure;
 
-import com.projet.ferme.entity.Enclosure;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface EnclosureRepository extends JpaRepository<Enclosure,Long>{
 

@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.projet.ferme.entity.IncomingStock;
-import com.projet.ferme.entity.User;
+import com.projet.ferme.entity.outsubject.IncomingStock;
+import com.projet.ferme.entity.person.User;
 import com.projet.ferme.repository.IncomingStockRepository;
 
 @Service

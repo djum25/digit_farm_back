@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projet.ferme.entity.Role;
-import com.projet.ferme.entity.User;
+import com.projet.ferme.entity.person.Role;
+import com.projet.ferme.entity.person.User;
 import com.projet.ferme.service.UserService;
 
 @RestController

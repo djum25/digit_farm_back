@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.projet.ferme.entity.CategoryCompte;
-import com.projet.ferme.entity.Compte;
-import com.projet.ferme.entity.Operation;
+import com.projet.ferme.entity.comptability.CategoryCompte;
+import com.projet.ferme.entity.comptability.Compte;
+import com.projet.ferme.entity.comptability.Operation;
 import com.projet.ferme.repository.CategoryCompteRepository;
 import com.projet.ferme.repository.CompteRepository;
 import com.projet.ferme.repository.OperationRepository;

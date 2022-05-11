@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projet.ferme.entity.Cashier;
-import com.projet.ferme.entity.Shop;
+import com.projet.ferme.entity.person.Cashier;
+import com.projet.ferme.entity.stocks.Shop;
 import com.projet.ferme.service.CashierNewService;
 import com.projet.ferme.service.CashierService;
 

@@ -5,7 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.projet.ferme.entity.User;
+import com.projet.ferme.entity.person.User;
 import com.projet.ferme.repository.UserRepository;
 
 @Service

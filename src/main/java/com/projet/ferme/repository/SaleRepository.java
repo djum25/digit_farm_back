@@ -1,8 +1,8 @@
 package com.projet.ferme.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.projet.ferme.entity.stocks.Sale;
 
-import com.projet.ferme.entity.Sale;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SaleRepository extends JpaRepository<Sale, Long>{
 

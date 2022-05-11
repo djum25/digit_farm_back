@@ -1,8 +1,8 @@
 package com.projet.ferme.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.projet.ferme.entity.person.CashierNew;
 
-import com.projet.ferme.entity.CashierNew;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CashierNewRepository extends JpaRepository<CashierNew, Long>{
 

@@ -10,8 +10,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.projet.ferme.entity.Poultry;
-import com.projet.ferme.entity.Speculation;
 import com.projet.ferme.entity.calendars.CalendarFrequency;
 import com.projet.ferme.entity.calendars.CalendaryPoultry;
 import com.projet.ferme.entity.calendars.CalendarySpeculation;
@@ -20,6 +18,8 @@ import com.projet.ferme.entity.calendars.FishCalendaryMin;
 import com.projet.ferme.entity.calendars.PoultryCalendaryMin;
 import com.projet.ferme.entity.calendars.SpeculationCalendaryMin;
 import com.projet.ferme.entity.calendars.TreeCalendaryMin;
+import com.projet.ferme.entity.subject.Poultry;
+import com.projet.ferme.entity.subject.Speculation;
 import com.projet.ferme.repository.CalendaryPoultryRepository;
 import com.projet.ferme.repository.CalendarySpeculationRepository;
 import com.projet.ferme.repository.CattleCalendaryMinRepository;

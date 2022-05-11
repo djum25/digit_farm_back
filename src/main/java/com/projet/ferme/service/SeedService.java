@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.projet.ferme.entity.Seed;
+
+import com.projet.ferme.entity.category.Seed;
 import com.projet.ferme.repository.SeedRepository;
 
 @Service

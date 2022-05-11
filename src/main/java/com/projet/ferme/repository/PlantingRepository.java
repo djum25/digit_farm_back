@@ -2,9 +2,9 @@ package com.projet.ferme.repository;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.projet.ferme.entity.homesubject.Planting;
 
-import com.projet.ferme.entity.Planting;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PlantingRepository extends JpaRepository<Planting, Long>{
 

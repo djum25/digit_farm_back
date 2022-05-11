@@ -3,9 +3,9 @@ package com.projet.ferme.repository;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.projet.ferme.entity.subject.Tree;
 
-import com.projet.ferme.entity.Tree;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TreeRepository extends JpaRepository<Tree,Long>{
 

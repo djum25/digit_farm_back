@@ -5,7 +5,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.projet.ferme.entity.Tree;
+import com.projet.ferme.entity.subject.Tree;
 
 @Entity
 @Table(name="tbl_calendary_tree")

@@ -10,11 +10,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.projet.ferme.entity.Planting;
-import com.projet.ferme.entity.Tree;
-import com.projet.ferme.entity.TreeCategory;
 import com.projet.ferme.entity.calendars.CalendaryTree;
 import com.projet.ferme.entity.calendars.TreeCalendaryMin;
+import com.projet.ferme.entity.category.TreeCategory;
+import com.projet.ferme.entity.homesubject.Planting;
+import com.projet.ferme.entity.subject.Tree;
 import com.projet.ferme.repository.CalendaryTreeRepository;
 import com.projet.ferme.repository.TreeCalendaryMinRepository;
 import com.projet.ferme.repository.TreeRepository;

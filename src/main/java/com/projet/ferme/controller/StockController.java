@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projet.ferme.entity.IncomingStock;
-import com.projet.ferme.entity.OutgoingStock;
+import com.projet.ferme.entity.outsubject.IncomingStock;
+import com.projet.ferme.entity.stocks.OutgoingStock;
 import com.projet.ferme.service.IncomingService;
 import com.projet.ferme.service.OutgoingService;
 

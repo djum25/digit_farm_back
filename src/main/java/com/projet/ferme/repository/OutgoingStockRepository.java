@@ -2,9 +2,9 @@ package com.projet.ferme.repository;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.projet.ferme.entity.stocks.OutgoingStock;
 
-import com.projet.ferme.entity.OutgoingStock;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OutgoingStockRepository extends JpaRepository<OutgoingStock, Long>{
 

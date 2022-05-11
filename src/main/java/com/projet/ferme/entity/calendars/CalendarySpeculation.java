@@ -5,7 +5,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.projet.ferme.entity.Speculation;
+import com.projet.ferme.entity.subject.Speculation;
 
 @Entity
 @Table(name="tbl_calendary_speculation")

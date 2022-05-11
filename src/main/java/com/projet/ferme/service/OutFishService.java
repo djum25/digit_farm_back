@@ -6,9 +6,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.projet.ferme.entity.Fish;
-import com.projet.ferme.entity.OutFish;
-import com.projet.ferme.entity.User;
+import com.projet.ferme.entity.outsubject.OutFish;
+import com.projet.ferme.entity.person.User;
+import com.projet.ferme.entity.subject.Fish;
 import com.projet.ferme.repository.FishRepository;
 import com.projet.ferme.repository.OutFishRepository;
 

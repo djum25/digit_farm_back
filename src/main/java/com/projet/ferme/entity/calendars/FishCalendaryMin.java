@@ -5,7 +5,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.projet.ferme.entity.FishCategory;
+import com.projet.ferme.entity.category.FishCategory;
 
 
 @Entity

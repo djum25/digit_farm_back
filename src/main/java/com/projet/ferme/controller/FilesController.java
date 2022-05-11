@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
-import com.projet.ferme.entity.FileInfo;
-import com.projet.ferme.entity.ResponseMessage;
+import com.projet.ferme.entity.utils.FileInfo;
+import com.projet.ferme.entity.utils.ResponseMessage;
 import com.projet.ferme.repository.FilesStorageService;
 
 @Controller

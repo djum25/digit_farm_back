@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projet.ferme.entity.Cattle;
-import com.projet.ferme.entity.OutCattle;
+import com.projet.ferme.entity.outsubject.OutCattle;
+import com.projet.ferme.entity.subject.Cattle;
 import com.projet.ferme.service.CattleService;
 import com.projet.ferme.service.OutCattleService;
 

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projet.ferme.entity.PoultryCategory;
+import com.projet.ferme.entity.category.PoultryCategory;
 import com.projet.ferme.service.CategoryPoultryService;
 
 @RestController

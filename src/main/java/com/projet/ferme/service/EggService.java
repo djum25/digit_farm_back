@@ -8,11 +8,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.projet.ferme.entity.Egg;
-import com.projet.ferme.entity.OutgoingStock;
-import com.projet.ferme.entity.Poultry;
-import com.projet.ferme.entity.PoultryCategory;
-import com.projet.ferme.entity.Sale;
+import com.projet.ferme.entity.category.PoultryCategory;
+import com.projet.ferme.entity.stocks.OutgoingStock;
+import com.projet.ferme.entity.stocks.Sale;
+import com.projet.ferme.entity.subject.Egg;
+import com.projet.ferme.entity.subject.Poultry;
 import com.projet.ferme.repository.EggRepository;
 import com.projet.ferme.repository.PoultryCategoryRepository;
 

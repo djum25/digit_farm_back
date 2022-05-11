@@ -1,8 +1,8 @@
 package com.projet.ferme.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.projet.ferme.entity.category.Seed;
 
-import com.projet.ferme.entity.Seed;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SeedRepository extends JpaRepository<Seed, Long>{
 

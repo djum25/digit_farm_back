@@ -3,10 +3,10 @@ package com.projet.ferme.repository;
 import java.util.List;
 import java.util.Optional;
 
+import com.projet.ferme.entity.subject.Fish;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-
-import com.projet.ferme.entity.Fish;
 
 @RepositoryRestResource(collectionResourceRel="fish", path="fishs")
 public interface FishRepository extends JpaRepository<Fish, Long>{

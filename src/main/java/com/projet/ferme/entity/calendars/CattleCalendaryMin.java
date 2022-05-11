@@ -5,7 +5,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.projet.ferme.entity.CattleCategory;
+import com.projet.ferme.entity.category.CattleCategory;
 
 @Entity
 @Table(name="tbl_cattle_calendar_min")

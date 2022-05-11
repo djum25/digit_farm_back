@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.projet.ferme.entity.Cashier;
-import com.projet.ferme.entity.OutgoingStock;
-import com.projet.ferme.entity.Sale;
-import com.projet.ferme.entity.Shop;
-import com.projet.ferme.entity.ShopStock;
-import com.projet.ferme.entity.User;
+import com.projet.ferme.entity.person.Cashier;
+import com.projet.ferme.entity.person.User;
+import com.projet.ferme.entity.stocks.OutgoingStock;
+import com.projet.ferme.entity.stocks.Sale;
+import com.projet.ferme.entity.stocks.Shop;
+import com.projet.ferme.entity.stocks.ShopStock;
 import com.projet.ferme.repository.CashierRepository;
 import com.projet.ferme.repository.OutgoingStockRepository;
 import com.projet.ferme.repository.ShopRepository;

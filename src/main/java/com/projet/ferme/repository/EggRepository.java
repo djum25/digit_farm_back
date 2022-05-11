@@ -2,9 +2,9 @@ package com.projet.ferme.repository;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.projet.ferme.entity.subject.Egg;
 
-import com.projet.ferme.entity.Egg;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface EggRepository extends JpaRepository<Egg, Long>{
 

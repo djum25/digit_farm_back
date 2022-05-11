@@ -5,7 +5,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.projet.ferme.entity.TreeCategory;
+import com.projet.ferme.entity.category.TreeCategory;
 
 @Entity
 @Table(name="tbl_tree_calendary_min")
