@@ -33,14 +33,14 @@ public class OperationController {
         return operationService.deleteOperation(id);
     }
 
-    @RequestMapping(value = "api/v1/operation/secondary/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "api/v1/operation/category/{id}", method = RequestMethod.GET)
     public Map<String, Object> getBySecondary(@PathVariable("id") Long id){
-        return operationService.findBySecondary(id);
+        return operationService.findByCategory(id);
     }
 
-    @RequestMapping(value = "api/v1/operation/primary/{id}", method = RequestMethod.GET)
-    public Map<String, Object> getByPrimary(@PathVariable("id") Long id){
-        return operationService.findByPrimary(id);
+    @RequestMapping(value = "api/v1/operation/compte/{id}", method = RequestMethod.GET)
+    public Map<String, Object> getByCompte(@PathVariable("id") Long id){
+        return operationService.findByCompte(id);
     }
 
     @RequestMapping(value = "api/v1/operation", method = RequestMethod.GET)

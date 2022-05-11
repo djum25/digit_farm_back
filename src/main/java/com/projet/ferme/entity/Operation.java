@@ -19,29 +19,13 @@ public class Operation extends TimeModel{
 
     private LocalDateTime date;
 
-    private Character subjectType;
-
-    private Long subjectId;
+    @ManyToOne
+    @JoinColumn(name = "compte_id")
+    private Compte compte;
 
     @ManyToOne
-    @JoinColumn(name = "secondary_id")
-    private SecondaryCompte secondary;
-
-    public Character getSubjectType() {
-        return subjectType;
-    }
-
-    public void setSubjectType(Character subjectType) {
-        this.subjectType = subjectType;
-    }
-
-    public Long getSubjectId() {
-        return subjectId;
-    }
-
-    public void setSubjectId(Long subjectId) {
-        this.subjectId = subjectId;
-    }
+    @JoinColumn(name = "category_id")
+    private CategoryCompte category;
 
     public String getLabel() {
         return label;
@@ -74,14 +58,4 @@ public class Operation extends TimeModel{
     public void setDate(LocalDateTime date) {
         this.date = date;
     }
-
-    public SecondaryCompte getSecondary() {
-        return secondary;
-    }
-
-    public void setSecondary(SecondaryCompte secondary) {
-        this.secondary = secondary;
-    }
-
-    
 }

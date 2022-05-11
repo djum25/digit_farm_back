@@ -3,14 +3,13 @@ package com.projet.ferme.service;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
+import com.projet.ferme.entity.CategoryCompte;
+import com.projet.ferme.entity.Compte;
 import com.projet.ferme.entity.Operation;
-import com.projet.ferme.entity.PrimaryCompte;
-import com.projet.ferme.entity.SecondaryCompte;
+import com.projet.ferme.repository.CategoryCompteRepository;
+import com.projet.ferme.repository.CompteRepository;
 import com.projet.ferme.repository.OperationRepository;
-import com.projet.ferme.repository.PrimaryCompteRepository;
-import com.projet.ferme.repository.SecondaryCompteRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,9 +20,9 @@ public class OperationService {
     @Autowired
     private OperationRepository operationRepository;
     @Autowired
-    private SecondaryCompteRepository secondaryCompteRepository;
+    private CategoryCompteRepository categoryCompteRepository;
     @Autowired
-    private PrimaryCompteRepository primaryCompteRepository;
+    private CompteRepository CompteRepository;
 
     public Map<String, Object> addOperation(Operation operation){
 
@@ -70,13 +69,14 @@ public class OperationService {
 
         List<Operation> operations = operationRepository.findAll();
         return new MapResponse().withSuccess(true)
+        .withObject(operations)
         .withMessage(operations.size()+" enregistrements retrouvé").response();
     }
 
-    public Map<String, Object> findBySecondary(Long id){
-        Optional<SecondaryCompte> compte = secondaryCompteRepository.findById(id);
+    public Map<String, Object> findByCompte(Long id){
+        Optional<Compte> compte = CompteRepository.findById(id);
         if (compte.isPresent()) {
-            List<Operation> operations = operationRepository.findBySecondary_id(id);
+            List<Operation> operations = operationRepository.findByCompte_id(id);
             return new MapResponse().withSuccess(true)
             .withMessage(operations.size()+" enregistrement retrouvé")
             .withObject(compte.get()).withArrayObject(operations).response();
@@ -86,15 +86,12 @@ public class OperationService {
         }
     }
 
-    public Map<String, Object> findByPrimary(Long id){
-        Optional<PrimaryCompte> compte = primaryCompteRepository.findById(id);
+    public Map<String, Object> findByCategory(Long id){
+        Optional<CategoryCompte> compte = categoryCompteRepository.findById(id);
         if (compte.isPresent()) {
-            List<SecondaryCompte> comptes = secondaryCompteRepository.findByPrimary_id(id);
-            List<Operation> operations = operationRepository.findAll();
-            operations = operations.stream().filter(object -> comptes.contains(object.getSecondary()))
-            .collect(Collectors.toList());
+            List<Operation> operations = operationRepository.findByCategory_id(id);
             return new MapResponse().withSuccess(true).withObject(compte.get())
-            .withArrayObject(comptes).withChildArrayObject(operations)
+            .withArrayObject(operations)
             .withMessage(operations.size()+" enregistrement réussit").response();
         } else {
             return new MapResponse().withSuccess(false)
