@@ -17,6 +17,9 @@ public class Planting extends LocalModel{
 	@OneToMany(cascade=CascadeType.ALL,mappedBy="planting")
 	private Set<Tree> tree;
 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "planting")
+	private Set<UseFor> useFor;
+
 	/*
 	 * public Set<Speculation> getSpeculation() { return speculation; }
 	 */

@@ -16,6 +16,9 @@ public class Bowl extends LocalModel{
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="bowl")
 	private Set<Fish> fish;
 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "bowl")
+	private Set<UseFor> useFor;
+
 	public int getDepth() {
 		return depth;
 	}

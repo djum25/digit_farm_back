@@ -13,6 +13,10 @@ public class Enclosure extends LocalModel{
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="enclosure")
 	private Set<Cattle> cattle;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "enclosure")
+	private Set<UseFor> useFor;
+
 	/*
 	 * public Set<Cattle> getCattle() { return cattle; }
 	 */
