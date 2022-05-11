@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,6 +19,9 @@ public class Operation extends TimeModel{
     private int amount;
 
     private LocalDateTime date;
+
+    @OneToOne(optional=false, mappedBy="operationUseFor")
+    private UseFor useFor;
 
     @ManyToOne
     @JoinColumn(name = "compte_id")

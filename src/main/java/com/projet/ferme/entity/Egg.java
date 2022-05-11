@@ -12,7 +12,7 @@ public class Egg extends TimeModel{
 	private int quantity;
 	
 	private String destination;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "poultry_id")
 	private Poultry poultry;
@@ -40,6 +40,4 @@ public class Egg extends TimeModel{
 	public void setPoultry(Poultry poultry) {
 		this.poultry = poultry;
 	}
-	
-	
 }
