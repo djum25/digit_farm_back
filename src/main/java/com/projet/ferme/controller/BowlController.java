@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projet.ferme.entity.homesubject.Bowl;
-import com.projet.ferme.service.BowlService;
+import com.projet.ferme.service.homesubject.BowlService;
 
 @RestController
 public class BowlController {

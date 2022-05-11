@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projet.ferme.entity.category.Product;
-import com.projet.ferme.service.ProductService;
+import com.projet.ferme.service.category.ProductService;
 
 @RestController
 public class ProductController {

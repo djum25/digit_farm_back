@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projet.ferme.entity.category.Seed;
-import com.projet.ferme.service.SeedService;
+import com.projet.ferme.service.category.SeedService;
 
 @RestController
 public class SeedController {

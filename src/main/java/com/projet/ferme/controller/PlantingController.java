@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projet.ferme.entity.homesubject.Planting;
-import com.projet.ferme.service.PlantingService;
+import com.projet.ferme.service.homesubject.PlantingService;
 
 @RestController
 public class PlantingController {

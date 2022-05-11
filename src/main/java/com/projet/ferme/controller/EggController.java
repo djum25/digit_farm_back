@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projet.ferme.entity.subject.Egg;
-import com.projet.ferme.service.EggService;
+import com.projet.ferme.service.subject.EggService;
 
 @RestController
 public class EggController {

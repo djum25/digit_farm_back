@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projet.ferme.entity.category.CattleCategory;
-import com.projet.ferme.service.CategoryCattleService;
+import com.projet.ferme.service.category.CategoryCattleService;
 
 @RestController
 public class CategoryCattleController {

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.projet.ferme.entity.outsubject.HarvestSpeculation;
 import com.projet.ferme.entity.subject.Speculation;
-import com.projet.ferme.service.HarvestSpeculationService;
-import com.projet.ferme.service.SpeculationService;
+import com.projet.ferme.service.outsubject.HarvestSpeculationService;
+import com.projet.ferme.service.subject.SpeculationService;
 
 @RestController
 public class FarmingController {

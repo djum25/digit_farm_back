@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.projet.ferme.entity.person.Role;
 import com.projet.ferme.entity.person.User;
-import com.projet.ferme.service.UserService;
+import com.projet.ferme.service.person.UserService;
 
 @RestController
 public class UserController {

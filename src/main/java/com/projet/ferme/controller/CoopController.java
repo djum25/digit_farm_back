@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projet.ferme.entity.homesubject.ChickenCoop;
-import com.projet.ferme.service.ChickenCoopService;
+import com.projet.ferme.service.homesubject.ChickenCoopService;
 
 @RestController
 public class CoopController {

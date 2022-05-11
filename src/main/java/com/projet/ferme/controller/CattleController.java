@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.projet.ferme.entity.outsubject.OutCattle;
 import com.projet.ferme.entity.subject.Cattle;
-import com.projet.ferme.service.CattleService;
-import com.projet.ferme.service.OutCattleService;
+import com.projet.ferme.service.outsubject.OutCattleService;
+import com.projet.ferme.service.subject.CattleService;
 
 @RestController
 public class CattleController {

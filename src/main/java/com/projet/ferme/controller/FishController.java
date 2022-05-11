@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.projet.ferme.entity.calendars.CalendaryFish;
 import com.projet.ferme.entity.subject.Fish;
-import com.projet.ferme.service.CalendaryFishService;
-import com.projet.ferme.service.FishService;
+import com.projet.ferme.service.calendars.CalendaryFishService;
+import com.projet.ferme.service.subject.FishService;
 
 @RestController
 public class FishController {

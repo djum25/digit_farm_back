@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.projet.ferme.entity.person.Cashier;
 import com.projet.ferme.entity.stocks.Shop;
-import com.projet.ferme.service.CashierNewService;
-import com.projet.ferme.service.CashierService;
+import com.projet.ferme.service.person.CashierNewService;
+import com.projet.ferme.service.person.CashierService;
 
 @RestController
 public class CashierController {

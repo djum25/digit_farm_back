@@ -3,7 +3,7 @@ package com.projet.ferme.controller;
 import java.util.Map;
 
 import com.projet.ferme.entity.comptability.Operation;
-import com.projet.ferme.service.OperationService;
+import com.projet.ferme.service.comptability.OperationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;

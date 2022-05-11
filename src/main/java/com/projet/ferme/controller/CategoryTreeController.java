@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projet.ferme.entity.category.TreeCategory;
-import com.projet.ferme.service.CategoryTreeService;
+import com.projet.ferme.service.category.CategoryTreeService;
 
 @RestController
 public class CategoryTreeController {

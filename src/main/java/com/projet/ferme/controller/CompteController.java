@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CompteController {
     
     @Autowired
-    private com.projet.ferme.service.compteService compteService;
+    private com.projet.ferme.service.comptability.compteService compteService;
 
     @RequestMapping(value="/api/v1/compte", method=RequestMethod.POST)
     public Map<String,Object> addCompte(@RequestBody Compte compte) {

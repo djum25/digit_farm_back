@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.projet.ferme.entity.outsubject.IncomingStock;
 import com.projet.ferme.entity.stocks.OutgoingStock;
-import com.projet.ferme.service.IncomingService;
-import com.projet.ferme.service.OutgoingService;
+import com.projet.ferme.service.outsubject.IncomingService;
+import com.projet.ferme.service.outsubject.OutgoingService;
 
 @RestController
 public class StockController {

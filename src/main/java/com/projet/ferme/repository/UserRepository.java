@@ -14,6 +14,9 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	
 	 Optional<User> findByUsername(String username);
 
+	 
+
+
 	//@PostMapping
 	//List<User> findByUsernameAndPassword(@Param("username") String username,@Param("password") String password);
 }

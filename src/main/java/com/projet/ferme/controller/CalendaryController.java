@@ -19,11 +19,11 @@ import com.projet.ferme.entity.calendars.FishCalendaryMin;
 import com.projet.ferme.entity.calendars.PoultryCalendaryMin;
 import com.projet.ferme.entity.calendars.SpeculationCalendaryMin;
 import com.projet.ferme.entity.calendars.TreeCalendaryMin;
-import com.projet.ferme.service.CalendaryCattleService;
-import com.projet.ferme.service.CalendaryFishService;
-import com.projet.ferme.service.CalendaryPoultryService;
-import com.projet.ferme.service.CalendarySpeculationService;
-import com.projet.ferme.service.CalendaryTreeService;
+import com.projet.ferme.service.calendars.CalendaryCattleService;
+import com.projet.ferme.service.calendars.CalendaryFishService;
+import com.projet.ferme.service.calendars.CalendaryPoultryService;
+import com.projet.ferme.service.calendars.CalendarySpeculationService;
+import com.projet.ferme.service.calendars.CalendaryTreeService;
 
 @RestController
 public class CalendaryController {

@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.projet.ferme.entity.outsubject.OutPoultry;
 import com.projet.ferme.entity.subject.Poultry;
-import com.projet.ferme.service.ChickenCoopService;
-import com.projet.ferme.service.OutPoultryService;
-import com.projet.ferme.service.PoultryService;
+import com.projet.ferme.service.homesubject.ChickenCoopService;
+import com.projet.ferme.service.outsubject.OutPoultryService;
+import com.projet.ferme.service.subject.PoultryService;
 
 @RestController
 public class PoultryController {

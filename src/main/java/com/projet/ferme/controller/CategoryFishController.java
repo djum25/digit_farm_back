@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projet.ferme.entity.category.FishCategory;
-import com.projet.ferme.service.CategoryFishService;
+import com.projet.ferme.service.category.CategoryFishService;
 
 @RestController
 public class CategoryFishController {

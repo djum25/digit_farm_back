@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projet.ferme.entity.homesubject.Enclosure;
-import com.projet.ferme.service.EnclosureService;
+import com.projet.ferme.service.homesubject.EnclosureService;
 
 @RestController
 public class EnclosureController {
