@@ -8,10 +8,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.projet.ferme.entity.CalendaryTree;
 import com.projet.ferme.entity.Tree;
-import com.projet.ferme.entity.TreeCalendaryMin;
 import com.projet.ferme.entity.TreeCategory;
+import com.projet.ferme.entity.calendars.CalendaryTree;
+import com.projet.ferme.entity.calendars.TreeCalendaryMin;
 import com.projet.ferme.repository.CalendaryTreeRepository;
 import com.projet.ferme.repository.TreeCalendaryMinRepository;
 import com.projet.ferme.repository.TreeCategoryRepository;

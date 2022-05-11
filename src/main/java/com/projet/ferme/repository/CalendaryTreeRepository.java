@@ -2,9 +2,9 @@ package com.projet.ferme.repository;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.projet.ferme.entity.calendars.CalendaryTree;
 
-import com.projet.ferme.entity.CalendaryTree;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CalendaryTreeRepository extends JpaRepository<CalendaryTree, Long>{
 

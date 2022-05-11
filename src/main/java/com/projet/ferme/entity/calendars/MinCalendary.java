@@ -1,6 +1,8 @@
-package com.projet.ferme.entity;
+package com.projet.ferme.entity.calendars;
 
 import javax.persistence.MappedSuperclass;
+
+import com.projet.ferme.entity.TimeModel;
 
 @MappedSuperclass
 public class MinCalendary extends TimeModel{

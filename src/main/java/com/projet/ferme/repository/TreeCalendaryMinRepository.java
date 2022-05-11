@@ -2,9 +2,9 @@ package com.projet.ferme.repository;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.projet.ferme.entity.calendars.TreeCalendaryMin;
 
-import com.projet.ferme.entity.TreeCalendaryMin;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TreeCalendaryMinRepository extends JpaRepository<TreeCalendaryMin, Long>{
 

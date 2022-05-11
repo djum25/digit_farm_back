@@ -2,9 +2,9 @@ package com.projet.ferme.repository;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.projet.ferme.entity.calendars.PoultryCalendaryMin;
 
-import com.projet.ferme.entity.PoultryCalendaryMin;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PoultryCalendaryMinRepository extends JpaRepository<PoultryCalendaryMin, Long>{
 

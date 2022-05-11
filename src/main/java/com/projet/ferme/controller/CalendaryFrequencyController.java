@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projet.ferme.entity.CalendarFrequency;
+import com.projet.ferme.entity.calendars.CalendarFrequency;
 import com.projet.ferme.service.CalendaryFrequencyService;
 
 @RestController

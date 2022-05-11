@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.projet.ferme.entity.calendars.TreeCalendaryMin;
+
 @Entity
 @Table(name="tbl_tree_category")
 public class TreeCategory extends Category{

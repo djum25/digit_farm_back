@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.projet.ferme.entity.calendars.CalendarySpeculation;
+
 @Entity
 @Table(name="tbl_speculation")
 public class Speculation extends TimeModel{

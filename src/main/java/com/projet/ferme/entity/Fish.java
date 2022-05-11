@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.projet.ferme.entity.calendars.CalendaryFish;
+
 @Entity
 @Table(name="tbl_fish")
 public class Fish extends TimeModel{

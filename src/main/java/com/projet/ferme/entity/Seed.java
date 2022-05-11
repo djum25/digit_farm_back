@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.projet.ferme.entity.calendars.SpeculationCalendaryMin;
+
 @Entity
 @Table(name="tbl_seed")
 public class Seed extends TimeModel{

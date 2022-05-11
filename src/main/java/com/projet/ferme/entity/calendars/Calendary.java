@@ -1,8 +1,10 @@
-package com.projet.ferme.entity;
+package com.projet.ferme.entity.calendars;
 
 import java.sql.Date;
 
 import javax.persistence.MappedSuperclass;
+
+import com.projet.ferme.entity.TimeModel;
 
 @MappedSuperclass
 public class Calendary extends TimeModel{

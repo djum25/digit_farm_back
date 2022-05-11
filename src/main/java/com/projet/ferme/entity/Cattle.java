@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.projet.ferme.entity.calendars.CalendaryCattle;
+
 @Entity
 @Table(name="tbl_cattle")
 public class Cattle extends TimeModel{

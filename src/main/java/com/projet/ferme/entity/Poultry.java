@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.projet.ferme.entity.calendars.CalendaryPoultry;
+
 @Entity
 @Table(name="tbl_poultry")
 public class Poultry extends TimeModel{

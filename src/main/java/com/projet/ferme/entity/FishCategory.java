@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.projet.ferme.entity.calendars.FishCalendaryMin;
+
 @Entity
 @Table(name="tbl_fish_category")
 public class FishCategory extends Category{

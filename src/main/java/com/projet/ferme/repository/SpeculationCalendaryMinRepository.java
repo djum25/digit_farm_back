@@ -2,9 +2,9 @@ package com.projet.ferme.repository;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.projet.ferme.entity.calendars.SpeculationCalendaryMin;
 
-import com.projet.ferme.entity.SpeculationCalendaryMin;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SpeculationCalendaryMinRepository extends JpaRepository<SpeculationCalendaryMin, Long>{
 

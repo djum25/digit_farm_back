@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projet.ferme.entity.CalendaryFish;
 import com.projet.ferme.entity.Fish;
+import com.projet.ferme.entity.calendars.CalendaryFish;
 import com.projet.ferme.service.CalendaryFishService;
 import com.projet.ferme.service.FishService;
 

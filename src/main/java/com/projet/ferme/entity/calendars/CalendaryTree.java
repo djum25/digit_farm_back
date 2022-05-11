@@ -1,9 +1,11 @@
-package com.projet.ferme.entity;
+package com.projet.ferme.entity.calendars;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.projet.ferme.entity.Tree;
 
 @Entity
 @Table(name="tbl_calendary_tree")
