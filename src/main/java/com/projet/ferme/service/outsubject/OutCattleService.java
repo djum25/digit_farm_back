@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import com.projet.ferme.entity.outsubject.OutCattle;
 import com.projet.ferme.entity.person.User;
 import com.projet.ferme.entity.subject.Cattle;
-import com.projet.ferme.repository.CattleRepository;
-import com.projet.ferme.repository.OutCattleRepository;
+import com.projet.ferme.repository.outsubject.OutCattleRepository;
+import com.projet.ferme.repository.subject.CattleRepository;
 import com.projet.ferme.service.utile.EnvironmentService;
 
 @Service

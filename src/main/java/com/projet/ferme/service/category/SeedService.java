@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.projet.ferme.entity.category.Seed;
-import com.projet.ferme.repository.SeedRepository;
+import com.projet.ferme.repository.category.SeedRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

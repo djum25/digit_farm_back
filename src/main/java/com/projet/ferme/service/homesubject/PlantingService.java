@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.projet.ferme.entity.homesubject.Planting;
-import com.projet.ferme.repository.PlantingRepository;
+import com.projet.ferme.repository.homesubject.PlantingRepository;
 
 @Service
 public class PlantingService {

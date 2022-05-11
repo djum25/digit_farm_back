@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.projet.ferme.entity.outsubject.IncomingStock;
 import com.projet.ferme.entity.person.User;
-import com.projet.ferme.repository.IncomingStockRepository;
+import com.projet.ferme.repository.stocks.IncomingStockRepository;
 import com.projet.ferme.service.utile.EnvironmentService;
 
 @Service

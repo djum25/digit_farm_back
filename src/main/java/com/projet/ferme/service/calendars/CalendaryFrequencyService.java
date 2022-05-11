@@ -20,13 +20,13 @@ import com.projet.ferme.entity.calendars.SpeculationCalendaryMin;
 import com.projet.ferme.entity.calendars.TreeCalendaryMin;
 import com.projet.ferme.entity.subject.Poultry;
 import com.projet.ferme.entity.subject.Speculation;
-import com.projet.ferme.repository.CalendaryPoultryRepository;
-import com.projet.ferme.repository.CalendarySpeculationRepository;
-import com.projet.ferme.repository.CattleCalendaryMinRepository;
-import com.projet.ferme.repository.FishCalendaryMinRepository;
-import com.projet.ferme.repository.PoultryCalendaryMinRepository;
-import com.projet.ferme.repository.SpeculationCalendaryMinRepository;
-import com.projet.ferme.repository.TreeCalendaryMinRepository;
+import com.projet.ferme.repository.calendars.CalendaryPoultryRepository;
+import com.projet.ferme.repository.calendars.CalendarySpeculationRepository;
+import com.projet.ferme.repository.calendars.CattleCalendaryMinRepository;
+import com.projet.ferme.repository.calendars.FishCalendaryMinRepository;
+import com.projet.ferme.repository.calendars.PoultryCalendaryMinRepository;
+import com.projet.ferme.repository.calendars.SpeculationCalendaryMinRepository;
+import com.projet.ferme.repository.calendars.TreeCalendaryMinRepository;
 
 @Service
 public class CalendaryFrequencyService {

@@ -14,8 +14,8 @@ import com.projet.ferme.entity.person.Cashier;
 import com.projet.ferme.entity.person.CashierNew;
 import com.projet.ferme.entity.person.User;
 import com.projet.ferme.entity.stocks.Shop;
-import com.projet.ferme.repository.CashierNewRepository;
-import com.projet.ferme.repository.CashierRepository;
+import com.projet.ferme.repository.person.CashierNewRepository;
+import com.projet.ferme.repository.person.CashierRepository;
 
 @Service
 public class CashierNewService {

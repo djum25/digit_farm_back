@@ -18,11 +18,11 @@ import com.projet.ferme.entity.stocks.OutgoingStock;
 import com.projet.ferme.entity.stocks.Sale;
 import com.projet.ferme.entity.stocks.Shop;
 import com.projet.ferme.entity.stocks.ShopStock;
-import com.projet.ferme.repository.CashierRepository;
-import com.projet.ferme.repository.OutgoingStockRepository;
-import com.projet.ferme.repository.ShopRepository;
-import com.projet.ferme.repository.ShopStockRepository;
-import com.projet.ferme.repository.UserRepository;
+import com.projet.ferme.repository.person.CashierRepository;
+import com.projet.ferme.repository.person.UserRepository;
+import com.projet.ferme.repository.stocks.OutgoingStockRepository;
+import com.projet.ferme.repository.stocks.ShopRepository;
+import com.projet.ferme.repository.stocks.ShopStockRepository;
 import com.projet.ferme.service.comptability.SaleService;
 import com.projet.ferme.service.utile.EnvironmentService;
 

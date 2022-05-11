@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.projet.ferme.config.JwtTokenUtil;
 import com.projet.ferme.entity.person.User;
 import com.projet.ferme.entity.utils.JwtRequest;
-import com.projet.ferme.repository.UserRepository;
+import com.projet.ferme.repository.person.UserRepository;
 
 @RestController
 public class JwtAuthenticationController {

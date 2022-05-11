@@ -13,8 +13,8 @@ import com.projet.ferme.entity.stocks.OutgoingStock;
 import com.projet.ferme.entity.stocks.Sale;
 import com.projet.ferme.entity.subject.Egg;
 import com.projet.ferme.entity.subject.Poultry;
-import com.projet.ferme.repository.EggRepository;
-import com.projet.ferme.repository.PoultryCategoryRepository;
+import com.projet.ferme.repository.category.PoultryCategoryRepository;
+import com.projet.ferme.repository.subject.EggRepository;
 import com.projet.ferme.service.comptability.SaleService;
 import com.projet.ferme.service.outsubject.OutgoingService;
 

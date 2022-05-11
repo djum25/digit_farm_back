@@ -12,10 +12,10 @@ import com.projet.ferme.entity.calendars.CalendarySpeculation;
 import com.projet.ferme.entity.calendars.SpeculationCalendaryMin;
 import com.projet.ferme.entity.category.Seed;
 import com.projet.ferme.entity.subject.Speculation;
-import com.projet.ferme.repository.CalendarySpeculationRepository;
-import com.projet.ferme.repository.SeedRepository;
-import com.projet.ferme.repository.SpeculationCalendaryMinRepository;
-import com.projet.ferme.repository.SpeculationRepository;
+import com.projet.ferme.repository.calendars.CalendarySpeculationRepository;
+import com.projet.ferme.repository.calendars.SpeculationCalendaryMinRepository;
+import com.projet.ferme.repository.category.SeedRepository;
+import com.projet.ferme.repository.subject.SpeculationRepository;
 
 @Service
 public class CalendarySpeculationService {

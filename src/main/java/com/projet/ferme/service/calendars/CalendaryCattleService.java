@@ -12,10 +12,10 @@ import com.projet.ferme.entity.calendars.CalendaryCattle;
 import com.projet.ferme.entity.calendars.CattleCalendaryMin;
 import com.projet.ferme.entity.category.CattleCategory;
 import com.projet.ferme.entity.subject.Cattle;
-import com.projet.ferme.repository.CalendaryCattleRepository;
-import com.projet.ferme.repository.CattleCalendaryMinRepository;
-import com.projet.ferme.repository.CattleCategoryRepository;
-import com.projet.ferme.repository.CattleRepository;
+import com.projet.ferme.repository.calendars.CalendaryCattleRepository;
+import com.projet.ferme.repository.calendars.CattleCalendaryMinRepository;
+import com.projet.ferme.repository.category.CattleCategoryRepository;
+import com.projet.ferme.repository.subject.CattleRepository;
 
 @Service
 public class CalendaryCattleService {

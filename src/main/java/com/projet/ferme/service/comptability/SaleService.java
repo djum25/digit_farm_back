@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.projet.ferme.entity.stocks.Sale;
-import com.projet.ferme.repository.SaleRepository;
+import com.projet.ferme.repository.stocks.SaleRepository;
 
 @Service
 public class SaleService {

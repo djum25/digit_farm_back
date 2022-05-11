@@ -15,9 +15,9 @@ import com.projet.ferme.entity.calendars.TreeCalendaryMin;
 import com.projet.ferme.entity.category.TreeCategory;
 import com.projet.ferme.entity.homesubject.Planting;
 import com.projet.ferme.entity.subject.Tree;
-import com.projet.ferme.repository.CalendaryTreeRepository;
-import com.projet.ferme.repository.TreeCalendaryMinRepository;
-import com.projet.ferme.repository.TreeRepository;
+import com.projet.ferme.repository.calendars.CalendaryTreeRepository;
+import com.projet.ferme.repository.calendars.TreeCalendaryMinRepository;
+import com.projet.ferme.repository.subject.TreeRepository;
 import com.projet.ferme.service.category.CategoryTreeService;
 import com.projet.ferme.service.homesubject.PlantingService;
 

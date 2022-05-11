@@ -12,10 +12,10 @@ import com.projet.ferme.entity.calendars.CalendaryFish;
 import com.projet.ferme.entity.calendars.FishCalendaryMin;
 import com.projet.ferme.entity.category.FishCategory;
 import com.projet.ferme.entity.subject.Fish;
-import com.projet.ferme.repository.CalendaryFishRepository;
-import com.projet.ferme.repository.FishCalendaryMinRepository;
-import com.projet.ferme.repository.FishCategoryRepository;
-import com.projet.ferme.repository.FishRepository;
+import com.projet.ferme.repository.calendars.CalendaryFishRepository;
+import com.projet.ferme.repository.calendars.FishCalendaryMinRepository;
+import com.projet.ferme.repository.category.FishCategoryRepository;
+import com.projet.ferme.repository.subject.FishRepository;
 
 @Service
 public class CalendaryFishService {

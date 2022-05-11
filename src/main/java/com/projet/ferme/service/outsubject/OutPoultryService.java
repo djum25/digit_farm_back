@@ -12,8 +12,8 @@ import com.projet.ferme.entity.outsubject.OutPoultry;
 import com.projet.ferme.entity.person.User;
 import com.projet.ferme.entity.stocks.OutgoingStock;
 import com.projet.ferme.entity.subject.Poultry;
-import com.projet.ferme.repository.OutPoultryRepository;
-import com.projet.ferme.repository.PoultryRepository;
+import com.projet.ferme.repository.outsubject.OutPoultryRepository;
+import com.projet.ferme.repository.subject.PoultryRepository;
 import com.projet.ferme.service.utile.EnvironmentService;
 
 @Service

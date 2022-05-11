@@ -12,10 +12,10 @@ import com.projet.ferme.entity.calendars.CalendaryTree;
 import com.projet.ferme.entity.calendars.TreeCalendaryMin;
 import com.projet.ferme.entity.category.TreeCategory;
 import com.projet.ferme.entity.subject.Tree;
-import com.projet.ferme.repository.CalendaryTreeRepository;
-import com.projet.ferme.repository.TreeCalendaryMinRepository;
-import com.projet.ferme.repository.TreeCategoryRepository;
-import com.projet.ferme.repository.TreeRepository;
+import com.projet.ferme.repository.calendars.CalendaryTreeRepository;
+import com.projet.ferme.repository.calendars.TreeCalendaryMinRepository;
+import com.projet.ferme.repository.category.TreeCategoryRepository;
+import com.projet.ferme.repository.subject.TreeRepository;
 
 @Service
 public class CalendaryTreeService {

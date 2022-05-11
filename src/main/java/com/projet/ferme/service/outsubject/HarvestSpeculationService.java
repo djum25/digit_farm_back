@@ -12,8 +12,8 @@ import com.projet.ferme.entity.outsubject.HarvestSpeculation;
 import com.projet.ferme.entity.person.User;
 import com.projet.ferme.entity.stocks.OutgoingStock;
 import com.projet.ferme.entity.subject.Speculation;
-import com.projet.ferme.repository.HarvestSpeculationRepository;
-import com.projet.ferme.repository.SpeculationRepository;
+import com.projet.ferme.repository.outsubject.HarvestSpeculationRepository;
+import com.projet.ferme.repository.subject.SpeculationRepository;
 import com.projet.ferme.service.utile.EnvironmentService;
 
 @Service

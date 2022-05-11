@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.projet.ferme.entity.category.CattleCategory;
-import com.projet.ferme.repository.CattleCategoryRepository;
+import com.projet.ferme.repository.category.CattleCategoryRepository;
 
 @Service
 public class CategoryCattleService {

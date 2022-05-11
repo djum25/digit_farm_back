@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.projet.ferme.entity.homesubject.Bowl;
-import com.projet.ferme.repository.BowlRepository;
+import com.projet.ferme.repository.homesubject.BowlRepository;
 
 @Service
 public class BowlService {

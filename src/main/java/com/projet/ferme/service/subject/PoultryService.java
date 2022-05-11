@@ -15,10 +15,10 @@ import com.projet.ferme.entity.calendars.PoultryCalendaryMin;
 import com.projet.ferme.entity.category.PoultryCategory;
 import com.projet.ferme.entity.homesubject.ChickenCoop;
 import com.projet.ferme.entity.subject.Poultry;
-import com.projet.ferme.repository.CalendaryPoultryRepository;
-import com.projet.ferme.repository.ChikenCoopRepository;
-import com.projet.ferme.repository.PoultryCalendaryMinRepository;
-import com.projet.ferme.repository.PoultryRepository;
+import com.projet.ferme.repository.calendars.CalendaryPoultryRepository;
+import com.projet.ferme.repository.calendars.PoultryCalendaryMinRepository;
+import com.projet.ferme.repository.homesubject.ChikenCoopRepository;
+import com.projet.ferme.repository.subject.PoultryRepository;
 import com.projet.ferme.service.category.CategoryPoultryService;
 
 @Service

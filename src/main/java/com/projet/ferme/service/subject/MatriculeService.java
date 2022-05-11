@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.projet.ferme.entity.subject.Matricule;
-import com.projet.ferme.repository.MatriculeRepository;
+import com.projet.ferme.repository.subject.MatriculeRepository;
 
 @Service
 public class MatriculeService {

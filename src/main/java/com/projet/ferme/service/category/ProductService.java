@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.projet.ferme.entity.category.Product;
-import com.projet.ferme.repository.ProductRepository;
+import com.projet.ferme.repository.category.ProductRepository;
 import com.projet.ferme.service.outsubject.IncomingService;
 
 @Service

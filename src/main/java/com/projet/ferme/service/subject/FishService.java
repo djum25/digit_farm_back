@@ -15,10 +15,10 @@ import com.projet.ferme.entity.calendars.FishCalendaryMin;
 import com.projet.ferme.entity.category.FishCategory;
 import com.projet.ferme.entity.homesubject.Bowl;
 import com.projet.ferme.entity.subject.Fish;
-import com.projet.ferme.repository.BowlRepository;
-import com.projet.ferme.repository.CalendaryFishRepository;
-import com.projet.ferme.repository.FishCalendaryMinRepository;
-import com.projet.ferme.repository.FishRepository;
+import com.projet.ferme.repository.calendars.CalendaryFishRepository;
+import com.projet.ferme.repository.calendars.FishCalendaryMinRepository;
+import com.projet.ferme.repository.homesubject.BowlRepository;
+import com.projet.ferme.repository.subject.FishRepository;
 import com.projet.ferme.service.category.CategoryFishService;
 
 @Service

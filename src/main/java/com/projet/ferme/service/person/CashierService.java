@@ -15,10 +15,10 @@ import com.projet.ferme.entity.person.Cashier;
 import com.projet.ferme.entity.person.User;
 import com.projet.ferme.entity.stocks.Sale;
 import com.projet.ferme.entity.stocks.Shop;
-import com.projet.ferme.repository.CashierRepository;
-import com.projet.ferme.repository.SaleRepository;
-import com.projet.ferme.repository.ShopRepository;
-import com.projet.ferme.repository.UserRepository;
+import com.projet.ferme.repository.person.CashierRepository;
+import com.projet.ferme.repository.person.UserRepository;
+import com.projet.ferme.repository.stocks.SaleRepository;
+import com.projet.ferme.repository.stocks.ShopRepository;
 
 @Service
 public class CashierService {

@@ -6,8 +6,8 @@ import java.util.Optional;
 
 import com.projet.ferme.entity.comptability.CategoryCompte;
 import com.projet.ferme.entity.comptability.Compte;
-import com.projet.ferme.repository.CategoryCompteRepository;
-import com.projet.ferme.repository.CompteRepository;
+import com.projet.ferme.repository.category.CategoryCompteRepository;
+import com.projet.ferme.repository.comptability.CompteRepository;
 import com.projet.ferme.service.utile.MapResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;

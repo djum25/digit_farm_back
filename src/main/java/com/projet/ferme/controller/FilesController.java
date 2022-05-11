@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 
 import com.projet.ferme.entity.utils.FileInfo;
 import com.projet.ferme.entity.utils.ResponseMessage;
-import com.projet.ferme.repository.FilesStorageService;
+import com.projet.ferme.repository.subject.FilesStorageService;
 
 @Controller
 public class FilesController {
