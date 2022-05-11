@@ -1,4 +1,4 @@
-package com.projet.ferme.controller;
+package com.projet.ferme.controller.category;
 
 import java.util.HashMap;
 import java.util.Map;

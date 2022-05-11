@@ -1,4 +1,4 @@
-package com.projet.ferme.controller;
+package com.projet.ferme.controller.person;
 
 import java.util.Map;
 

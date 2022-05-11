@@ -1,4 +1,4 @@
-package com.projet.ferme.controller;
+package com.projet.ferme.controller.category;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,37 +10,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projet.ferme.entity.category.TreeCategory;
-import com.projet.ferme.service.category.CategoryTreeService;
+import com.projet.ferme.entity.category.FishCategory;
+import com.projet.ferme.service.category.CategoryFishService;
 
 @RestController
-public class CategoryTreeController {
-	
+public class CategoryFishController {
+
 	@Autowired
-	private CategoryTreeService service;
+	private CategoryFishService service;
 	
-	@RequestMapping(value = "/api/v1/treeCategory", method = RequestMethod.POST)
-	public Map<String, Object> post(@RequestBody TreeCategory C) {
+	@RequestMapping(value = "/api/v1/fishCategory", method = RequestMethod.POST)
+	public Map<String, Object> post(@RequestBody FishCategory C) {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		returnMap = service.add(C);
 		return returnMap;
 	}
 	
-	@RequestMapping(value = "/api/v1/treeCategory", method = RequestMethod.PUT)
-	public Map<String, Object> put(@RequestBody TreeCategory C) {
+	@RequestMapping(value = "/api/v1/fishCategory", method = RequestMethod.PUT)
+	public Map<String, Object> put(@RequestBody FishCategory C) {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		returnMap = service.add(C);
 		return returnMap;
 	}
 	
-	@RequestMapping(value = "/api/v1/treeCategory", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/v1/fishCategory", method = RequestMethod.GET)
 	public Map<String, Object> get() {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		returnMap = service.findAll();
 		return returnMap;
 	}
 	
-	@RequestMapping(value = "/api/v1/treeCategory/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/api/v1/fishCategory/{id}", method = RequestMethod.DELETE)
 	public Map<String, Object> post(@PathVariable("id") Long id) {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		returnMap = service.delete(id);

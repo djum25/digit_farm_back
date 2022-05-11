@@ -1,4 +1,4 @@
-package com.projet.ferme.controller;
+package com.projet.ferme.controller.subject;
 
 import java.util.List;
 import java.util.stream.Collectors;

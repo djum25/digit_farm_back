@@ -1,4 +1,4 @@
-package com.projet.ferme.controller;
+package com.projet.ferme.controller.utile;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package com.projet.ferme.controller;
+package com.projet.ferme.controller.homesubject;
 import java.util.HashMap;
 import java.util.Map;
 
