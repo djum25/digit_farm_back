@@ -1,4 +1,4 @@
-package com.projet.ferme.repository.person;
+package com.projet.ferme.repository;
 
 import java.util.Optional;
 

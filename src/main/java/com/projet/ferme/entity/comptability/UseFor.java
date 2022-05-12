@@ -7,6 +7,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.projet.ferme.entity.homesubject.Bowl;
+import com.projet.ferme.entity.homesubject.ChickenCoop;
 import com.projet.ferme.entity.homesubject.Enclosure;
 import com.projet.ferme.entity.homesubject.Planting;
 import com.projet.ferme.entity.utils.TimeModel;
@@ -30,6 +31,10 @@ public class UseFor extends TimeModel{
     @ManyToOne
     @JoinColumn(name = "enclosure_id", nullable = true)
     private Enclosure enclosure;
+
+    @ManyToOne
+    @JoinColumn(name = "chickenCoop_id", nullable = true)
+    private ChickenCoop chickenCoop;
 
     public Operation getOperation() {
         return operation;
@@ -61,5 +66,13 @@ public class UseFor extends TimeModel{
 
     public void setEnclosure(Enclosure enclosure) {
         this.enclosure = enclosure;
+    }
+
+    public ChickenCoop getChickenCoop() {
+        return chickenCoop;
+    }
+
+    public void setChickenCoop(ChickenCoop chickenCoop) {
+        this.chickenCoop = chickenCoop;
     }
 }

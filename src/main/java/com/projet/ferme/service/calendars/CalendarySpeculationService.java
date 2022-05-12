@@ -21,7 +21,7 @@ import com.projet.ferme.repository.subject.SpeculationRepository;
 public class CalendarySpeculationService {
 
 	@Autowired
-	private CalendarySpeculationRepository calerendaryFarmingRepository;
+	private CalendarySpeculationRepository calendarySpeculationRepository;
 	@Autowired
 	private SpeculationCalendaryMinRepository minRepository;
 	@Autowired
@@ -32,7 +32,7 @@ public class CalendarySpeculationService {
 
 	public Map<String, Object> add(CalendarySpeculation calendaryFarming){
 		
-		CalendarySpeculation newCalendaryFarming = calerendaryFarmingRepository.save(calendaryFarming);
+		CalendarySpeculation newCalendaryFarming = calendarySpeculationRepository.save(calendaryFarming);
 		Map<String, Object> returnValues = new HashMap<String,Object>();
 		
 		if(newCalendaryFarming == null) {
@@ -49,7 +49,7 @@ public class CalendarySpeculationService {
 	public Map<String, Object> findBySpeculationId(Long id){
 		
 		Map<String, Object> returnValues = new HashMap<String,Object>();
-		List <CalendarySpeculation> calendars = calerendaryFarmingRepository.getBySpeculation_id(id);
+		List <CalendarySpeculation> calendars = calendarySpeculationRepository.getBySpeculation_id(id);
 		Speculation speculation = speculationRepository.findById(id).get();
 		
 		returnValues.put("success", true);
@@ -63,7 +63,7 @@ public class CalendarySpeculationService {
 	public Map<String, Object> put(CalendarySpeculation calendaryFarming){
 		
 		Map<String, Object> returnValues = new HashMap<String,Object>();
-		CalendarySpeculation newCalendaryFarming = calerendaryFarmingRepository.save(calendaryFarming);
+		CalendarySpeculation newCalendaryFarming = calendarySpeculationRepository.save(calendaryFarming);
 		
 		returnValues.put("success", true);
 		returnValues.put("calendar", newCalendaryFarming);
@@ -74,7 +74,7 @@ public class CalendarySpeculationService {
 	public Map<String, Object> makeTrue(Long id) {
 		
 		Map<String, Object> returnValues = new HashMap<String,Object>();
-		CalendarySpeculation calendarySpeculation =  calerendaryFarmingRepository.getById(id);
+		CalendarySpeculation calendarySpeculation =  calendarySpeculationRepository.getById(id);
 		
 		if(calendarySpeculation == null) {
 			returnValues.put("success", false);
@@ -84,7 +84,7 @@ public class CalendarySpeculationService {
 			Date sqlStartDate = new Date(date.getTime());
 			calendarySpeculation.setUpdatedOn(sqlStartDate);
 			calendarySpeculation.setMake(true);
-			calendarySpeculation = calerendaryFarmingRepository.save(calendarySpeculation);
+			calendarySpeculation = calendarySpeculationRepository.save(calendarySpeculation);
 			returnValues.put("success", true);
 			returnValues.put("message", "Enregistrement réussi");
 		}
@@ -94,7 +94,7 @@ public class CalendarySpeculationService {
 	
 	public Map<String, Object> giveUpTrue(CalendarySpeculation cal) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		CalendarySpeculation oldCalendarySpeculation = calerendaryFarmingRepository.getById(cal.getId());
+		CalendarySpeculation oldCalendarySpeculation = calendarySpeculationRepository.getById(cal.getId());
 		if(oldCalendarySpeculation == null) {
 			map.put("success", false);
 			map.put("message", "Ce programme est supprimé");
@@ -104,7 +104,7 @@ public class CalendarySpeculationService {
 			oldCalendarySpeculation.setGiveUp(true);
 			oldCalendarySpeculation.setDescription(cal.getDescription());
 			oldCalendarySpeculation.setUpdatedOn(sqlStartDate);
-			calerendaryFarmingRepository.save(oldCalendarySpeculation);
+			calendarySpeculationRepository.save(oldCalendarySpeculation);
 			map.put("success", true);
 			map.put("message", "Modofier avec succé");
 		}
@@ -114,7 +114,7 @@ public class CalendarySpeculationService {
 	public Map<String, Object> delete(Long id){
 		
 		Map<String, Object> returnValues = new HashMap<String,Object>();
-		calerendaryFarmingRepository.deleteById(id);
+		calendarySpeculationRepository.deleteById(id);
 		returnValues.put("success", true);
 		return returnValues;
 	}

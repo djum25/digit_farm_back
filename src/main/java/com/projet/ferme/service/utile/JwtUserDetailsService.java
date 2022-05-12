@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.projet.ferme.entity.person.MyUserDetails;
 import com.projet.ferme.entity.person.User;
-import com.projet.ferme.repository.person.UserRepository;
+import com.projet.ferme.repository.UserRepository;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {

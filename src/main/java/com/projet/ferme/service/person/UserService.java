@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 
 import com.projet.ferme.entity.person.Role;
 import com.projet.ferme.entity.person.User;
+import com.projet.ferme.repository.UserRepository;
 import com.projet.ferme.repository.person.RoleRepository;
-import com.projet.ferme.repository.person.UserRepository;
 
 @Service
 public class UserService {

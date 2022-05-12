@@ -22,7 +22,7 @@ public class Operation extends TimeModel{
 
     private LocalDateTime date;
 
-    @OneToOne(optional=false, mappedBy="operationUseFor")
+    @OneToOne(optional=false, mappedBy="operation")
     private UseFor useFor;
 
     @ManyToOne

@@ -3,8 +3,6 @@ package com.projet.ferme.repository.comptability;
 import java.util.List;
 
 import com.projet.ferme.entity.comptability.Operation;
-import com.projet.ferme.entity.subject.Egg;
-import com.projet.ferme.entity.subject.Speculation;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

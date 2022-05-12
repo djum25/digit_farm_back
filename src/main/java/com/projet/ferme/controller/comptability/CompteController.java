@@ -24,7 +24,7 @@ public class CompteController {
         return compteService.addCompte(compte);
     }
 
-    @RequestMapping(value="/api/v1/compte", method=RequestMethod.POST)
+    @RequestMapping(value="/api/v1/categoryCompte", method=RequestMethod.POST)
     public Map<String,Object> addCategory(@RequestBody CategoryCompte compte) {
         return compteService.addCategory(compte);
     }
