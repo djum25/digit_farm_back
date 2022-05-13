@@ -64,4 +64,20 @@ public class Operation extends TimeModel{
     public void setDate(LocalDateTime date) {
         this.date = date;
     }
+
+    public Compte getCompte() {
+        return compte;
+    }
+
+    public void setCompte(Compte compte) {
+        this.compte = compte;
+    }
+
+    public CategoryCompte getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryCompte category) {
+        this.category = category;
+    }
 }
