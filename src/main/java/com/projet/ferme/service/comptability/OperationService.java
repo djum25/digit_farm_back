@@ -1,5 +1,6 @@
 package com.projet.ferme.service.comptability;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -7,9 +8,12 @@ import java.util.Optional;
 import com.projet.ferme.entity.comptability.CategoryCompte;
 import com.projet.ferme.entity.comptability.Compte;
 import com.projet.ferme.entity.comptability.Operation;
+import com.projet.ferme.entity.comptability.UseFor;
 import com.projet.ferme.repository.category.CategoryCompteRepository;
 import com.projet.ferme.repository.comptability.CompteRepository;
 import com.projet.ferme.repository.comptability.OperationRepository;
+import com.projet.ferme.repository.comptability.UseForRepository;
+import com.projet.ferme.service.homesubject.AllHomeService;
 import com.projet.ferme.service.utile.MapResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +28,10 @@ public class OperationService {
     private CategoryCompteRepository categoryCompteRepository;
     @Autowired
     private CompteRepository CompteRepository;
+    @Autowired
+    private UseForRepository useForRepository;
+    @Autowired
+    private AllHomeService allHomeService;
 
     public Map<String, Object> addOperation(Operation operation){
 
@@ -67,10 +75,10 @@ public class OperationService {
     }
 
     public Map<String, Object> findAll(){
-
+        Map<String,Object> map = allHomeService.getAllHome();
         List<Operation> operations = operationRepository.findAll();
         return new MapResponse().withSuccess(true)
-        .withObject(operations)
+        .withObject(operations).withArrayObject(map)
         .withMessage(operations.size()+" enregistrements retrouvé").response();
     }
 
@@ -98,5 +106,38 @@ public class OperationService {
             return new MapResponse().withSuccess(false)
             .withMessage("Ce compte n'est plus dans la base").response();
         }
+    }
+
+   public Map<String,Object> addUseFor(UseFor useFor) {
+        if (!isValidUseFor(useFor).get(0)) {
+            return new MapResponse().withSuccess(false).withMessage("Veuillez ajoutez une opération")
+            .response();
+        } else if(!isValidUseFor(useFor).get(1)){
+            return new MapResponse().withSuccess(false).withMessage("Veuillez ajoutez un extra")
+            .response();
+        }else{
+            UseFor savedUseFor = useForRepository.save(useFor);
+            Operation operation = savedUseFor.getOperation();
+            operation.setUseFor(savedUseFor);
+            operationRepository.save(operation);
+            return new MapResponse().withSuccess(true).withObject(operation)
+            .withMessage("Enregistrement réussit").response();
+        }
+    }
+
+    private List<Boolean> isValidUseFor(UseFor useFor) {
+        List<Boolean> booleans = new ArrayList<Boolean>();
+        if (useFor.getOperation().equals(null)) {
+            booleans.add(false);
+            booleans.add(false);
+        }else if (useFor.getBowl().equals(null) && useFor.getChickenCoop().equals(null)
+         && useFor.getEnclosure().equals(null) && useFor.getPlanting().equals(null)) {
+            booleans.add(true);
+            booleans.add(false);
+        } else {
+            booleans.add(true);
+            booleans.add(true);
+        }
+        return booleans;
     }
 }

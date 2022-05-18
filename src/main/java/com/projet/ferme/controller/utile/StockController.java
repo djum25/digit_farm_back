@@ -1,5 +1,6 @@
 package com.projet.ferme.controller.utile;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;

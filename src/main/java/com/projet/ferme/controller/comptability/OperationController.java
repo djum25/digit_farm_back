@@ -3,6 +3,7 @@ package com.projet.ferme.controller.comptability;
 import java.util.Map;
 
 import com.projet.ferme.entity.comptability.Operation;
+import com.projet.ferme.entity.comptability.UseFor;
 import com.projet.ferme.service.comptability.OperationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,10 @@ public class OperationController {
     @RequestMapping(value = "api/v1/operation", method = RequestMethod.GET)
     public Map<String, Object> getAll(){
         return operationService.findAll();
+    }
+
+    @RequestMapping(value = "api/v1/useFor", method = RequestMethod.POST)
+    public Map<String,Object> addUseFor(@RequestBody UseFor useFor) {
+        return operationService.addUseFor(useFor);
     }
 }
