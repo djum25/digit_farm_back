@@ -80,4 +80,8 @@ public class Operation extends TimeModel{
     public void setCategory(CategoryCompte category) {
         this.category = category;
     }
+
+    public void setUseFor(UseFor useFor) {
+        this.useFor = useFor;
+    }
 }
