@@ -130,11 +130,19 @@ public class OperationService {
         if (useFor.getOperation().equals(null)) {
             booleans.add(false);
             booleans.add(false);
-        }else if (useFor.getBowl().equals(null) && useFor.getChickenCoop().equals(null)
-         && useFor.getEnclosure().equals(null) && useFor.getPlanting().equals(null)) {
+        }else if (useFor.getBowl().equals(null)) {
             booleans.add(true);
             booleans.add(false);
-        } else {
+        }else if (useFor.getChickenCoop().equals(null)) {
+           booleans.add(true);
+           booleans.add(false);
+       } else if (useFor.getEnclosure().equals(null)) {
+          booleans.add(true);
+          booleans.add(false);
+      } else if (useFor.getPlanting().equals(null)) {
+         booleans.add(true);
+         booleans.add(false);
+     }  else {
             booleans.add(true);
             booleans.add(true);
         }
