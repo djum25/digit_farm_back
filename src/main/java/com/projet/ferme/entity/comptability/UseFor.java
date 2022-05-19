@@ -75,4 +75,10 @@ public class UseFor extends TimeModel{
     public void setChickenCoop(ChickenCoop chickenCoop) {
         this.chickenCoop = chickenCoop;
     }
+
+    @Override
+    public String toString() {
+        return "UseFor [bowl=" + bowl + ", chickenCoop=" + chickenCoop + ", enclosure=" + enclosure + ", operation="
+                + operation + ", planting=" + planting + "]";
+    }
 }

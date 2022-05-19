@@ -126,23 +126,24 @@ public class OperationService {
     }
 
     private List<Boolean> isValidUseFor(UseFor useFor) {
+        System.out.println(useFor.toString());
         List<Boolean> booleans = new ArrayList<Boolean>();
         if (useFor.getOperation().equals(null)) {
             booleans.add(false);
             booleans.add(false);
-        }else if (useFor.getBowl().equals(null)) {
+        } else if (useFor.getBowl().equals(null)) {
             booleans.add(true);
             booleans.add(false);
-        }else if (useFor.getChickenCoop().equals(null)) {
+        } else if (useFor.getChickenCoop().equals(null)) {
            booleans.add(true);
            booleans.add(false);
-       } else if (useFor.getEnclosure().equals(null)) {
+        } else if (useFor.getEnclosure().equals(null)) {
           booleans.add(true);
           booleans.add(false);
-      } else if (useFor.getPlanting().equals(null)) {
+        } else if (useFor.getPlanting().equals(null)) {
          booleans.add(true);
          booleans.add(false);
-     }  else {
+        } else {
             booleans.add(true);
             booleans.add(true);
         }
