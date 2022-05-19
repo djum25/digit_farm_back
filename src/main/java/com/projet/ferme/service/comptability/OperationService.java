@@ -76,9 +76,10 @@ public class OperationService {
 
     public Map<String, Object> findAll(){
         Map<String,Object> map = allHomeService.getAllHome();
+        List<UseFor> useFors = useForRepository.findAll();
         List<Operation> operations = operationRepository.findAll();
         return new MapResponse().withSuccess(true)
-        .withObject(operations).withArrayObject(map)
+        .withObject(operations).withArrayObject(map).withChildArrayObject(useFors)
         .withMessage(operations.size()+" enregistrements retrouvé").response();
     }
 
@@ -131,10 +132,10 @@ public class OperationService {
             booleans.add(false);
             booleans.add(false);
         }else if (useFor.getBowl() == null && useFor.getChickenCoop() == null &&
-         useFor.getEnclosure() == null && useFor.getPlanting() == null) {
+            useFor.getEnclosure() == null && useFor.getPlanting() == null) {
             booleans.add(true);
             booleans.add(false);
-     }  else {
+        }  else {
             booleans.add(true);
             booleans.add(true);
         }
