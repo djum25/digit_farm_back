@@ -31,8 +31,9 @@ public class Sale extends TimeModel{
 	
 	private String description;
 	
-	private boolean counted;
-	
+	@Column(nullable = false)
+	private boolean counted = false;
+
 	@Column(name = "subject_id")
 	private String subjectId;
 	

@@ -19,6 +19,8 @@ import com.projet.ferme.repository.UserRepository;
 import com.projet.ferme.repository.person.CashierRepository;
 import com.projet.ferme.repository.stocks.SaleRepository;
 import com.projet.ferme.repository.stocks.ShopRepository;
+import com.projet.ferme.service.utile.EnvironmentService;
+import com.projet.ferme.service.utile.MapResponse;
 
 @Service
 public class CashierService {
@@ -33,6 +35,8 @@ public class CashierService {
 	private CashierNewService newService;
 	@Autowired
 	private SaleRepository saleRepository;
+	@Autowired
+	private EnvironmentService environmentService;
 
 	public Map<String, Object> addShop(Shop shop){
 		
@@ -207,6 +211,20 @@ public class CashierService {
 		map.put("shop", shop);
 		map.put("sales", sales);
 		return map;
+	}
+
+	public Map<String, Object> saleByCashier(Long shopId) {
+		User user = environmentService.getRequestUser();
+		List<Cashier> cashiers = cashierRepository.findAll();
+		
+		Cashier cashier = cashiers.stream().filter(c -> c.getShop().getId().equals(shopId) &&
+		 c.getUser().getId().equals(user.getId())).findFirst().get();
+
+		List<Sale> sales = saleRepository.findAll();
+		sales = sales.stream().filter(s -> s.getCashier().equals(cashier) && !s.isCounted()).collect(Collectors.toList());
+
+		return new MapResponse().withSuccess(true).withObject(cashier).withArrayObject(sales).
+		withMessage(sales.size()+" Enregistrement retrouvés").response();
 	}
 	
 	private static int generateAccess() {

@@ -67,4 +67,9 @@ public class CashierController {
 	public Map<String, Object> getSaleNews(@PathVariable("id") Long id){
 		return service.saleNews(id);
 	}
+
+	@RequestMapping(value = "/api/v1/cashier/sale/news/{id}", method = RequestMethod.GET)
+	public Map<String,Object> getSaleNewsByCashier(@PathVariable("id") Long id) {
+		return service.saleByCashier(id);
+	}
 }
