@@ -1,5 +1,6 @@
 package com.projet.ferme.entity.comptability;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -11,6 +12,7 @@ import com.projet.ferme.entity.utils.TimeModel;
 @Table(name="tbl_category_compte")
 public class CategoryCompte extends TimeModel{
     
+    @Column(unique = true)
     private String name;
 
     private boolean debitAccount;
