@@ -1,6 +1,5 @@
 package com.projet.ferme.service.person;
 
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,19 +7,20 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.projet.ferme.entity.person.Cashier;
 import com.projet.ferme.entity.person.User;
 import com.projet.ferme.entity.stocks.Sale;
 import com.projet.ferme.entity.stocks.Shop;
+import com.projet.ferme.entity.utils.NewDate;
+import com.projet.ferme.entity.utils.UserAuthenticate;
 import com.projet.ferme.repository.UserRepository;
 import com.projet.ferme.repository.person.CashierRepository;
 import com.projet.ferme.repository.stocks.SaleRepository;
 import com.projet.ferme.repository.stocks.ShopRepository;
-import com.projet.ferme.service.utile.EnvironmentService;
 import com.projet.ferme.service.utile.MapResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class CashierService {
@@ -35,8 +35,6 @@ public class CashierService {
 	private CashierNewService newService;
 	@Autowired
 	private SaleRepository saleRepository;
-	@Autowired
-	private EnvironmentService environmentService;
 
 	public Map<String, Object> addShop(Shop shop){
 		
@@ -61,7 +59,7 @@ public class CashierService {
 			map.put("success", false);
 			map.put("message", "L'enregistrement a échoué, cette boutique n'existe pas");
 		}else {
-			shop.setUpdatedOn(getDate());
+			shop.setUpdatedOn(new NewDate().getDate());
 			Shop savedShop = shopRepository.save(shop);
 			if (savedShop == null) {
 				map.put("success", false);
@@ -115,7 +113,7 @@ public class CashierService {
 		Optional<Cashier> cashierOptional = cashierRepository.findById(id);
 		if (cashierOptional.isPresent()) {
 			cashierOptional.get().setActive(!cashierOptional.get().isActive());
-			cashierOptional.get().setUpdatedOn(getDate());
+			cashierOptional.get().setUpdatedOn(new NewDate().getDate());
 			Cashier savedCashier = cashierRepository.save(cashierOptional.get());
 			if (savedCashier == null)
 				return response(false, "Le mise a jour a échoué");
@@ -188,7 +186,7 @@ public class CashierService {
 	private Map<String, Object> open(Cashier cashier,boolean status,String message,Shop shop,int cash) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		cashier.setStatus(!cashier.isStatus());
-		cashier.setUpdatedOn(getDate());
+		cashier.setUpdatedOn(new NewDate().getDate());
 		Cashier savedCashier = cashierRepository.save(cashier);
 		if(savedCashier == null) {
 			map=response(false, "la mise a jour a échoué éssayez encore");
@@ -214,7 +212,7 @@ public class CashierService {
 	}
 
 	public Map<String, Object> saleByCashier(Long shopId) {
-		User user = environmentService.getRequestUser();
+		User user = new UserAuthenticate().getAuthenticatetUser();
 		List<Cashier> cashiers = cashierRepository.findAll();
 		
 		Cashier cashier = cashiers.stream().filter(c -> c.getShop().getId().equals(shopId) &&
@@ -235,12 +233,6 @@ public class CashierService {
 			result =  random.nextInt(10000);
 		}
 		return result;
-	}
-	
-	private Date getDate() {
-		java.util.Date date=new java.util.Date();
-		Date sqlStartDate = new Date(date.getTime());
-		return sqlStartDate;
 	}
 	
 	private Map<String, Object> response(boolean statusBoolean,String messageString) {

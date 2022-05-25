@@ -5,16 +5,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.projet.ferme.entity.outsubject.HarvestSpeculation;
 import com.projet.ferme.entity.person.User;
 import com.projet.ferme.entity.stocks.OutgoingStock;
 import com.projet.ferme.entity.subject.Speculation;
+import com.projet.ferme.entity.utils.UserAuthenticate;
 import com.projet.ferme.repository.outsubject.HarvestSpeculationRepository;
 import com.projet.ferme.repository.subject.SpeculationRepository;
-import com.projet.ferme.service.utile.EnvironmentService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class HarvestSpeculationService {
@@ -25,11 +25,9 @@ public class HarvestSpeculationService {
 	private SpeculationRepository speculationRepository;
 	@Autowired
 	private OutgoingService outgoingService;
-	@Autowired
-	private EnvironmentService environmentService;
 
 	public Map<String, Object> add(HarvestSpeculation harvest) {
-		User user = environmentService.getRequestUser();
+		User user = new UserAuthenticate().getAuthenticatetUser();
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		Speculation speculation = speculationRepository.getById(harvest.getSpeculation().getId());
 
@@ -58,7 +56,7 @@ public class HarvestSpeculationService {
 	}
 
 	public Map<String, Object> put(HarvestSpeculation harvest) {
-		User user = environmentService.getRequestUser();
+		User user = new UserAuthenticate().getAuthenticatetUser();
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		HarvestSpeculation oldHarvest = harvestRepository.getById(harvest.getId());
 		if (oldHarvest == null) {

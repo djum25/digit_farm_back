@@ -15,6 +15,7 @@ import com.projet.ferme.repository.comptability.OperationRepository;
 import com.projet.ferme.repository.comptability.UseForRepository;
 import com.projet.ferme.service.homesubject.AllHomeService;
 import com.projet.ferme.service.utile.MapResponse;
+import com.projet.ferme.service.utile.MapToObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class OperationService {
     @Autowired
     private CategoryCompteRepository categoryCompteRepository;
     @Autowired
-    private CompteRepository CompteRepository;
+    private CompteRepository compteRepository;
     @Autowired
     private UseForRepository useForRepository;
     @Autowired
@@ -84,7 +85,7 @@ public class OperationService {
     }
 
     public Map<String, Object> findByCompte(Long id){
-        Optional<Compte> compte = CompteRepository.findById(id);
+        Optional<Compte> compte = compteRepository.findById(id);
         if (compte.isPresent()) {
             List<Operation> operations = operationRepository.findByCompte_id(id);
             return new MapResponse().withSuccess(true)
@@ -123,6 +124,20 @@ public class OperationService {
             operationRepository.save(operation);
             return new MapResponse().withSuccess(true).withObject(operation)
             .withMessage("Enregistrement réussit").response();
+        }
+    }
+
+    public Map<String, Object> shopToComtability(Map<String, Object> map){
+        MapToObject mapToObject = new MapToObject(map);
+        Compte compte = compteRepository.findByNumber("70700").get();
+        if (compte != null) {
+            Operation operation = new Operation();
+            operation.setAmount(mapToObject.getInteger("payment"));
+            operation.setComment("Versement de ");
+            return new MapResponse().response();
+        }else{
+            return new MapResponse().withSuccess(false).
+            withMessage("Le compte vente de marchandise n'exist pas").response();
         }
     }
 

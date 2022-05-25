@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 import com.projet.ferme.entity.outsubject.OutCattle;
 import com.projet.ferme.entity.person.User;
 import com.projet.ferme.entity.subject.Cattle;
+import com.projet.ferme.entity.utils.UserAuthenticate;
 import com.projet.ferme.repository.outsubject.OutCattleRepository;
 import com.projet.ferme.repository.subject.CattleRepository;
-import com.projet.ferme.service.utile.EnvironmentService;
 
 @Service
 public class OutCattleService {
@@ -21,11 +21,9 @@ public class OutCattleService {
 	private OutCattleRepository outCattleRepository;
 	@Autowired
 	private CattleRepository cattleRepository;
-	@Autowired
-	private EnvironmentService environmentService;
 	
 	public Map<String, Object> add(OutCattle outCattle){
-		User user = environmentService.getRequestUser();
+		User user = new UserAuthenticate().getAuthenticatetUser();
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		Cattle cattle = cattleRepository.getById(outCattle.getCattle().getId());
 		// Check if the cattle object is present
@@ -64,7 +62,7 @@ public class OutCattleService {
 	}
 	
 	public Map<String, Object> put(OutCattle out){
-		User user = environmentService.getRequestUser();
+		User user = new UserAuthenticate().getAuthenticatetUser();
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		OutCattle oldOut = outCattleRepository.getById(out.getId());
 		

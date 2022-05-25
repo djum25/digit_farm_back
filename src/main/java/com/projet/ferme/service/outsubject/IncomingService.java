@@ -11,19 +11,17 @@ import org.springframework.stereotype.Service;
 
 import com.projet.ferme.entity.outsubject.IncomingStock;
 import com.projet.ferme.entity.person.User;
+import com.projet.ferme.entity.utils.UserAuthenticate;
 import com.projet.ferme.repository.stocks.IncomingStockRepository;
-import com.projet.ferme.service.utile.EnvironmentService;
 
 @Service
 public class IncomingService {
 
 	@Autowired
 	private IncomingStockRepository repository;
-	@Autowired
-	private EnvironmentService environmentService;
 	
 	public Map<String, Object> add(IncomingStock stock){
-		User user = environmentService.getRequestUser();
+		User user = new UserAuthenticate().getAuthenticatetUser();
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		stock.setQuantity(stock.getValue()*stock.getVolume());
 		stock.setUser(user);
@@ -68,7 +66,7 @@ public class IncomingService {
 	
 	public Map<String, Object> put(IncomingStock stock) {
 		stock.setQuantity(stock.getValue()*stock.getVolume());
-		User user = environmentService.getRequestUser();
+		User user = new UserAuthenticate().getAuthenticatetUser();
 		stock.setUser(user);
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		IncomingStock oldStock = repository.findById(stock.getId()).get();
