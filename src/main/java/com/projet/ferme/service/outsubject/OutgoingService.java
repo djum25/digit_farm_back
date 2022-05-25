@@ -18,6 +18,7 @@ import com.projet.ferme.entity.stocks.OutgoingStock;
 import com.projet.ferme.entity.stocks.Sale;
 import com.projet.ferme.entity.stocks.Shop;
 import com.projet.ferme.entity.stocks.ShopStock;
+import com.projet.ferme.entity.utils.NewDate;
 import com.projet.ferme.repository.UserRepository;
 import com.projet.ferme.repository.person.CashierRepository;
 import com.projet.ferme.repository.stocks.OutgoingStockRepository;
@@ -272,8 +273,8 @@ public class OutgoingService {
 				shopStock.setQuantity(Integer.parseInt(map.get("quantity").toString()));
 				shopStock.setType("out");
 				shopStock.setUser(cashier.getUser());
-				shopStock.setCreatedOn(getDate());
-				shopStock.setUpdatedOn(getDate());
+				shopStock.setCreatedOn(new NewDate().getDate());
+				shopStock.setUpdatedOn(new NewDate().getDate());
 				shopStock.setShop(cashier.getShop());
 				
 				ShopStock newStock = shopStockRepository.save(shopStock);
@@ -335,15 +336,15 @@ public class OutgoingService {
 		outgoingStock.setSubjectId("intern");
 		outgoingStock.setType(type);
 		outgoingStock.setUser(user);
-		outgoingStock.setCreatedOn(getDate());
-		outgoingStock.setUpdatedOn(getDate());
+		outgoingStock.setCreatedOn(new NewDate().getDate());
+		outgoingStock.setUpdatedOn(new NewDate().getDate());
 
 		shopStock.setDescription("reverse");
 		shopStock.setProduct(product);
 		shopStock.setQuantity(quantity);
 		shopStock.setUser(user);
-		shopStock.setCreatedOn(getDate());
-		shopStock.setUpdatedOn(getDate());
+		shopStock.setCreatedOn(new NewDate().getDate());
+		shopStock.setUpdatedOn(new NewDate().getDate());
 		shopStock.setShop(shop);
 
 		if (type.equals("in")) {
@@ -422,12 +423,6 @@ public class OutgoingService {
 		}
 
 		return map;
-	}
-
-	private Date getDate() {
-		java.util.Date date = new java.util.Date();
-		Date sqlStartDate = new Date(date.getTime());
-		return sqlStartDate;
 	}
 	
 	public Map<String, Object> shopToShop(Map<String, Object> enterMap) {
