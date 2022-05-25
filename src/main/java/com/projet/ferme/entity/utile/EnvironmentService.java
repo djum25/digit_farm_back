@@ -1,14 +1,12 @@
-package com.projet.ferme.service.utile;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Service;
+package com.projet.ferme.entity.utile;
 
 import com.projet.ferme.entity.person.User;
 import com.projet.ferme.repository.UserRepository;
 
-@Service
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 public class EnvironmentService {
 	
 	@Autowired
