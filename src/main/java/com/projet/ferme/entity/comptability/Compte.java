@@ -8,8 +8,6 @@ import javax.persistence.Table;
 
 import com.projet.ferme.entity.utils.TimeModel;
 
-import org.springframework.web.bind.annotation.RequestBody;
-
 @Entity
 @Table(name="tbl_compte")
 public class Compte extends TimeModel{

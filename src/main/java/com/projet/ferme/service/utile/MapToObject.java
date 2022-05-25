@@ -2,8 +2,6 @@ package com.projet.ferme.service.utile;
 
 import java.util.Map;
 
-import javassist.bytecode.stackmap.BasicBlock.Catch;
-
 public class MapToObject {
     
     private Map<String,Object> map;

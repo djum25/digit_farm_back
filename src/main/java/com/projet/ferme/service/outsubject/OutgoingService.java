@@ -1,6 +1,5 @@
 package com.projet.ferme.service.outsubject;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,9 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.projet.ferme.entity.person.Cashier;
 import com.projet.ferme.entity.person.User;
@@ -26,6 +22,9 @@ import com.projet.ferme.repository.stocks.OutgoingStockRepository;
 import com.projet.ferme.repository.stocks.ShopRepository;
 import com.projet.ferme.repository.stocks.ShopStockRepository;
 import com.projet.ferme.service.comptability.SaleService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class OutgoingService {
