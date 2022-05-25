@@ -1,5 +1,6 @@
 package com.projet.ferme.entity.comptability;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -7,10 +8,13 @@ import javax.persistence.Table;
 
 import com.projet.ferme.entity.utils.TimeModel;
 
+import org.springframework.web.bind.annotation.RequestBody;
+
 @Entity
 @Table(name="tbl_compte")
 public class Compte extends TimeModel{
 	
+    @Column(unique = true)
 	private String number;
 	
 	private String name;
