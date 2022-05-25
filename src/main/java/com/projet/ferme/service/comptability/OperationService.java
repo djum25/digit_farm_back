@@ -1,5 +1,6 @@
 package com.projet.ferme.service.comptability;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,16 +10,27 @@ import com.projet.ferme.entity.comptability.CategoryCompte;
 import com.projet.ferme.entity.comptability.Compte;
 import com.projet.ferme.entity.comptability.Operation;
 import com.projet.ferme.entity.comptability.UseFor;
+import com.projet.ferme.entity.person.Cashier;
+import com.projet.ferme.entity.person.User;
+import com.projet.ferme.entity.stocks.Sale;
+import com.projet.ferme.entity.stocks.Shop;
+import com.projet.ferme.entity.utils.NewDate;
+import com.projet.ferme.entity.utils.UserAuthenticate;
 import com.projet.ferme.repository.category.CategoryCompteRepository;
 import com.projet.ferme.repository.comptability.CompteRepository;
 import com.projet.ferme.repository.comptability.OperationRepository;
 import com.projet.ferme.repository.comptability.UseForRepository;
+import com.projet.ferme.repository.person.CashierRepository;
+import com.projet.ferme.repository.stocks.SaleRepository;
+import com.projet.ferme.repository.stocks.ShopRepository;
 import com.projet.ferme.service.homesubject.AllHomeService;
 import com.projet.ferme.service.utile.MapResponse;
 import com.projet.ferme.service.utile.MapToObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javassist.CtMember;
 
 @Service
 public class OperationService {
@@ -33,6 +45,12 @@ public class OperationService {
     private UseForRepository useForRepository;
     @Autowired
     private AllHomeService allHomeService;
+    @Autowired
+    private ShopRepository shopRepository;
+    @Autowired
+    private CashierRepository cashierRepository;
+    @Autowired
+    private SaleService saleService;
 
     public Map<String, Object> addOperation(Operation operation){
 
@@ -129,12 +147,35 @@ public class OperationService {
 
     public Map<String, Object> shopToComtability(Map<String, Object> map){
         MapToObject mapToObject = new MapToObject(map);
+        User user = new UserAuthenticate().getAuthenticatetUser();
+        Shop shop = shopRepository.findById(mapToObject.getLong("shopId")).get();
         Compte compte = compteRepository.findByNumber("70700").get();
         if (compte != null) {
             Operation operation = new Operation();
             operation.setAmount(mapToObject.getInteger("payment"));
-            operation.setComment("Versement de ");
-            return new MapResponse().response();
+            operation.setComment("Versement de "+user.getFirstname()+" "+user.getLastname()+
+            " pour la boutique "+shop.getName());
+            operation.setCompte(compte);
+            operation.setCreatedOn(new NewDate().getDate());
+            operation.setUpdatedOn(new NewDate().getDate());
+            operation.setDate(LocalDateTime.now());
+            operation.setLabel("Vente des produits");
+            Operation savedOperation = operationRepository.save(operation);
+            if (savedOperation != null) {
+                Boolean isKeep = amountForKeep(mapToObject.getInteger("keepAmount"), user, shop);
+                if (isKeep) {
+                    int counted = saleToCounted(user, shop);
+                    return new MapResponse().withSuccess(true).withObject(savedOperation)
+                    .withMessage("L'enregistrement à réussit et "+counted+
+                    " ventes sont versés").response();
+                } else {
+                    operationRepository.delete(savedOperation);
+                    return new MapResponse().withSuccess(false)
+                    .withMessage("L'enregistrement à échoué").response();
+                }
+            }else
+                return new MapResponse().withSuccess(false)
+                .withMessage("L'enregistrement à échoué").response();
         }else{
             return new MapResponse().withSuccess(false).
             withMessage("Le compte vente de marchandise n'exist pas").response();
@@ -155,5 +196,37 @@ public class OperationService {
             booleans.add(true);
         }
         return booleans;
+    }
+
+    private int saleToCounted(User user, Shop shop){
+        Cashier cashier = cashierRepository.findByUser_idAndShop_id(user.getId(), shop.getId()).get();
+        return saleService.findSaleToCount(cashier);
+    }
+
+    private boolean amountForKeep(int keepAmount,User user,Shop shop){
+        if (keepAmount > 0) {
+            //Capital social, appelé, non versé
+            Optional<Compte> compte = compteRepository.findByNumber("1012");
+            if(compte.isPresent()){
+                Operation operation = new Operation();
+                operation.setAmount(keepAmount);
+                operation.setComment("Garder pour fond de caisse "+user.getFirstname()+" "+user.getLastname()+
+                " pour la boutique "+shop.getName());
+                operation.setCompte(compte.get());
+                operation.setCreatedOn(new NewDate().getDate());
+                operation.setUpdatedOn(new NewDate().getDate());
+                operation.setDate(LocalDateTime.now());
+                operation.setLabel("Vente des produits");
+                Operation savedOperation = operationRepository.save(operation);
+                if (savedOperation != null)
+                    return true;
+                else
+                    return false;
+            }else{
+                return false;
+            }
+        }else{
+            return true;
+        }
     }
 }

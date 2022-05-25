@@ -53,4 +53,9 @@ public class OperationController {
     public Map<String,Object> addUseFor(@RequestBody UseFor useFor) {
         return operationService.addUseFor(useFor);
     }
+
+    @RequestMapping(value = "/api/v1/shop/comptability", method = RequestMethod.POST)
+    public Map<String, Object> shopCashToComptability(@RequestBody Map<String, Object> map) {
+        return operationService.shopToComtability(map);
+    }
 }
