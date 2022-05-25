@@ -30,7 +30,7 @@ public class Operation extends TimeModel{
     private Compte compte;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", nullable = true)
     private CategoryCompte category;
 
     public String getLabel() {
