@@ -12,12 +12,12 @@ import com.projet.ferme.entity.person.User;
 import com.projet.ferme.entity.stocks.Sale;
 import com.projet.ferme.entity.stocks.Shop;
 import com.projet.ferme.entity.utils.NewDate;
-import com.projet.ferme.entity.utils.UserAuthenticate;
 import com.projet.ferme.repository.UserRepository;
 import com.projet.ferme.repository.person.CashierRepository;
 import com.projet.ferme.repository.stocks.SaleRepository;
 import com.projet.ferme.repository.stocks.ShopRepository;
 import com.projet.ferme.service.utile.MapResponse;
+import com.projet.ferme.service.utile.UserAuthenticate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +35,8 @@ public class CashierService {
 	private CashierNewService newService;
 	@Autowired
 	private SaleRepository saleRepository;
+	@Autowired
+	private UserAuthenticate userAuthenticate;
 
 	public Map<String, Object> addShop(Shop shop){
 		
@@ -212,7 +214,7 @@ public class CashierService {
 	}
 
 	public Map<String, Object> saleByCashier(Long shopId) {
-		User user = new UserAuthenticate().getAuthenticatetUser();
+		User user = userAuthenticate.getUserAuthenticate();
 		List<Cashier> cashiers = cashierRepository.findAll();
 		
 		Cashier cashier = cashiers.stream().filter(c -> c.getShop().getId().equals(shopId) &&

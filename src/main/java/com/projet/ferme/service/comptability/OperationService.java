@@ -12,25 +12,21 @@ import com.projet.ferme.entity.comptability.Operation;
 import com.projet.ferme.entity.comptability.UseFor;
 import com.projet.ferme.entity.person.Cashier;
 import com.projet.ferme.entity.person.User;
-import com.projet.ferme.entity.stocks.Sale;
 import com.projet.ferme.entity.stocks.Shop;
 import com.projet.ferme.entity.utils.NewDate;
-import com.projet.ferme.entity.utils.UserAuthenticate;
 import com.projet.ferme.repository.category.CategoryCompteRepository;
 import com.projet.ferme.repository.comptability.CompteRepository;
 import com.projet.ferme.repository.comptability.OperationRepository;
 import com.projet.ferme.repository.comptability.UseForRepository;
 import com.projet.ferme.repository.person.CashierRepository;
-import com.projet.ferme.repository.stocks.SaleRepository;
 import com.projet.ferme.repository.stocks.ShopRepository;
 import com.projet.ferme.service.homesubject.AllHomeService;
 import com.projet.ferme.service.utile.MapResponse;
 import com.projet.ferme.service.utile.MapToObject;
+import com.projet.ferme.service.utile.UserAuthenticate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javassist.CtMember;
 
 @Service
 public class OperationService {
@@ -51,6 +47,8 @@ public class OperationService {
     private CashierRepository cashierRepository;
     @Autowired
     private SaleService saleService;
+    @Autowired
+    private UserAuthenticate userAuthenticate;
 
     public Map<String, Object> addOperation(Operation operation){
 
@@ -147,7 +145,7 @@ public class OperationService {
 
     public Map<String, Object> shopToComtability(Map<String, Object> map){
         MapToObject mapToObject = new MapToObject(map);
-        User user = new UserAuthenticate().getAuthenticatetUser();
+        User user = userAuthenticate.getUserAuthenticate();
         Shop shop = shopRepository.findById(mapToObject.getLong("shopId")).get();
         Compte compte = compteRepository.findByNumber("70700").get();
         if (compte != null) {

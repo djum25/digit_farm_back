@@ -12,9 +12,9 @@ import com.projet.ferme.entity.outsubject.OutPoultry;
 import com.projet.ferme.entity.person.User;
 import com.projet.ferme.entity.stocks.OutgoingStock;
 import com.projet.ferme.entity.subject.Poultry;
-import com.projet.ferme.entity.utils.UserAuthenticate;
 import com.projet.ferme.repository.outsubject.OutPoultryRepository;
 import com.projet.ferme.repository.subject.PoultryRepository;
+import com.projet.ferme.service.utile.UserAuthenticate;
 
 @Service
 public class OutPoultryService {
@@ -25,9 +25,11 @@ public class OutPoultryService {
 	private PoultryRepository poultryRepository;
 	@Autowired
 	private OutgoingService outgoingService;
+	@Autowired
+	private UserAuthenticate userAuthenticate;
 
 	public Map<String, Object> add(OutPoultry outPoultry) {
-		User user = new UserAuthenticate().getAuthenticatetUser();
+		User user = userAuthenticate.getUserAuthenticate();
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		// Get poultry objet from database
 		Poultry poultry = poultryRepository.getById(outPoultry.getPoultry().getId());
@@ -83,7 +85,7 @@ public class OutPoultryService {
 	}
 
 	public Map<String, Object> put(OutPoultry outPoultry) {
-		User user = new UserAuthenticate().getAuthenticatetUser();
+		User user = userAuthenticate.getUserAuthenticate();
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		OutPoultry oldOut = ouPoultryrepository.getById(outPoultry.getId());
 		if (oldOut == null) {

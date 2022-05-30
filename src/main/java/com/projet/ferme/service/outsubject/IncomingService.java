@@ -11,17 +11,19 @@ import org.springframework.stereotype.Service;
 
 import com.projet.ferme.entity.outsubject.IncomingStock;
 import com.projet.ferme.entity.person.User;
-import com.projet.ferme.entity.utils.UserAuthenticate;
 import com.projet.ferme.repository.stocks.IncomingStockRepository;
+import com.projet.ferme.service.utile.UserAuthenticate;
 
 @Service
 public class IncomingService {
 
 	@Autowired
 	private IncomingStockRepository repository;
+	@Autowired
+	private UserAuthenticate userAuthenticate;
 	
 	public Map<String, Object> add(IncomingStock stock){
-		User user = new UserAuthenticate().getAuthenticatetUser();
+		User user = userAuthenticate.getUserAuthenticate();
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		stock.setQuantity(stock.getValue()*stock.getVolume());
 		stock.setUser(user);
@@ -66,7 +68,7 @@ public class IncomingService {
 	
 	public Map<String, Object> put(IncomingStock stock) {
 		stock.setQuantity(stock.getValue()*stock.getVolume());
-		User user = new UserAuthenticate().getAuthenticatetUser();
+		User user = userAuthenticate.getUserAuthenticate();
 		stock.setUser(user);
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		IncomingStock oldStock = repository.findById(stock.getId()).get();
@@ -132,11 +134,8 @@ public class IncomingService {
 		return map;
 	}
 	
-	
 	  public Integer getByProduct(String product){
-		  
 	  List<IncomingStock> stocks = repository.findAll();
-	  
 	  stocks = stocks.stream().filter(item->item.getProduct().equals(product)).collect(Collectors.toList());
 		
 		Integer quantityIn = stocks.stream().filter(item -> item.getType().equals("in"))
@@ -147,7 +146,6 @@ public class IncomingService {
 	  
 	  return quantityReel; 
 	  }
-	 
 	
 	public Map<String, Object> delete(Long id){
 		Map<String, Object> returnMap = new HashMap<String, Object>();

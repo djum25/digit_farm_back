@@ -11,7 +11,7 @@ import com.projet.ferme.entity.person.User;
 import com.projet.ferme.entity.subject.Fish;
 import com.projet.ferme.repository.outsubject.OutFishRepository;
 import com.projet.ferme.repository.subject.FishRepository;
-import com.projet.ferme.entity.utils.UserAuthenticate;
+import com.projet.ferme.service.utile.UserAuthenticate;
 
 @Service
 public class OutFishService {
@@ -20,10 +20,12 @@ public class OutFishService {
 	private OutFishRepository outRepository;
 	@Autowired
 	private FishRepository fishRepository;
+	@Autowired
+	private UserAuthenticate userAuthenticate;
 	
 	public Map<String, Object> add(OutFish out){
 		Map<String, Object> returnMap = new HashMap<String, Object>();
-		User user = new UserAuthenticate().getAuthenticatetUser();
+		User user = userAuthenticate.getUserAuthenticate();
 		// Check if the fish object is present
 		Fish fish = fishRepository.getById(out.getFish().getId());
 		if(fish == null || fish.getPresent() == false) {

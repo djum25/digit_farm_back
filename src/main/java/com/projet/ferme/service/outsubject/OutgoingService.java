@@ -15,13 +15,13 @@ import com.projet.ferme.entity.stocks.Sale;
 import com.projet.ferme.entity.stocks.Shop;
 import com.projet.ferme.entity.stocks.ShopStock;
 import com.projet.ferme.entity.utils.NewDate;
-import com.projet.ferme.entity.utils.UserAuthenticate;
 import com.projet.ferme.repository.UserRepository;
 import com.projet.ferme.repository.person.CashierRepository;
 import com.projet.ferme.repository.stocks.OutgoingStockRepository;
 import com.projet.ferme.repository.stocks.ShopRepository;
 import com.projet.ferme.repository.stocks.ShopStockRepository;
 import com.projet.ferme.service.comptability.SaleService;
+import com.projet.ferme.service.utile.UserAuthenticate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +41,8 @@ public class OutgoingService {
 	private CashierRepository cashierRepository;
 	@Autowired
 	private ShopStockRepository shopStockRepository;
+	@Autowired
+	private UserAuthenticate userAuthenticate;
 
 	public Map<String, Object> add(OutgoingStock stock) {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
@@ -322,7 +324,7 @@ public class OutgoingService {
 	}
 
 	public Map<String, Object> reverseInShop(String product, int quantity, String type, String username, Long shopId) {
-		User user = new UserAuthenticate().getAuthenticatetUser();
+		User user = userAuthenticate.getUserAuthenticate();
 		Map<String, Object> map = new HashMap<String, Object>();
 		OutgoingStock outgoingStock = new OutgoingStock();
 		ShopStock shopStock = new ShopStock();
@@ -428,7 +430,7 @@ public class OutgoingService {
 		Long senderShop = Long.parseLong(enterMap.get("senderShop").toString());
 		Long receverShop = Long.parseLong(enterMap.get("receverShop").toString());
 		Map<String, Object> map = new HashMap<String, Object>();
-		User user = new UserAuthenticate().getAuthenticatetUser();
+		User user = userAuthenticate.getUserAuthenticate();
 		map = reverseInShop(product, quantity, "in", user.getUsername(), senderShop);
 		if( map.get("status").toString().equals("yes")){
 			map = reverseInShop(product, quantity, "out", user.getUsername(), receverShop);

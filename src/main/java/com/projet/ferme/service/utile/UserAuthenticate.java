@@ -1,4 +1,4 @@
-package com.projet.ferme.entity.utils;
+package com.projet.ferme.service.utile;
 
 import com.projet.ferme.entity.person.User;
 import com.projet.ferme.repository.UserRepository;
@@ -14,7 +14,7 @@ public class UserAuthenticate {
 	@Autowired
 	private UserRepository repository;
 	
-	public User getAuthenticatetUser() {
+	public User getUserAuthenticate() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		User user = repository.findByUsername(username).get();
