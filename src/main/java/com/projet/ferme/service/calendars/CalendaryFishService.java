@@ -32,7 +32,7 @@ public class CalendaryFishService {
 	public Map<String,Object> add(CalendaryFish c){
 		
 		Map<String, Object> returnValue = new HashMap<String, Object>();
-		
+		c.setGiveUp(false);
 		CalendaryFish calendar = calendaryFishRepository.save(c);
 		
 		if(calendar == null) {

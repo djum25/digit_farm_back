@@ -65,6 +65,7 @@ public class SpeculationService {
 				cal.setCreatedOn(sqlStartDate);
 				cal.setIntervention(min.getIntervention());
 				cal.setMake(false);
+				cal.setGiveUp(false);
 				cal.setUpdatedOn(null);
 				cal.setId(null);
 				

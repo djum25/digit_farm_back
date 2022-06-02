@@ -147,13 +147,13 @@ public class OperationService {
         MapToObject mapToObject = new MapToObject(map);
         User user = userAuthenticate.getUserAuthenticate();
         Shop shop = shopRepository.findById(mapToObject.getLong("shopId")).get();
-        Compte compte = compteRepository.findByNumber("70700").get();
-        if (compte != null) {
+        Optional<Compte> compte = compteRepository.findByNumber("70700");
+        if (compte.isPresent()) {
             Operation operation = new Operation();
             operation.setAmount(mapToObject.getInteger("payment"));
             operation.setComment("Versement de "+user.getFirstname()+" "+user.getLastname()+
             " pour la boutique "+shop.getName());
-            operation.setCompte(compte);
+            operation.setCompte(compte.get());
             operation.setCreatedOn(new NewDate().getDate());
             operation.setUpdatedOn(new NewDate().getDate());
             operation.setDate(LocalDateTime.now());

@@ -14,7 +14,7 @@ public class MapToObject {
         if(map.get(key) != null)
             return map.get(key).toString();
         else
-            return null;
+            return "";
     }
 
     public Long getLong(String key) {
@@ -22,11 +22,11 @@ public class MapToObject {
             try{
                 return Long.parseLong(map.get(key).toString());
             }catch(NumberFormatException e){
-                return null;
+                return Long.valueOf(0);
             }
         }
         else
-            return null;
+            return Long.valueOf(0);
     }
 
     public Integer getInteger(String key) {
@@ -34,18 +34,18 @@ public class MapToObject {
             try{
                 return Integer.parseInt(map.get(key).toString());
             }catch(NumberFormatException e){
-                return null;
+                return 0;
             }
         }
         else
-            return null;
+            return 0;
     }
 
     public Boolean getBoolean(String key) {
         if(map.get(key) != null)
             return Boolean.parseBoolean(map.get(key).toString());
         else
-            return null;
+            return false;
     }
 
 }

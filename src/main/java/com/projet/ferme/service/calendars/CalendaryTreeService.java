@@ -30,7 +30,7 @@ public class CalendaryTreeService {
 	private TreeRepository treeRepository;
 	
 	public Map<String, Object> add(CalendaryTree cal){
-		
+		cal.setGiveUp(false);
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		CalendaryTree calendar = repository.save(cal);
 		

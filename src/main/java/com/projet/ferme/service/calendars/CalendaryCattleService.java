@@ -31,11 +31,8 @@ public class CalendaryCattleService {
 	
 	
 	public Map<String,Object> add(CalendaryCattle newCalendar) {
-		System.out.println("from the frontend");
-		System.out.println(newCalendar.getCalendaryName());
+		newCalendar.setGiveUp(false);
 		CalendaryCattle calendar = calendaryCattleRepository.save(newCalendar);
-		System.out.println("from backend");
-		System.out.println(calendar.getCalendaryName());
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		
 		returnValues.put("success", true);

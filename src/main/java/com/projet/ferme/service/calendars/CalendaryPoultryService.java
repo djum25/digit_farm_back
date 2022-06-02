@@ -30,7 +30,7 @@ public class CalendaryPoultryService {
 	private PoultryRepository poultryRepository;
 	
 	public Map<String, Object> add(CalendaryPoultry newCalendar) {
-		
+		newCalendar.setGiveUp(false);
 		CalendaryPoultry calendaryPoultry =  calendaryPoultryRepository.save(newCalendar);
 		
 		Map<String,Object> returnValues = new HashMap<String,Object>();

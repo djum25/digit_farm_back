@@ -31,7 +31,7 @@ public class CalendarySpeculationService {
 	
 
 	public Map<String, Object> add(CalendarySpeculation calendaryFarming){
-		
+		calendaryFarming.setGiveUp(false);
 		CalendarySpeculation newCalendaryFarming = calendarySpeculationRepository.save(calendaryFarming);
 		Map<String, Object> returnValues = new HashMap<String,Object>();
 		

@@ -21,6 +21,7 @@ import com.projet.ferme.repository.stocks.OutgoingStockRepository;
 import com.projet.ferme.repository.stocks.ShopRepository;
 import com.projet.ferme.repository.stocks.ShopStockRepository;
 import com.projet.ferme.service.comptability.SaleService;
+import com.projet.ferme.service.utile.MapToObject;
 import com.projet.ferme.service.utile.UserAuthenticate;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -281,8 +282,9 @@ public class OutgoingService {
 					returnMap.put("success", false);
 					returnMap.put("message", "L'enregistrement a échoué");
 				} else {
-					saveSale(null, shopStock, cashier,map.get("advance").toString(),
-					map.get("account").toString(),map.get("price").toString(),map.get("description").toString());
+					MapToObject mapToObject = new MapToObject(map);
+					saveSale(null, shopStock, cashier,mapToObject.getString("advance"),
+					mapToObject.getString("account"),mapToObject.getString("price"),mapToObject.getString("description"));
 					returnMap.put("success", true);
 					returnMap.put("message", "Enregistré avec succé");
 					returnMap.put("stock", newStock);
