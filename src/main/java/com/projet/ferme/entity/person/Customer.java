@@ -31,7 +31,8 @@ public class Customer extends TimeModel{
         this.telephone = telephone;
     }
 
-    public String forSearch(){
-        return this.name+" "+this.telephone;
+    public String getForSearch(){
+        String forSearch = this.name+" "+this.telephone;
+        return forSearch;
     }
 }
