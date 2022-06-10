@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.projet.ferme.entity.person.Cashier;
+import com.projet.ferme.entity.person.Customer;
 import com.projet.ferme.entity.person.User;
 import com.projet.ferme.entity.stocks.OutgoingStock;
 import com.projet.ferme.entity.stocks.Sale;
@@ -17,6 +18,7 @@ import com.projet.ferme.entity.stocks.ShopStock;
 import com.projet.ferme.entity.utils.NewDate;
 import com.projet.ferme.repository.UserRepository;
 import com.projet.ferme.repository.person.CashierRepository;
+import com.projet.ferme.repository.person.CustomerRepository;
 import com.projet.ferme.repository.stocks.OutgoingStockRepository;
 import com.projet.ferme.repository.stocks.ShopRepository;
 import com.projet.ferme.repository.stocks.ShopStockRepository;
@@ -44,6 +46,8 @@ public class OutgoingService {
 	private ShopStockRepository shopStockRepository;
 	@Autowired
 	private UserAuthenticate userAuthenticate;
+	@Autowired
+	private CustomerRepository customerRepository;
 
 	public Map<String, Object> add(OutgoingStock stock) {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
@@ -283,8 +287,10 @@ public class OutgoingService {
 					returnMap.put("message", "L'enregistrement a échoué");
 				} else {
 					MapToObject mapToObject = new MapToObject(map);
+					Customer customer = customerRepository.findById(mapToObject.getLong("customerId")).get();
 					saveSale(null, shopStock, cashier,mapToObject.getString("advance"),
-					mapToObject.getString("account"),mapToObject.getString("price"),mapToObject.getString("description"));
+					mapToObject.getString("account"),mapToObject.getString("price"),
+					mapToObject.getString("description"),customer);
 					returnMap.put("success", true);
 					returnMap.put("message", "Enregistré avec succé");
 					returnMap.put("stock", newStock);
@@ -296,7 +302,7 @@ public class OutgoingService {
 	}
 
 	private void saveSale(Long id, ShopStock stock, Cashier cashier,String advanceString,
-	String accountString,String priceString,String description) {
+	String accountString,String priceString,String description,Customer customer) {
 		Sale sale = new Sale();
 		sale.setId(id);
 		sale.setProduit(stock.getProduit());
@@ -309,6 +315,7 @@ public class OutgoingService {
 		sale.setCreatedOn(stock.getCreatedOn());
 		sale.setUpdatedOn(stock.getUpdatedOn());
 		sale.setCashier(cashier);
+		sale.setCustomer(customer);
 		saleService.add(sale);
 	}
 

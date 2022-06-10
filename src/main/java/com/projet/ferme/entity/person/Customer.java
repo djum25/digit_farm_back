@@ -1,9 +1,14 @@
 package com.projet.ferme.entity.person;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.projet.ferme.entity.stocks.Sale;
 import com.projet.ferme.entity.utils.TimeModel;
 
 @Entity
@@ -14,6 +19,9 @@ public class Customer extends TimeModel{
 
     @Column(nullable = false, unique = true)
     private int telephone;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private Set<Sale> sales;
 
     public String getName() {
         return name;

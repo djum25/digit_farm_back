@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.projet.ferme.entity.person.Cashier;
+import com.projet.ferme.entity.person.Customer;
 import com.projet.ferme.entity.utils.TimeModel;
 
 
@@ -40,6 +41,10 @@ public class Sale extends TimeModel{
 	@ManyToOne
 	@JoinColumn(name = "cashier_id")
 	private Cashier cashier;
+
+	@ManyToOne
+	@JoinColumn(name = "customer_id")
+	private Customer customer;
 	
 	public Integer getPrice() {
 		return price;
@@ -119,6 +124,14 @@ public class Sale extends TimeModel{
 
 	public void setCashier(Cashier cashier) {
 		this.cashier = cashier;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 	
 }
