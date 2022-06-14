@@ -221,10 +221,11 @@ public class CashierService {
 		 c.getUser().getId().equals(user.getId())).findFirst().get();
 
 		List<Sale> sales = saleRepository.findAll();
-		sales = sales.stream().filter(s -> s.getCashier().equals(cashier) && !s.isCounted()).collect(Collectors.toList());
+		List<Sale> noCountedSales = sales.stream().filter(s -> s.getCashier().equals(cashier) && !s.isCounted()).collect(Collectors.toList());
+		List<Sale> allSales = sales.stream().filter(s -> s.getCashier().equals(cashier)).collect(Collectors.toList());
 
-		return new MapResponse().withSuccess(true).withObject(cashier).withArrayObject(sales).
-		withMessage(sales.size()+" Enregistrement retrouvés").response();
+		return new MapResponse().withSuccess(true).withObject(cashier).withArrayObject(noCountedSales).
+		withChildArrayObject(allSales).withMessage(sales.size()+" Enregistrement retrouvés").response();
 	}
 	
 	private static int generateAccess() {
