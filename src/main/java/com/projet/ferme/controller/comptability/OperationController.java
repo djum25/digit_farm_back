@@ -5,6 +5,7 @@ import java.util.Map;
 import com.projet.ferme.entity.comptability.Operation;
 import com.projet.ferme.entity.comptability.UseFor;
 import com.projet.ferme.service.comptability.OperationService;
+import com.projet.ferme.service.comptability.SaleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,8 @@ public class OperationController {
     
     @Autowired
     private OperationService operationService;
+    @Autowired
+    private SaleService saleService;
 
     @RequestMapping(value = "api/v1/operation", method = RequestMethod.POST)
     public Map<String, Object> addOperation(@RequestBody Operation operation) {
@@ -57,5 +60,10 @@ public class OperationController {
     @RequestMapping(value = "/api/v1/shop/comptability", method = RequestMethod.POST)
     public Map<String, Object> shopCashToComptability(@RequestBody Map<String, Object> map) {
         return operationService.shopToComtability(map);
+    }
+
+    @RequestMapping(value = "/api/v1/reimburse/{id)", method = RequestMethod.GET)
+    public Map<String,Object> reimburseSale(@PathVariable("id") Long id){
+        return saleService.reimburseSale(id);
     }
 }
