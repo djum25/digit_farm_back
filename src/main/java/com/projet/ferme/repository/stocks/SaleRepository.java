@@ -12,4 +12,6 @@ public interface SaleRepository extends JpaRepository<Sale, Long>{
 
     List<Sale> findByCashier_id(Long id);
 
+    List<Sale> findByCustomer_id(Long id);
+
 }
