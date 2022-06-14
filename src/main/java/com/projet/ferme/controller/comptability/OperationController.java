@@ -67,7 +67,7 @@ public class OperationController {
         return saleService.reimburseSale(saleId);
     }
 
-    @RequestMapping(value = "/api/v1/reimburse/get/{id)", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/v1/reimburse/get/{id}", method = RequestMethod.GET)
     public Map<String,Object> reimbufindNoReimburseSalerseSale(@PathVariable("id") Long shopId){
         return saleService.findNoReimburseSale(shopId);
     }
