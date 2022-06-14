@@ -33,8 +33,8 @@ public class CustomerController {
         return customerService.delete(id);
     }
 
-    @RequestMapping(value = "/api/v1/noreimburse/{id}", method = RequestMethod.GET)
+    /* @RequestMapping(value = "/api/v1/noreimburse/{id}", method = RequestMethod.GET)
     public Map<String,Object> getNoReimburseSale(@PathVariable("id") Long id){
         return customerService.getNoReimburseSale(id);
-    }
+    } */
 }
