@@ -31,6 +31,9 @@ public class Sale extends TimeModel{
 	private LocalDateTime date;
 	
 	private String description;
+
+	@Column(nullable = false)
+	private boolean reimburse = false;
 	
 	@Column(nullable = false)
 	private boolean counted = false;
@@ -108,6 +111,14 @@ public class Sale extends TimeModel{
 
 	public void setCounted(boolean counted) {
 		this.counted = counted;
+	}
+
+	public boolean isReimburse() {
+		return reimburse;
+	}
+
+	public void setReimburse(boolean reimburse) {
+		this.reimburse = reimburse;
 	}
 
 	public String getSubjectId() {
