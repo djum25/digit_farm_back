@@ -316,6 +316,11 @@ public class OutgoingService {
 		sale.setUpdatedOn(stock.getUpdatedOn());
 		sale.setCashier(cashier);
 		sale.setCustomer(customer);
+		if(Integer.parseInt(accountString)>0){
+			sale.setReimburse(false);
+		}else{
+			sale.setReimburse(true);
+		}
 		saleService.add(sale);
 	}
 
