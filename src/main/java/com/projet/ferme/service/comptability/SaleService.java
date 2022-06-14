@@ -1,5 +1,6 @@
 package com.projet.ferme.service.comptability;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,8 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.projet.ferme.entity.person.Cashier;
+import com.projet.ferme.entity.person.Customer;
 import com.projet.ferme.entity.stocks.Sale;
 import com.projet.ferme.entity.utils.NewDate;
+import com.projet.ferme.repository.person.CashierRepository;
+import com.projet.ferme.repository.person.CustomerRepository;
 import com.projet.ferme.repository.stocks.SaleRepository;
 import com.projet.ferme.service.utile.MapResponse;
 
@@ -20,6 +24,10 @@ public class SaleService {
 
 	@Autowired
 	private SaleRepository repository;
+	@Autowired
+	private CashierRepository cashierRepository;
+	@Autowired
+	private CustomerRepository customerRepository;
 	
 	public Map<String, Object> add(Sale s){
 		Map<String, Object> returnMap = new HashMap<String,Object>();
@@ -49,6 +57,27 @@ public class SaleService {
 		sales = sales.stream().filter(s-> !s.isCounted()).
 		map(s-> {s.setCounted(true); return s;}).collect(Collectors.toList());
 		return repository.saveAll(sales).size();
+	}
+
+	public Map<String, Object> findNoReimburseSale(Long id){
+		List<Map<String,Object>> objecList = new ArrayList<>();
+		List<Cashier> cashiers = cashierRepository.findByShop_id(id);
+		List<Sale> sales = repository.findAll();
+		sales = sales.stream().filter(s-> cashiers.contains(s.getCashier())).collect(Collectors.toList());
+		sales.forEach(sale -> {
+			Map<String,Object> map = new HashMap<String, Object>();
+			Customer customer = customerRepository.findById(sale.getId()).get();
+			map.put("name", customer.getName());
+			map.put("telephone", customer.getTelephone());
+			map.put("product", sale.getProduit());
+			map.put("price", sale.getPrice());
+			map.put("advance", sale.getAdvance());
+			map.put("account", sale.getAccount());
+			map.put("id", sale.getId());
+			map.put("date", sale.getDate());
+			objecList.add(map);
+		});;
+		return new MapResponse().withSuccess(true).withObject(objecList).response();
 	}
 
 	public Map<String, Object> reimburseSale(Long id){
