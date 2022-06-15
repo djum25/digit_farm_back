@@ -62,7 +62,7 @@ public class OperationController {
         return operationService.shopToComtability(map);
     }
 
-    @RequestMapping(value = "/api/v1/reimburse/{id)", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/v1/reimburse/{id}", method = RequestMethod.GET)
     public Map<String,Object> reimburseSale(@PathVariable("id") Long saleId){
         return saleService.reimburseSale(saleId);
     }
