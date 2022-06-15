@@ -11,11 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.projet.ferme.entity.person.Cashier;
-import com.projet.ferme.entity.person.Customer;
 import com.projet.ferme.entity.stocks.Sale;
 import com.projet.ferme.entity.utils.NewDate;
 import com.projet.ferme.repository.person.CashierRepository;
-import com.projet.ferme.repository.person.CustomerRepository;
 import com.projet.ferme.repository.stocks.SaleRepository;
 import com.projet.ferme.service.utile.MapResponse;
 
@@ -26,8 +24,6 @@ public class SaleService {
 	private SaleRepository repository;
 	@Autowired
 	private CashierRepository cashierRepository;
-	@Autowired
-	private CustomerRepository customerRepository;
 	
 	public Map<String, Object> add(Sale s){
 		Map<String, Object> returnMap = new HashMap<String,Object>();
@@ -66,9 +62,8 @@ public class SaleService {
 		sales = sales.stream().filter(s-> cashiers.contains(s.getCashier())).collect(Collectors.toList());
 		sales.forEach(sale -> {
 			Map<String,Object> map = new HashMap<String, Object>();
-			Customer customer = customerRepository.findById(sale.getId()).get();
-			map.put("name", customer.getName());
-			map.put("telephone", customer.getTelephone());
+			map.put("name",sale.getCustomer().getName());
+			map.put("telephone", sale.getCustomer().getTelephone());
 			map.put("product", sale.getProduit());
 			map.put("price", sale.getPrice());
 			map.put("advance", sale.getAdvance());
