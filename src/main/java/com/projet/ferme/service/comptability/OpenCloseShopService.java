@@ -46,11 +46,11 @@ public class OpenCloseShopService {
 
     public Map<String, Object> mainMethod(Map<String,Object> enterMap){
         MapToObject mapToObject = new MapToObject(enterMap);
-        Optional<Cashier> cashier = getCashier(mapToObject.getLong("shoId"));
+        Optional<Cashier> cashier = getCashier(mapToObject.getLong("shopId"));
         if (cashier.isPresent()) {
             if(cashier.get().getAccess() == mapToObject.getInteger("access")){
                 Map<String, Object> map = new HashMap<String, Object>();
-                CashierNew cashierNew = getStatus(mapToObject.getLong("shoId"));
+                CashierNew cashierNew = getStatus(mapToObject.getLong("shopId"));
                 if (cashierNew.isOpen()) {
                     map.put("status", cashierNew.isOpen());
                     map.put("cashier", cashierNew.getCashier());
@@ -86,7 +86,7 @@ public class OpenCloseShopService {
 
     public Map<String,Object> openShop(Map<String,Object> enterMap){
         MapToObject mapToObject = new MapToObject(enterMap);
-        Optional<Cashier> cashier = getCashier(mapToObject.getLong("shoId"));
+        Optional<Cashier> cashier = getCashier(mapToObject.getLong("shopId"));
         CashierNew cashierNew = addNews(cashier.get(), true, mapToObject.getInteger("cash"));
         if (cashierNew == null) {
             return new MapResponse().withSuccess(false)
@@ -101,7 +101,7 @@ public class OpenCloseShopService {
     public Map<String,Object> closeShop(Map<String,Object> enterMap){
 
         MapToObject mapToObject = new MapToObject(enterMap);
-        Optional<Cashier> cashier = getCashier(mapToObject.getLong("shoId"));
+        Optional<Cashier> cashier = getCashier(mapToObject.getLong("shopId"));
         int cash = getCash(cashier.get());
         CashierNew cashierNew = getStatus(cashier.get().getShop().getId());
         if (!cashierNew.isCounted()) {
