@@ -2,6 +2,7 @@ package com.projet.ferme.entity.person;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +25,9 @@ public class CashierNew {
 	private boolean open;
 	
 	private int cash;
+
+	@Column(nullable = false)
+	private boolean counted = false;
 	
 	@ManyToOne()
 	@JoinColumn(name = "cashier_id")
@@ -67,6 +71,14 @@ public class CashierNew {
 
 	public void setCashier(Cashier cashier) {
 		this.cashier = cashier;
+	}
+
+	public boolean isCounted() {
+		return counted;
+	}
+
+	public void setCounted(boolean counted) {
+		this.counted = counted;
 	}
 
 }
