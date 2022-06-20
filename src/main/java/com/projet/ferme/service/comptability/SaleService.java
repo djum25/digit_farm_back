@@ -1,6 +1,5 @@
 package com.projet.ferme.service.comptability;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,23 +55,10 @@ public class SaleService {
 	}
 
 	public Map<String, Object> findNoReimburseSale(Long id){
-		List<Map<String,Object>> objecList = new ArrayList<>();
 		List<Cashier> cashiers = cashierRepository.findByShop_id(id);
 		List<Sale> sales = repository.findAll();
-		sales = sales.stream().filter(s-> cashiers.contains(s.getCashier())).collect(Collectors.toList());
-		sales.forEach(sale -> {
-			Map<String,Object> map = new HashMap<String, Object>();
-			map.put("name",sale.getCustomer().getName());
-			map.put("telephone", sale.getCustomer().getTelephone());
-			map.put("product", sale.getProduit());
-			map.put("price", sale.getPrice());
-			map.put("advance", sale.getAdvance());
-			map.put("account", sale.getAccount());
-			map.put("id", sale.getId());
-			map.put("date", sale.getDate());
-			objecList.add(map);
-		});;
-		return new MapResponse().withSuccess(true).withObject(objecList).response();
+		sales = sales.stream().filter(s-> cashiers.contains(s.getCashier()) && !s.isReimburse()).collect(Collectors.toList());
+		return new MapResponse().withSuccess(true).withObject(sales).response();
 	}
 
 	public Map<String, Object> reimburseSale(Long id){
