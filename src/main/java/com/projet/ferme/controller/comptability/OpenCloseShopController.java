@@ -25,12 +25,12 @@ public class OpenCloseShopController {
 
     @RequestMapping(value="/api/v1/shopStatus/open", method=RequestMethod.POST)
     public Map<String,Object> openStatus(@RequestBody Map<String,Object> map) {
-        return openCloseShopService.mainMethod(map);
+        return openCloseShopService.openShop(map);
     }
 
     @RequestMapping(value="/api/v1/shopStatus/close", method=RequestMethod.POST)
     public Map<String,Object> closeStatus(@RequestBody Map<String,Object> map) {
-        return openCloseShopService.mainMethod(map);
+        return openCloseShopService.closeShop(map);
     }
     
 }
