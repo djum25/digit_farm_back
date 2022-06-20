@@ -62,14 +62,14 @@ public class OpenCloseShopService {
                         map.put("cash", cash);
                     }
                     return new MapResponse().withObject(map).withSuccess(true)
-                    .withMessage("La caisse est actuelement ouverte")
+                    .withMessage("Voulez vous fermer la caisse avec "+cash+"Fcfa ?")
                     .response();
                 } else {    
                     map.put("status", cashierNew.isOpen());
                     map.put("cash", cashierNew.getCash());
                     map.put("cashier", cashierNew.getCashier());
                     return new MapResponse().withObject(map).withSuccess(true)
-                    .withMessage("La caisse est actuelement fermée")
+                    .withMessage("Voulez vous ouvrir la caisse avec "+cashierNew.getCash()+"Fcfa ?")
                     .response();
                 }
             }else{
@@ -86,6 +86,10 @@ public class OpenCloseShopService {
 
     public Map<String,Object> openShop(Map<String,Object> enterMap){
         MapToObject mapToObject = new MapToObject(enterMap);
+        if (isOpen(mapToObject.getLong("shopId"))) {
+            return new MapResponse().withSuccess(false).withMessage("La boutique est déja ouverte")
+            .response();
+        } else {
         Optional<Cashier> cashier = getCashier(mapToObject.getLong("shopId"));
         CashierNew cashierNew = addNews(cashier.get(), true, mapToObject.getInteger("cash"));
         if (cashierNew == null) {
@@ -95,12 +99,13 @@ public class OpenCloseShopService {
         } else {
             return new MapResponse().withSuccess(true)
             .withObject(cashierNew).withMessage("Ouvert avec succé").response();
-        }
+        }}
     }
 
     public Map<String,Object> closeShop(Map<String,Object> enterMap){
 
         MapToObject mapToObject = new MapToObject(enterMap);
+        
         Optional<Cashier> cashier = getCashier(mapToObject.getLong("shopId"));
         int cash = getCash(cashier.get());
         CashierNew cashierNew = getStatus(cashier.get().getShop().getId());
@@ -201,4 +206,9 @@ public class OpenCloseShopService {
                 return true;
             }
     }
+
+    private boolean isOpen(Long shopId) {
+		List<Cashier> cashiers = cashierRepository.findByShop_id(shopId);
+		return cashiers.stream().noneMatch(item-> item.isStatus());
+	}
 }
