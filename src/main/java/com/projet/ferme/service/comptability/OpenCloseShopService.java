@@ -164,7 +164,8 @@ public class OpenCloseShopService {
         sales = sales.stream().filter(sale -> !sale.isCounted()).collect(Collectors.toList());
         List<Sale> transformSales = new ArrayList<Sale>();
         sales.stream().forEach(sale-> {sale.setCounted(true);transformSales.add(sale);});
-        saleRepository.saveAll(transformSales);
+        sales = saleRepository.saveAll(transformSales);
+        System.out.println(sales);
     }
 
     private int getamountReimburse(Cashier cashier){
