@@ -1,5 +1,6 @@
 package com.projet.ferme.service.comptability;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,12 +10,17 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.projet.ferme.entity.comptability.Reimburse;
 import com.projet.ferme.entity.person.Cashier;
+import com.projet.ferme.entity.person.User;
 import com.projet.ferme.entity.stocks.Sale;
+import com.projet.ferme.entity.stocks.Shop;
 import com.projet.ferme.entity.utils.NewDate;
+import com.projet.ferme.repository.comptability.ReimburseRepository;
 import com.projet.ferme.repository.person.CashierRepository;
 import com.projet.ferme.repository.stocks.SaleRepository;
 import com.projet.ferme.service.utile.MapResponse;
+import com.projet.ferme.service.utile.UserAuthenticate;
 
 @Service
 public class SaleService {
@@ -23,6 +29,10 @@ public class SaleService {
 	private SaleRepository repository;
 	@Autowired
 	private CashierRepository cashierRepository;
+	@Autowired
+	private ReimburseRepository reimburseRepository;
+	@Autowired
+	private UserAuthenticate userAuthenticate;
 	
 	public Map<String, Object> add(Sale s){
 		Map<String, Object> returnMap = new HashMap<String,Object>();
@@ -70,8 +80,38 @@ public class SaleService {
 			sale.get().setReimburse(true);
 			sale.get().setUpdatedOn(new NewDate().getDate());
 			repository.save(sale.get());
-			return new MapResponse().withSuccess(true).withObject(sale.get()).
-			withMessage("Remboursé avec succé").response();
+			boolean saveReimburse = saveReimburse(sale.get());
+			if (saveReimburse) {
+				return new MapResponse().withSuccess(true).withObject(sale.get()).
+				withMessage("Remboursé avec succé").response();
+			} else {
+				repository.delete(sale.get());
+				return new MapResponse().withSuccess(false).withObject(sale.get()).
+				withMessage("Remboursement échoué veuillez éssayer encore").response();
+			}
+			
 		}
+	}
+
+	private boolean saveReimburse(Sale sale){
+		Reimburse reimburse = new Reimburse();
+		reimburse.setCashier(getCashier(sale.getCashier().getShop()));
+		reimburse.setCounted(false);
+		reimburse.setCreatedOn(new NewDate().getDate());
+		reimburse.setDate(LocalDateTime.now());
+		reimburse.setId(null);
+		reimburse.setSale(sale);
+		reimburse.setUpdatedOn(new NewDate().getDate());
+
+		reimburse = reimburseRepository.save(reimburse);
+		if (reimburse != null) {
+			return true;
+		}else return false;
+	}
+
+	private Cashier getCashier(Shop shop){
+		User user = userAuthenticate.getUserAuthenticate();
+		Cashier cashier = cashierRepository.findByUser_idAndShop_id(user.getId(), shop.getId()).get();
+		return cashier;
 	}
 }

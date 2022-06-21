@@ -1,6 +1,7 @@
 package com.projet.ferme.service.comptability;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.projet.ferme.entity.comptability.Compte;
 import com.projet.ferme.entity.comptability.Operation;
+import com.projet.ferme.entity.comptability.Reimburse;
 import com.projet.ferme.entity.person.Cashier;
 import com.projet.ferme.entity.person.CashierNew;
 import com.projet.ferme.entity.person.User;
@@ -21,6 +23,7 @@ import com.projet.ferme.entity.stocks.Shop;
 import com.projet.ferme.entity.utils.NewDate;
 import com.projet.ferme.repository.comptability.CompteRepository;
 import com.projet.ferme.repository.comptability.OperationRepository;
+import com.projet.ferme.repository.comptability.ReimburseRepository;
 import com.projet.ferme.repository.person.CashierNewRepository;
 import com.projet.ferme.repository.person.CashierRepository;
 import com.projet.ferme.repository.stocks.SaleRepository;
@@ -43,6 +46,8 @@ public class OpenCloseShopService {
     private SaleRepository saleRepository;
     @Autowired
     private UserAuthenticate userAuthenticate;
+    @Autowired
+    private ReimburseRepository reimburseRepository;
 
     public Map<String, Object> mainMethod(Map<String,Object> enterMap){
         MapToObject mapToObject = new MapToObject(enterMap);
@@ -126,6 +131,21 @@ public class OpenCloseShopService {
         }
     }
 
+    public Map<String,Object> amountToSave(Long shopId){
+        Optional<Cashier> cashier = getCashier(shopId);
+        int reimburse = getamountReimburse(cashier.get());
+        int sale = getCash(cashier.get());
+        String msg = "Voulez vous verser "+sale+"Fcfa de vente et "+reimburse+"Fcfa de remboursement";
+        return new MapResponse().withSuccess(true).withMessage(msg).response();
+    }
+
+    public Map<String,Object> saveInComptability(Long shopId,int cash){
+        Optional<Cashier> cashier = getCashier(shopId);
+        int reimburse = getamountReimburse(cashier.get());
+        int sale = getCash(cashier.get());
+        return new MapResponse().response();
+    }
+
     private Optional<Cashier> getCashier(Long shopId){
         User user = userAuthenticate.getUserAuthenticate();
         Optional<Cashier> cashier = cashierRepository.findByUser_idAndShop_id(user.getId(), shopId);
@@ -133,12 +153,25 @@ public class OpenCloseShopService {
     }
 
     private int getCash(Cashier cashier){
-
         List<Sale> sales = saleRepository.findByCashier_id(cashier.getId());
         int cash = sales.stream().filter(sale -> !sale.isCounted())
         .mapToInt(sale -> sale.getAdvance()).sum();
-
         return cash;
+    }
+
+    private void makeCounted(Cashier cashier){
+        List<Sale> sales = saleRepository.findByCashier_id(cashier.getId());
+        sales = sales.stream().filter(sale -> !sale.isCounted()).collect(Collectors.toList());
+        List<Sale> transformSales = new ArrayList<Sale>();
+        sales.stream().forEach(sale-> {sale.setCounted(true);transformSales.add(sale);});
+        saleRepository.saveAll(transformSales);
+    }
+
+    private int getamountReimburse(Cashier cashier){
+        List<Reimburse> reimburses = reimburseRepository.findByCashier_id(cashier.getId());
+        int amount = reimburses.stream().filter(reimburse-> !reimburse.isCounted())
+        .mapToInt(reimburse-> reimburse.getSale().getAccount()).sum();
+        return amount;
     }
 
     private CashierNew getStatus(Long shopId){
@@ -171,9 +204,10 @@ public class OpenCloseShopService {
             operation.setDate(LocalDateTime.now());
             operation.setLabel("Vente de produits non versé");
             Operation savedOperation = operationRepository.save(operation);
-            if (savedOperation != null)
+            if (savedOperation != null){
+                makeCounted(cashier);
                 return true;
-            else
+            }else
                 return false;
         }else{
             return false;
@@ -211,4 +245,32 @@ public class OpenCloseShopService {
 		List<Cashier> cashiers = cashierRepository.findByShop_id(shopId);
 		return cashiers.stream().noneMatch(item-> item.isStatus());
 	}
+
+    private boolean amountForKeep(int keepAmount,Cashier cashier){
+        if (keepAmount > 0) {
+            //Capital social, appelé, non versé
+            Optional<Compte> compte = compteRepository.findByNumber("1012");
+            if(compte.isPresent()){
+                Operation operation = new Operation();
+                operation.setAmount(keepAmount);
+                operation.setComment("Garder pour fond de caisse "+cashier.getUser().getFirstname()+" "
+                +cashier.getUser().getLastname()+
+                " pour la boutique "+cashier.getShop().getName());
+                operation.setCompte(compte.get());
+                operation.setCreatedOn(new NewDate().getDate());
+                operation.setUpdatedOn(new NewDate().getDate());
+                operation.setDate(LocalDateTime.now());
+                operation.setLabel("Vente des produits");
+                Operation savedOperation = operationRepository.save(operation);
+                if (savedOperation != null)
+                    return true;
+                else
+                    return false;
+            }else{
+                return false;
+            }
+        }else{
+            return true;
+        }
+    }
 }

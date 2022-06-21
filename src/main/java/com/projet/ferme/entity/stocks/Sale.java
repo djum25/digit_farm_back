@@ -6,8 +6,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.projet.ferme.entity.comptability.Reimburse;
 import com.projet.ferme.entity.person.Cashier;
 import com.projet.ferme.entity.person.Customer;
 import com.projet.ferme.entity.utils.TimeModel;
@@ -48,6 +50,9 @@ public class Sale extends TimeModel{
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
+
+	@OneToOne(optional=true, mappedBy="sale")
+	private Reimburse reimburseEntity;
 	
 	public Integer getPrice() {
 		return price;

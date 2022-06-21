@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.projet.ferme.entity.comptability.Reimburse;
 import com.projet.ferme.entity.stocks.Sale;
 import com.projet.ferme.entity.stocks.Shop;
 import com.projet.ferme.entity.utils.TimeModel;
@@ -33,6 +34,9 @@ public class Cashier extends TimeModel{
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cashier")
 	private Set<Sale> sales;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cashier")
+	private Set<Reimburse> reimburses;
 
 	public boolean isActive() {
 		return active;
