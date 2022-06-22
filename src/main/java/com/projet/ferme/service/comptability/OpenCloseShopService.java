@@ -92,8 +92,11 @@ public class OpenCloseShopService {
     // Ouvrir la boutique
     public Map<String,Object> openShop(Map<String,Object> enterMap){
         MapToObject mapToObject = new MapToObject(enterMap);
-        if (isOpen(mapToObject.getLong("shopId"))) {
+        if (!isOpen(mapToObject.getLong("shopId"))) {
             return new MapResponse().withSuccess(false).withMessage("La boutique est déja ouverte")
+            .response();
+        }else if(!isOpenByMe()){
+            return new MapResponse().withSuccess(false).withMessage("Vous avez déja ouverte une boutique")
             .response();
         } else {
         Optional<Cashier> cashier = getCashier(mapToObject.getLong("shopId"));
@@ -307,6 +310,12 @@ public class OpenCloseShopService {
 		List<Cashier> cashiers = cashierRepository.findByShop_id(shopId);
 		return cashiers.stream().noneMatch(item-> item.isStatus());
 	}
+
+    private boolean isOpenByMe(){
+        User user = userAuthenticate.getUserAuthenticate();
+        List<Cashier> cashiers = cashierRepository.findByUser_id(user.getId());
+        return cashiers.stream().noneMatch(cashier->cashier.isStatus());
+    }
 
     // Calculer l'argent que l'utilisateur veux garder en caisse
     private boolean amountForKeep(int keepAmount,Cashier cashier){

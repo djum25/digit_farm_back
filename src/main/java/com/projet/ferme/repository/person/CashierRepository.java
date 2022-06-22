@@ -13,4 +13,6 @@ public interface CashierRepository extends JpaRepository<Cashier, Long>{
 
 	List<Cashier> findByShop_id(Long id);
 
+    List<Cashier> findByUser_id(Long id);
+
 }
