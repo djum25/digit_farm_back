@@ -19,7 +19,6 @@ import com.projet.ferme.entity.person.Cashier;
 import com.projet.ferme.entity.person.CashierNew;
 import com.projet.ferme.entity.person.User;
 import com.projet.ferme.entity.stocks.Sale;
-import com.projet.ferme.entity.stocks.Shop;
 import com.projet.ferme.entity.utils.NewDate;
 import com.projet.ferme.repository.comptability.CompteRepository;
 import com.projet.ferme.repository.comptability.OperationRepository;
@@ -285,7 +284,8 @@ public class OpenCloseShopService {
         cashierNew.setCounted(false);
 		
 		CashierNew savedCashierNew = cashierNewRepository.save(cashierNew);
-
+        cashier.setStatus(open);
+        cashierRepository.save(cashier);
 		return savedCashierNew;
 	}
 

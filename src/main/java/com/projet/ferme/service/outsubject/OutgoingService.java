@@ -264,7 +264,7 @@ public class OutgoingService {
 			returnMap.put("message", "Votre accée a la caisse est désactivé veullier contacter l'administrateur");
 		} else if (!cashier.isStatus()) {
 			returnMap.put("success", false);
-			returnMap.put("message", "Veuliiez ouvrir une caisse svp");
+			returnMap.put("message", "Veulliez ouvrir une caisse svp");
 		} else {
 
 			if (quantityReel < Integer.parseInt(map.get("quantity").toString())) {
