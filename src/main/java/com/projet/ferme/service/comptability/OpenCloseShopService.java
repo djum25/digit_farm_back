@@ -125,7 +125,7 @@ public class OpenCloseShopService {
         }else{
             cash = cash + reimburse;
         }
-
+        updateNew(cashier.get());
         CashierNew savedCashierNew = addNews(cashier.get(), false, cash);
         if (savedCashierNew == null) {
             return new MapResponse().withSuccess(false)
@@ -133,7 +133,6 @@ public class OpenCloseShopService {
             .response();
         } else {
             saveCash(cash, cashier.get());
-            updateNew(cashier.get());
             makeCountedReimburse(cashier.get());
             return new MapResponse().withSuccess(true)
             .withObject(cashierNew).withMessage("Fermé avec succé").response();
