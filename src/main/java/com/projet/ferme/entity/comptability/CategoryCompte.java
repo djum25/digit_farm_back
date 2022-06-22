@@ -12,7 +12,6 @@ import com.projet.ferme.entity.utils.TimeModel;
 @Table(name="tbl_category_compte")
 public class CategoryCompte extends TimeModel{
     
-    @Column(unique = true)
     private String name;
 
     private boolean debitAccount;
