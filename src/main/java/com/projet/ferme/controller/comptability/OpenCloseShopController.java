@@ -7,6 +7,7 @@ import com.projet.ferme.service.comptability.OpenCloseShopService;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,6 +32,16 @@ public class OpenCloseShopController {
     @RequestMapping(value="/api/v1/shopStatus/close", method=RequestMethod.POST)
     public Map<String,Object> closeStatus(@RequestBody Map<String,Object> map) {
         return openCloseShopService.closeShop(map);
+    }
+
+    @RequestMapping(value = "/api/v1/amountToSave/{id}",method = RequestMethod.GET)
+    public Map<String,Object> amountToSave(@PathVariable("id") Long shopId){
+        return openCloseShopService.amountToSave(shopId);
+    }
+
+    @RequestMapping(value = "/api/v1/makeInCompatability",method = RequestMethod.POST)
+    public Map<String,Object> makeInComptability(@RequestBody Map<String,Object> map){
+        return openCloseShopService.saveInComptability(map);
     }
     
 }
