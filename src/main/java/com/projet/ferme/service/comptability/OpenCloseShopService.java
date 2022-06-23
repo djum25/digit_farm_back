@@ -60,10 +60,12 @@ public class OpenCloseShopService {
                     map.put("status", cashierNew.isOpen());
                     map.put("cashier", cashierNew.getCashier());
                     int cash = getCash(cashier.get());
+                    int reimburse = getamountReimburse(cashier.get());
                     if (cashierNew.isCounted()) {
+                        cash = cash + reimburse;
                         map.put("cash", cash);
                     } else {
-                        cash = cash + cashierNew.getCash();
+                        cash = cash + cashierNew.getCash() + reimburse;
                         map.put("cash", cash);
                     }
                     return new MapResponse().withObject(map).withSuccess(true)
@@ -142,9 +144,16 @@ public class OpenCloseShopService {
     // Calculer le montant a comptabilisé
     public Map<String,Object> amountToSave(Long shopId){
         Optional<Cashier> cashier = getCashier(shopId);
+        CashierNew cashierNew = getStatus(shopId);
+        int openAmount = 0;
+        if (!cashierNew.isCounted()) {
+            openAmount = cashierNew.getCash();
+        }
         int reimburse = getamountReimburse(cashier.get());
         int sale = getCash(cashier.get());
-        String msg = "Voulez vous verser "+sale+"Fcfa de vente et "+reimburse+"Fcfa de remboursement";
+        int total = openAmount + reimburse + sale;
+        String msg = "Voulez vous verser "+sale+"Fcfa de vente et "+reimburse+"Fcfa de remboursement"+
+        "Avec un montant d'ouverture de "+openAmount+"Fcfa soit au total: "+total+"Fcfa";
         return new MapResponse().withSuccess(true).withMessage(msg).response();
     }
 
@@ -154,9 +163,14 @@ public class OpenCloseShopService {
         Long shopId = mapToObject.getLong("shopId");
         int cash = mapToObject.getInteger("cash");
         Optional<Cashier> cashier = getCashier(shopId);
+        CashierNew cashierNew = getStatus(shopId);
+        int openAmount = 0;
+        if (!cashierNew.isCounted()) {
+            openAmount = cashierNew.getCash();
+        }
         int reimburse = getamountReimburse(cashier.get());
         int sale = getCash(cashier.get());
-        int payment = reimburse + sale;
+        int payment = reimburse + sale + openAmount;
         Optional<Compte> compte = compteRepository.findByNumber("70700");
         if (compte.isPresent()) {
             Operation operation = new Operation();
@@ -215,7 +229,8 @@ public class OpenCloseShopService {
         sales.stream().forEach(sale-> {sale.setCounted(true);transformSales.add(sale);});
         sales = saleRepository.saveAll(transformSales);
     }
-
+    
+    // Mettre a jour les remboursements apres comptabilité
     private void makeCountedReimburse(Cashier cashier){
         List<Reimburse> reimburses = reimburseRepository.findByCashier_id(cashier.getId());
         reimburses = reimburses.stream().filter(reimburse->!reimburse.isCounted()).collect(Collectors.toList());
@@ -310,6 +325,7 @@ public class OpenCloseShopService {
 		return cashiers.stream().noneMatch(item-> item.isStatus());
 	}
 
+    // Return true si aucune boutique n'est ouvert par l'utilisateur sinon elle return true
     private boolean isOpenByMe(){
         User user = userAuthenticate.getUserAuthenticate();
         List<Cashier> cashiers = cashierRepository.findByUser_id(user.getId());

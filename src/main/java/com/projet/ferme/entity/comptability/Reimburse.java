@@ -20,6 +20,8 @@ public class Reimburse extends TimeModel{
 
     private LocalDateTime date;
 
+    private int amount;
+
     @ManyToOne
     @JoinColumn(name = "cashier_id", nullable = false, updatable = false)
     private Cashier cashier;
@@ -58,5 +60,9 @@ public class Reimburse extends TimeModel{
 
     public void setCounted(boolean counted) {
         this.counted = counted;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }

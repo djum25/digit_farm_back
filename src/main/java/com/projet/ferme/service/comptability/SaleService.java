@@ -20,6 +20,7 @@ import com.projet.ferme.repository.comptability.ReimburseRepository;
 import com.projet.ferme.repository.person.CashierRepository;
 import com.projet.ferme.repository.stocks.SaleRepository;
 import com.projet.ferme.service.utile.MapResponse;
+import com.projet.ferme.service.utile.MapToObject;
 import com.projet.ferme.service.utile.UserAuthenticate;
 
 @Service
@@ -71,16 +72,27 @@ public class SaleService {
 		return new MapResponse().withSuccess(true).withObject(sales).response();
 	}
 
-	public Map<String, Object> reimburseSale(Long id){
+	public Map<String, Object> reimburseSale(Map<String,Object> map){
+		MapToObject mapToObject = new MapToObject(map);
+		Long id = mapToObject.getLong("shopId");
+		int amount = mapToObject.getInteger("amount");
 		Optional<Sale> sale = repository.findById(id);
 		if (sale.isEmpty()) {
 			return new MapResponse().withSuccess(false).
 			withMessage("La vente n'est pas retrouvé").response();
 		} else {
-			sale.get().setReimburse(true);
-			sale.get().setUpdatedOn(new NewDate().getDate());
-			repository.save(sale.get());
-			boolean saveReimburse = saveReimburse(sale.get());
+
+			if(sale.get().getAccount()==amount){
+				sale.get().setReimburse(true);
+				sale.get().setUpdatedOn(new NewDate().getDate());
+				repository.save(sale.get());
+			}else{
+				sale.get().setAdvance(sale.get().getAdvance()+amount);
+				sale.get().setAccount(sale.get().getAccount()-amount);
+				sale.get().setUpdatedOn(new NewDate().getDate());
+				repository.save(sale.get());
+			}
+			boolean saveReimburse = saveReimburse(sale.get(),amount);
 			if (saveReimburse) {
 				return new MapResponse().withSuccess(true).withObject(sale.get()).
 				withMessage("Remboursé avec succé").response();
@@ -93,7 +105,7 @@ public class SaleService {
 		}
 	}
 
-	private boolean saveReimburse(Sale sale){
+	private boolean saveReimburse(Sale sale,int amount){
 		Reimburse reimburse = new Reimburse();
 		reimburse.setCashier(getCashier(sale.getCashier().getShop()));
 		reimburse.setCounted(false);
@@ -101,6 +113,7 @@ public class SaleService {
 		reimburse.setDate(LocalDateTime.now());
 		reimburse.setId(null);
 		reimburse.setSale(sale);
+		reimburse.setAmount(amount);
 		reimburse.setUpdatedOn(new NewDate().getDate());
 
 		reimburse = reimburseRepository.save(reimburse);

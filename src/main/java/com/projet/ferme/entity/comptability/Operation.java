@@ -26,7 +26,7 @@ public class Operation extends TimeModel{
     private UseFor useFor;
 
     @ManyToOne
-    @JoinColumn(name = "compte_id")
+    @JoinColumn(name = "compte_id", nullable = false)
     private Compte compte;
 
     @ManyToOne
