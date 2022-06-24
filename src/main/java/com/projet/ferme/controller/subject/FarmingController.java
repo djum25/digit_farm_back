@@ -93,4 +93,9 @@ public class FarmingController {
 	public Map<String, Object> deleteHavest(@PathVariable("id") Long id){
 		return harvestService.delete(id);
 	}
+
+	@RequestMapping(value = "/api/v1/harvest", method = RequestMethod.GET)
+	public Map<String,Object> harvestingByMe(){
+		return harvestService.doByMe();
+	}
 }
