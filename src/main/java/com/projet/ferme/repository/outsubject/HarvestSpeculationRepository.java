@@ -10,4 +10,6 @@ public interface HarvestSpeculationRepository extends JpaRepository<HarvestSpecu
 
 	List<HarvestSpeculation> getBySpeculation_id(Long id);
 
+    List<HarvestSpeculation> findByUser_id(Long id);
+
 }
