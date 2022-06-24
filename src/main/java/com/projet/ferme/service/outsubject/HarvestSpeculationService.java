@@ -11,6 +11,7 @@ import com.projet.ferme.entity.stocks.OutgoingStock;
 import com.projet.ferme.entity.subject.Speculation;
 import com.projet.ferme.repository.outsubject.HarvestSpeculationRepository;
 import com.projet.ferme.repository.subject.SpeculationRepository;
+import com.projet.ferme.service.utile.MapResponse;
 import com.projet.ferme.service.utile.UserAuthenticate;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -144,5 +145,13 @@ public class HarvestSpeculationService {
 		out.setComesFrom(harvest.getSpeculation().getPlantingName());
 		out.setUser(harvest.getUser());
 		outgoingService.add(out);
+	}
+
+	public Map<String, Object> doByMe(){
+		User user = userAuthenticate.getUserAuthenticate();
+
+		List<HarvestSpeculation> harvestSpeculations = harvestRepository.findByUser_id(user.getId());
+
+		return new MapResponse().withSuccess(true).withObject(harvestSpeculations).response();
 	}
 }
