@@ -65,4 +65,8 @@ public class Reimburse extends TimeModel{
     public void setAmount(int amount) {
         this.amount = amount;
     }
+
+    public int getAmount(){
+        return amount;
+    }
 }
