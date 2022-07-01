@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.projet.ferme.entity.outsubject.IncomingStock;
 import com.projet.ferme.entity.person.User;
 import com.projet.ferme.repository.stocks.IncomingStockRepository;
+import com.projet.ferme.service.utile.MapResponse;
 import com.projet.ferme.service.utile.UserAuthenticate;
 
 @Service
@@ -122,9 +123,13 @@ public class IncomingService {
 		products.forEach(current-> {
 			Map<String, Object> collectMap = new HashMap<String, Object>();
 			String unitString = stocks.stream().filter(stock-> stock.getProduct().equals(current)).findFirst().get().getUnitVolume();
+			String category = stocks.stream().filter(stock-> stock.getProduct().equals(current)).findFirst().get().getCategory();
+			String unitValue = stocks.stream().filter(stock-> stock.getProduct().equals(current)).findFirst().get().getUnitValue();
 			collectMap.put("product", current);
 			collectMap.put("quantity", getByProduct(current));
 			collectMap.put("unit",unitString);
+			collectMap.put("category", category);
+			collectMap.put("unitValue", unitValue);
 			objects.add(collectMap);
 		});
 		map.put("success", true);
@@ -134,7 +139,7 @@ public class IncomingService {
 		return map;
 	}
 	
-	  public Integer getByProduct(String product){
+	public Integer getByProduct(String product){
 	  List<IncomingStock> stocks = repository.findAll();
 	  stocks = stocks.stream().filter(item->item.getProduct().equals(product)).collect(Collectors.toList());
 		
@@ -155,6 +160,13 @@ public class IncomingService {
 		returnMap.put("message", "Supprimé avec succé");
 		
 		return returnMap;
+	}
+
+	public Map<String,Object> makeByMe(){
+		User user = userAuthenticate.getUserAuthenticate();
+		List<IncomingStock> incomingStocks = repository.findByUser_id(user.getId());
+		return new MapResponse().withSuccess(true).withObject(incomingStocks).
+		withMessage(incomingStocks.size()+" enregistrements trouvés").response();
 	}
 	
 }

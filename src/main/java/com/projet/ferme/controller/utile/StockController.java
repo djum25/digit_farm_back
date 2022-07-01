@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 public class StockController {
 
@@ -112,4 +113,15 @@ public class StockController {
 	public Map<String, Object> getShopStock(@PathVariable("id") Long id){
 		return outgoingService.getShopStock(id);
 	}
+
+	@RequestMapping(value="/api/v1/stock/byMe", method=RequestMethod.GET)
+	public Map<String,Object> getStockByMe() {
+		return outgoingService.makeByMe();
+	}
+
+	@RequestMapping(value="/api/v1/incoming/byMe", method=RequestMethod.GET)
+	public Map<String,Object> getIncomingByMe() {
+		return incomingService.makeByMe();
+	}
+	
 }

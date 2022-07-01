@@ -23,6 +23,7 @@ import com.projet.ferme.repository.stocks.OutgoingStockRepository;
 import com.projet.ferme.repository.stocks.ShopRepository;
 import com.projet.ferme.repository.stocks.ShopStockRepository;
 import com.projet.ferme.service.comptability.SaleService;
+import com.projet.ferme.service.utile.MapResponse;
 import com.projet.ferme.service.utile.MapToObject;
 import com.projet.ferme.service.utile.UserAuthenticate;
 
@@ -450,6 +451,13 @@ public class OutgoingService {
 			map = reverseInShop(product, quantity, "out", user.getUsername(), receverShop);
 		}
 		return map;
+	}
+
+	public Map<String,Object> makeByMe(){
+		User user = userAuthenticate.getUserAuthenticate();
+		List<OutgoingStock> outgoingStocks = repository.findByUser_id(user.getId());
+		return new MapResponse().withSuccess(true).withObject(outgoingStocks).
+		withMessage(outgoingStocks.size()+" enregistrements trouvés").response();
 	}
 	
 	private int getProductInShop(String product) {

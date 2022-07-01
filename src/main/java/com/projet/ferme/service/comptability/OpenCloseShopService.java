@@ -153,8 +153,8 @@ public class OpenCloseShopService {
         int sale = getCash(cashier.get());
         int total = openAmount + reimburse + sale;
         String msg = "Voulez vous verser "+sale+"Fcfa de vente et "+reimburse+"Fcfa de remboursement"+
-        "Avec un montant d'ouverture de "+openAmount+"Fcfa soit au total: "+total+"Fcfa";
-        return new MapResponse().withSuccess(true).withMessage(msg).response();
+        " avec un montant d'ouverture de "+openAmount+"Fcfa soit au total: "+total+"Fcfa";
+        return new MapResponse().withSuccess(true).withMessage(msg).withObject(total).response();
     }
 
     // Verser les ventes dans le compte vente de marchandise

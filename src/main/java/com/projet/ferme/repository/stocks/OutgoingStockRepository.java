@@ -13,5 +13,7 @@ public interface OutgoingStockRepository extends JpaRepository<OutgoingStock, Lo
 	List<OutgoingStock> findByProduit(String produit);
 	
 	List<OutgoingStock> findBySubjectId(String subjectId);
+
+    List<OutgoingStock> findByUser_id(Long id);
 	
 }
