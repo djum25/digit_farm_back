@@ -95,9 +95,14 @@ public class OperationService {
         Map<String,Object> map = allHomeService.getAllHome();
         List<UseFor> useFors = useForRepository.findAll();
         List<Operation> operations = operationRepository.findAll();
-        return new MapResponse().withSuccess(true)
-        .withObject(operations).withArrayObject(map).withChildArrayObject(useFors)
-        .withMessage(operations.size()+" enregistrements retrouvé").response();
+        if(operations.size() > 0)
+            return new MapResponse().withSuccess(true)
+            .withObject(operations).withArrayObject(map).withChildArrayObject(useFors)
+            .withMessage(operations.size()+"enregistrements retrouvé").response();
+        else
+            return new MapResponse().withSuccess(true)
+            .withObject(operations).withArrayObject(map).withChildArrayObject(useFors)
+            .withMessage("aucune opération retrouvé").response();
     }
 
     public Map<String, Object> findByCompte(Long id){

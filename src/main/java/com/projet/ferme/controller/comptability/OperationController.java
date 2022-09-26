@@ -47,7 +47,7 @@ public class OperationController {
         return operationService.findByCompte(id);
     }
 
-    @RequestMapping(value = "api/v1/operation", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/v1/operation", method = RequestMethod.GET)
     public Map<String, Object> getAll(){
         return operationService.findAll();
     }

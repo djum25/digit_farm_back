@@ -111,10 +111,11 @@ public class compteService {
     }
 
     public Map<String, Object> findAllCategory(){
-
+        List<Compte> comptes = compteRepository.findAll();
         List<CategoryCompte> categorys = categoryCompteRepository.findAll();
         return new MapResponse().withSuccess(true)
         .withMessage(categorys.size() + " enregistrements retrouvé")
+        .withObject(comptes)
         .withArrayObject(categorys)
         .response();
     }

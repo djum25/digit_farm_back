@@ -12,5 +12,7 @@ public interface OperationRepository extends JpaRepository<Operation, Long>{
 
     List<Operation> findByCategory_id(Long id);
 
+    List<Operation> findAll();
+
     
 }
